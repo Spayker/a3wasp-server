@@ -1,0 +1,1 @@
+(_this Call WFCO_FNC_GetSideLogic) getVariable "wf_aicom_funds"
