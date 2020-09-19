@@ -12,14 +12,14 @@ private ["_groups_max","_current_infantry_upgrade","_town_airactive","_units","_
 _sv = _town getVariable "supplyValue";
 _town_airactive = _town getVariable "wf_active_air";
 _startingSupplyValue = _town getVariable "startingSupplyValue";
-
+_townDefendersSpeciality = _town getVariable ["townDefendersSpeciality", []];
+_unitTemplates = [];
 _units = [];
+
+_groups_max = 2;
 _campsCount = count (_town getVariable "camps");
-if(_campsCount == 0) then {
-    _groups_max = 2;
-} else {
-    _groups_max = _campsCount;
-};
+if(_campsCount > 0) then { _groups_max = _campsCount };
+if(_groups_max > 0 && _groups_max <= 2) then { _groups_max = 3 };
 
 _current_infantry_upgrade = 0;
 if (_side != resistance) then {
@@ -38,11 +38,20 @@ if (_side != resistance) then {
     _groups_max = round(_groups_max * (missionNamespace getVariable "WF_C_TOWNS_UNITS_DEFENDER_COEF"));
 };
 
-if(_groups_max > 0 && _groups_max <= 2) then {
-    _groups_max = 3;
+if (count _townDefendersSpeciality > 0) then {
+    _infantrySpeciality = _townDefendersSpeciality # 0;
+    _infantryGroupAmount = _infantrySpeciality # 0;
+    _infantryQuality = _infantrySpeciality # 1;
+    _groups_max = _infantryGroupAmount;
+
+    switch (_infantryQuality) do {
+        case 'light':{ _sv = 20 };
+        case 'medium':{ _sv = 80 };
+        case 'heavy':{ _sv = 120 };
+    }
 };
 
-_unitTemplates = [];
+
 
 switch (true) do {
 	case (_sv <= 10): {

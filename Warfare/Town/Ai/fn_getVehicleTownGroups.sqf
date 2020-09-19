@@ -8,26 +8,25 @@
 params["_town", "_side"];
 private ["_get","_groups_max","_current_light_upgrade","_current_heavy_upgrade","_town_airactive","_units",
             "_side","_sv","_town","_unitTemplateCount","_randomSelectedTemplate","_unitTemplates",
-            "_total_infantry","_total_infantry","_contents","_final","_startingSupplyValue","_campsCount"];
+            "_contents","_final","_startingSupplyValue","_campsCount"];
 
 _sv = _town getVariable "supplyValue";
 _town_airactive = _town getVariable "wf_active_air";
 _startingSupplyValue = _town getVariable "startingSupplyValue";
+_townDefendersSpeciality = _town getVariable ["townDefendersSpeciality", []];
 
 _units = [];
 _unitTemplates = [];
-_campsCount = count (_town getVariable "camps");
-if(_campsCount == 0) then {
-    _groups_max = 2;
-} else {
-    _groups_max = _campsCount;
-};
 
 _current_light_upgrade = 0;
 _current_heavy_upgrade = 0;
 _current_aa_light_upgrade = floor random 2;
 _current_aa_heavy_upgrade = 0;
 _current_air_upgrade = 0;
+
+_groups_max = 2;
+_campsCount = count (_town getVariable "camps");
+if(_campsCount > 0) then { _groups_max = _campsCount };
 
 if (_side != resistance) then {
     _upgrades = (_side) Call WFCO_FNC_GetSideUpgrades;
@@ -45,6 +44,19 @@ if (_side != resistance) then {
     _current_light_upgrade = floor random 8; //--Random real (floating point) value from 0 (inclusive) to x (not inclusive)--
     _current_heavy_upgrade = floor random 3;
     _current_air_upgrade = floor random 5;
+};
+
+if (count _townDefendersSpeciality > 0) then {
+    _vehicleSpeciality = _townDefendersSpeciality # 1;
+    _vehicleGroupAmount = _vehicleSpeciality # 0;
+    _vehicleQuality = _vehicleSpeciality # 1;
+    _groups_max = _vehicleGroupAmount;
+
+    switch (_vehicleQuality) do {
+        case 'light':{ _sv = 50 };
+        case 'medium':{ _sv = 80 };
+        case 'heavy':{ _sv = 120 };
+    }
 };
 
 switch (true) do {
