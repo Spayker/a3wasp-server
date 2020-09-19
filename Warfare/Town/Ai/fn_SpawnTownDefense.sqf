@@ -33,7 +33,7 @@ if (count _kinds > 1) then {
 };
 
 //--- Learn and adapt, remove if nil.
-if (count _nils > 0) then { _defenseData set [0, (_se_nkindefenseData # 0) - _nils] };
+if (count _nils > 0) then { _defenseData set [0, (_defenseData # 0) - _nils] };
 
 //--- If found, create a defense.
 if (_defense != "") then {
