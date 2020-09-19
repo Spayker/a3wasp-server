@@ -3,7 +3,7 @@
 */
 
 params [["_side", CIVILIAN], ["_taskName", "unnamed"]];
-private ["_closestTowns", "_guertowns", "_twn", "_mhq"];
+private ["_closestTowns", "_guertowns", "_twn", "_mhqs", "_mhq"];
 
 _closestTowns = [];
 _guertowns = [];
@@ -16,13 +16,14 @@ _twn = objNull;
 } forEach towns;
 
 //--Select random from 6 nearest towns--
-_mhq = _side call WFCO_FNC_GetSideHQ;
+_mhqs = _side call WFCO_FNC_GetSideHQ;
 
 while {count _closestTowns < count _guertowns} do {
     {
         _closest = true;
         _twn = _x;
         {
+            _mhq = [_twn,_mhqs] call WFCO_FNC_GetClosestEntity;
             if((_twn distance _mhq) > (_x distance _mhq)) exitWith {
                 _closest = false;
             };
