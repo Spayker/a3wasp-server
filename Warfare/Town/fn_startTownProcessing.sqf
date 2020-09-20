@@ -95,6 +95,8 @@ _procesTowns = {
                             _safePosition = [getPosATL _location, 30] call WFCO_fnc_getEmptyPosition;
                             _vehicle = [missionNamespace getVariable Format["WF_%1SUPPLY_TRUCK", str _side], _safePosition, _sideID, 0, false, false] Call WFCO_FNC_CreateVehicle;
                             _location setVariable ["supplyVehicle", _vehicle];
+                            (format[localize "STR_WF_CHAT_Town_Supply_Truck_Spawned", _location getVariable "name"]) remoteExecCall ["WFCL_FNC_CommandChatMessage", _side];
+                            [_side, "SupplyTruckSpawned", _location] Spawn WFSE_FNC_SideMessage;
                         };
                         _location setVariable ["supplyVehicleTimeCheck", time + _supplyTruckTimeCheckDelay];
                     }
@@ -185,10 +187,12 @@ _procesTowns = {
 				_oldSideID = _location getVariable "sideID";
 			
                 if (_sideID != WF_C_UNKNOWN_ID) then {
-                    if (missionNamespace getVariable Format ["WF_%1_PRESENT",_side]) then {[_side, "Lost", _location] Spawn WFSE_FNC_SideMessage};
+                        if (missionNamespace getVariable Format ["WF_%1_PRESENT",_side]) then {[_side, "Lost", _location] Spawn WFSE_FNC_SideMessage}
                 };
 
-                if (missionNamespace getVariable Format ["WF_%1_PRESENT",_newSide]) then {[_newSide, "Captured", _location] Spawn WFSE_FNC_SideMessage};
+                    if (missionNamespace getVariable Format ["WF_%1_PRESENT",_newSide]) then {
+                        [_newSide, "Captured", _location] Spawn WFSE_FNC_SideMessage
+                    };
 
                 _location setVariable ["sideID",_newSID,true];
                     [_location, _location getVariable "name", _sideID, _newSID] remoteExecCall ["WFCL_FNC_TownCaptured"];
@@ -278,6 +282,7 @@ _procesTowns = {
                         _locationPosition = getPosATL _location;
                         deleteVehicle _location;
                         [missionNamespace getVariable Format["WF_%1SUPPLY_TRUCK", str _newSide], _locationPosition, _newSID, 0, false, false] Call WFCO_FNC_CreateVehicle;
+                        (format[localize "STR_WF_CHAT_Town_Supply_Truck_Spawned", _location getVariable "name"]) remoteExecCall ["WFCL_FNC_CommandChatMessage", _newSide]
                     };
 
                     if (WF_C_PORT in _locationSpecialities) then {
@@ -285,7 +290,8 @@ _procesTowns = {
                             _safePosition = [getPosATL _location, 30] call WFCO_fnc_getEmptyPosition;
                             _vehicle = [missionNamespace getVariable Format["WF_%1SUPPLY_TRUCK", str _newSide], _safePosition, _newSID, 0, false, false] Call WFCO_FNC_CreateVehicle;
                             _location setVariable ["supplyVehicle", _vehicle];
-                            _location setVariable ["supplyVehicleTimeCheck", time + _supplyTruckTimeCheckDelay]
+                            _location setVariable ["supplyVehicleTimeCheck", time + _supplyTruckTimeCheckDelay];
+                            (format[localize "STR_WF_CHAT_Town_Supply_Truck_Spawned", _location getVariable "name"]) remoteExecCall ["WFCL_FNC_CommandChatMessage", _newSide]
                         }
                     };
 
