@@ -105,16 +105,15 @@ _procesTowns = {
 
         if(_west > 0 || _east > 0 || _resistance > 0) then {
             _skip = false;
-            _protected = false;
             _captured = false;
 
             _resistanceDominion = if (_resistance > _east && _resistance > _west) then {true} else {false};
             _westDominion = if (_west > _east && _west > _resistance) then {true} else {false};
             _eastDominion = if (_east > _west && _east > _resistance) then {true} else {false};
 
-            if (_sideID == RESISTANCEID && _resistanceDominion) then {_force = _resistance;_protected = true;_skip = true};
-            if (_sideID == EASTID && _eastDominion) then {_force = _east;_protected = true;_skip = true};
-            if (_sideID == WESTID && _westDominion) then {_force = _west;_protected = true;_skip = true};
+                if (_sideID == RESISTANCEID && _resistanceDominion) then {_force = _resistance;_skip = true};
+                if (_sideID == EASTID && _eastDominion) then {_force = _east;_skip = true};
+                if (_sideID == WESTID && _westDominion) then {_force = _west;_skip = true};
 
             if (_resistanceDominion) then {
                 _resistance = if (_east > _west) then {_resistance - _east} else {_resistance - _west};
@@ -164,14 +163,6 @@ _procesTowns = {
                 _supplyValue = round(_supplyValue - (_resistance + _east + _west) * _rate);
                     if (_supplyValue < 1) then {_supplyValue = _startingSupplyValue; _captured = true};
                 _location setVariable ["supplyValue",_supplyValue,true];
-            };
-
-            if (_protected) then {
-                if (_supplyValue < _startingSupplyValue) then {
-                    _supplyValue = _supplyValue + _force * _town_capture_rate;
-                    if (_supplyValue > _startingSupplyValue) then {_supplyValue = _startingSupplyValue};
-                    _location setVariable ["supplyValue",_supplyValue,true];
-                };
             };
 
             if(_captured) then {
