@@ -11,6 +11,7 @@ _town_camps_capture_rate = missionNamespace getVariable "WF_C_CAMPS_CAPTURE_RATE
 
 _town_capture_rate = missionNamespace getVariable 'WF_C_TOWNS_CAPTURE_RATE';
 _town_supply_time_delay = missionNamespace getVariable "WF_C_ECONOMY_SUPPLY_TIME_INCREASE_DELAY";
+_supplyTruckTimeCheckDelay = missionNamespace getVariable "WF_C_ECONOMY_SUPPLY_TRUCK_TIME_CHECK_DELAY";
 _town_supply_time = if ((missionNamespace getVariable "WF_C_ECONOMY_SUPPLY_SYSTEM") == 1) then {true} else {false};
 
 _town_defender_enabled = if ((missionNamespace getVariable "WF_C_TOWNS_DEFENDER") > 0) then {true} else {false};
@@ -84,6 +85,21 @@ _procesTowns = {
                     }
                 }
         };
+
+            if(WF_C_PORT in (_locationSpecialities)) then {
+                _supplyTruck = _location getVariable ["supplyVehicle", objNull];
+                _supplyTruckTimeCheck = _location getVariable ["supplyVehicleTimeCheck", time];
+                if (_side != resistance) then {
+                    if (time >= _supplyTruckTimeCheck) then {
+                        if(isNull _supplyTruck) then {
+                            _safePosition = [getPosATL _location, 30] call WFCO_fnc_getEmptyPosition;
+                            _vehicle = [missionNamespace getVariable Format["WF_%1SUPPLY_TRUCK", str _side], _safePosition, _sideID, 0, false, false] Call WFCO_FNC_CreateVehicle;
+                            _location setVariable ["supplyVehicle", _vehicle];
+                        };
+                        _location setVariable ["supplyVehicleTimeCheck", time + _supplyTruckTimeCheckDelay];
+                    }
+                }
+            };
 
         if(_west > 0 || _east > 0 || _resistance > 0) then {
             _skip = false;
@@ -261,8 +277,16 @@ _procesTowns = {
 
                         _locationPosition = getPosATL _location;
                         deleteVehicle _location;
-                        _isTownRemowed = false;
-                        [missionNamespace getVariable Format["WF_%1SUPPLY_TRUCK", str _side], _locationPosition, _oldSideID, 0, false, false] Call WFCO_FNC_CreateVehicle;
+                        [missionNamespace getVariable Format["WF_%1SUPPLY_TRUCK", str _newSide], _locationPosition, _newSID, 0, false, false] Call WFCO_FNC_CreateVehicle;
+                    };
+
+                    if (WF_C_PORT in _locationSpecialities) then {
+                        if (_newSide != resistance) then {
+                            _safePosition = [getPosATL _location, 30] call WFCO_fnc_getEmptyPosition;
+                            _vehicle = [missionNamespace getVariable Format["WF_%1SUPPLY_TRUCK", str _newSide], _safePosition, _newSID, 0, false, false] Call WFCO_FNC_CreateVehicle;
+                            _location setVariable ["supplyVehicle", _vehicle];
+                            _location setVariable ["supplyVehicleTimeCheck", time + _supplyTruckTimeCheckDelay]
+                        }
                     };
 
                     // calculating town damage
