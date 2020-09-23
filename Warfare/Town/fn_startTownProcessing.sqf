@@ -92,7 +92,8 @@ _procesTowns = {
                 if (_side != resistance) then {
                     if (time >= _supplyTruckTimeCheck) then {
                         if(isNull _supplyTruck) then {
-                            _safePosition = [getPosATL _location, 30] call WFCO_fnc_getEmptyPosition;
+                            _safePosition = [getPosATL _location, , 0, 30, 2, 0, 0, 0] call BIS_fnc_findSafePos;
+
                             _vehicle = [missionNamespace getVariable Format["WF_%1SUPPLY_TRUCK", str _side], _safePosition, _sideID, 0, false, false] Call WFCO_FNC_CreateVehicle;
                             _location setVariable ["supplyVehicle", _vehicle];
                             (format[localize "STR_WF_CHAT_Town_Supply_Truck_Spawned", _location getVariable "name"]) remoteExecCall ["WFCL_FNC_CommandChatMessage", _side];
