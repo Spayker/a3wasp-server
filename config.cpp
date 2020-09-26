@@ -179,14 +179,6 @@ class CfgFunctions {
             class aiWPRemove {};
         };
 
-        class ServerModuleSupport {
-            file = "waspServer\Module\Support";
-            class paratroopers {};
-            class heliParaTroopers {};
-            class paraVehicles {};
-            class casRequest {};
-        };
-
         class ServerModuleIcbm {
             file = "waspServer\Module\ICBM";
             class processIcbmEvent {};
