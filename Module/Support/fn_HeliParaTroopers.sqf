@@ -1,11 +1,11 @@
 private['_bd','_built','_built_inf','_currentLevel','_currentUpgrades','_destination','_greenlight','_vehicleGrp',
-    '_paratroopers','_playerTeam','_closestStartPos','_ranDir','_ranPos','_side','_sideID','_units',
-    '_vehicle','_vehicle_cargo','_vehicle_count','_vehicle_model','_vehicle_pilot','_vehicles','_vehPos'];
+    '_paratroopers','_playerTeam','_closestStartPos','_side','_sideID','_units',
+    '_vehicle','_vehicle_cargo','_vehicle_model'];
 params ["_side","_destination","_playerTeam", ["_allowedGroupSize", 10]];
 _sideID = _side Call WFCO_FNC_GetSideID;
 _greenlight = false;
 
-["INFORMATION", Format["Support_HeliParatroopers.sqf : [%1] Team [%2] has requested heli paratroopers.", _side, _playerTeam]] Call WFCO_FNC_LogContent;
+["INFORMATION", Format["fn_HeliParaTroopers.sqf : [%1] Team [%2] has requested heli paratroopers.", _side, _playerTeam]] Call WFCO_FNC_LogContent;
 
 //--- Determine a random spawn location.
 _startPosArray = [];
@@ -32,10 +32,8 @@ if (isNil '_units' || isNil '_vehicle_model') exitWith {["ERROR", Format["Suppor
 //--- Determine how many vehicles do we need.
 _vehicle_cargo = getNumber(configFile >> 'CfgVehicles' >> _vehicle_model >> 'transportSoldier');
 if (_vehicle_cargo == 0) exitWith {["ERROR", Format["Support_Paratroopers.sqf : [%1] Paratrooping vehicle [%2] has no cargo capacity.", _side, _vehicle_model]] Call WFCO_FNC_LogContent};
-_vehicle_count = ceil((count _units) / _vehicle_cargo);
 
 //--- Create the vehicles.
-_vehicle_pilot = missionNamespace getVariable Format ["WF_%1PILOT",str _side];
 _distance = 100000;
 {
     _currentDistance = _x distance _destination;

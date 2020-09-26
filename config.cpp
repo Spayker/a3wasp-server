@@ -184,6 +184,7 @@ class CfgFunctions {
             class paratroopers {};
             class heliParaTroopers {};
             class paraVehicles {};
+            class casRequest {};
         };
 
         class ServerModuleIcbm {
