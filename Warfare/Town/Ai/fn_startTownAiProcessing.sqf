@@ -8,6 +8,7 @@ for "_j" from 0 to ((count towns) - 1) step 1 do
 	sleep 0.01;
 };
 
+_lastUp = 0;
 _range_detect_active = missionNamespace getVariable "WF_C_TOWNS_AI_SPAWN_RANGE";
 _range_detect_active_occupation = _range_detect_active / 3;
 
@@ -32,16 +33,15 @@ for "_k" from 0 to ((count towns) - 1) step 1 do {
 	sleep 0.01;
 };
 
+_procesAiTowns = {
+   towns = towns - [objNull];
 for "_i" from 0 to ((count towns) - 1) step 1 do {
 
 	_town = towns # _i;
-	[_town, _unitsInactiveMax] spawn {
-		params["_town", "_unitsInactiveMax"];
 		_position = [];
 		_infGroups = [];
 		_vehGroups = [];
 
-		while {!WF_GameOver} do {
             _sideID = _town getVariable "sideID";
             if!(isNil "_sideID") then {
             _side = (_sideID) call WFCO_FNC_GetSideFromID;
@@ -203,19 +203,24 @@ for "_i" from 0 to ((count towns) - 1) step 1 do {
                                         (vehicle _x) setDamage 1;
                                         _x setDamage 1;
                                     } forEach units _x;
-                                    deleteGroup _x;
-                                };
-                            } forEach _town_teams;
+                                   deleteGroup _x
+                               }
+                           } forEach _town_teams
+                       }
+                   }
                         }
                     }
                 };
+       sleep 0.01
+   }
             };
-            };
+
+while {!WF_GameOver} do {
+	[] call _procesAiTowns;
 			sleep 5;
+	if (time >= _lastUp) then {
+		_lastUp = time + 5;
 		};
 	};
-
-	sleep 0.01;
-};
 
 ["INITIALIZATION",format ["fn_startTownAiProcessing.sqf : WF_GameOver [%1].", WF_GameOver]] call WFCO_FNC_LogContent;
