@@ -1,4 +1,4 @@
-params ["_structure"];
+params ["_structure", ["_shallDeleteStructure", true]];
 private ["_side", "_index", "_killer", "_killer_uid", "_killer_name", "_side_killer",
 "_teamkill", "_current", "_logik", "_bounty", "_type"];
 
@@ -71,16 +71,26 @@ if (isPlayer _killer) then {
 if(_side != resistance) then {
     _logik = (_side) Call WFCO_FNC_GetSideLogic;
 
-    if (_index != -1) then {
+    if (_type == "Headquarters") then {
+        _mhqs = (_side) Call WFCO_FNC_GetSideHQ;
+        _mhqs = _mhqs - [_structure];
+
+        _logik setVariable ["wf_hq", _mhqs, true]
+    };
+
+    if!(isNil '_index') then {
+        if (_index > 0) then {
     	_current = _logik getVariable "wf_structures_live";
     	_current set [_index - 1, (_current # (_index-1)) - 1];
-    	_logik setVariable ["wf_structures_live", _current, true];
+            _logik setVariable ["wf_structures_live", _current, true]
     };
 
     _logik setVariable ["wf_structures", (_logik getVariable "wf_structures") - [_structure, objNull], true];
-
-    [_side, "Destroyed", ["Base", _structure]] spawn WFSE_FNC_SideMessage;
+        [_side, "Destroyed", ["Base", _structure]] spawn WFSE_FNC_SideMessage
+    }
 };
 
+if(_shallDeleteStructure) then {
 sleep WF_DELETE_RUINS_LAT;
-deleteVehicle _structure;
+    deleteVehicle _structure
+}

@@ -40,6 +40,7 @@ if (_index > 0) then {
 ['StructureSold', _index] remoteExec ["WFCL_FNC_LocalizeMessage", _side];
 
 //--removeAllEH from env objects. Then Destroy env objects and master--
+[_structure, false] call WFSE_FNC_BuildingKilled;
 _structure removeAllEventHandlers "Hit";
 _structure removeAllEventHandlers "HandleDamage";
 {
