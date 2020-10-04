@@ -34,13 +34,20 @@ if (_index > 0) then {
     _logik setVariable ["wf_structures", (_logik getVariable "wf_structures") - [_structure, objNull], true];
 
     [_side, "Destroyed", ["Base", _structure]] spawn WFSE_FNC_SideMessage;
+} else {
+    _type = _structure getVariable "wf_structure_type";
+    if (_type == "Headquarters") then {
+        _mhqs = (_side) Call WFCO_FNC_GetSideHQ;
+        _mhqs = _mhqs - [_structure];
+        _logik = (_side) Call WFCO_FNC_GetSideLogic;
+        _logik setVariable ["wf_hq", _mhqs, true]
+    }
 };
 
 //--- Inform the side.
 ['StructureSold', _index] remoteExec ["WFCL_FNC_LocalizeMessage", _side];
 
 //--removeAllEH from env objects. Then Destroy env objects and master--
-[_structure, false] call WFSE_FNC_BuildingKilled;
 _structure removeAllEventHandlers "Hit";
 _structure removeAllEventHandlers "HandleDamage";
 {

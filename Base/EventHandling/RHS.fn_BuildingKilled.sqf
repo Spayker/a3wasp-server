@@ -1,4 +1,4 @@
-params ["_structure", ["_shallDeleteStructure", true]];
+params ["_structure"];
 private ["_side", "_index", "_killer", "_killer_uid", "_killer_name", "_side_killer",
 "_teamkill", "_current", "_logik", "_bounty", "_type"];
 
@@ -90,7 +90,6 @@ if(_side != resistance) then {
     }
 };
 
-if(_shallDeleteStructure) then {
 sleep WF_DELETE_RUINS_LAT;
-    deleteVehicle _structure
-}
+deleteVehicle _structure
+
