@@ -55,8 +55,7 @@ for [{_z = 0},{_z < 5},{_z = _z + 1}] do {
             ["TownCanceled", _x] remoteExecCall ["WFCL_FNC_TaskSystem"];
             sleep 3;
             _camps = _x getVariable ["camps", []];
-            _flags = _x getVariable ["flags", []];
-            { deleteVehicle _x } forEach _camps + _flags;
+            { deleteVehicle _x } forEach _camps;
 
             deleteVehicle _x
 		} forEach _towns;

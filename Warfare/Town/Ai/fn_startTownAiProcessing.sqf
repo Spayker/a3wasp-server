@@ -104,15 +104,11 @@ for "_i" from 0 to ((count towns) - 1) step 1 do {
                         };
 
                         _camps = +(_town getVariable "camps");
-                        {
-                          _flag = _x getVariable "wf_flag";
-                          _flag enableSimulationGlobal true;
-                        } foreach _camps;
-
+                        
 						//// start of creation
                         if (missionNamespace getVariable format ["WF_%1_PRESENT",_side]) then { [_side,"HostilesDetectedNear",_town] Spawn WFSE_FNC_SideMessage};
 
-						//--- create the groups
+			//--- create the groups
                         if(count _infGroups > 0 ) then {
                             [_town, _camps, _side, _vehGroups, _infGroups] spawn WFSE_FNC_spawnTownGroups;
                         }

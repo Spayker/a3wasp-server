@@ -41,8 +41,7 @@ diag_log format ["fn_calculateArtyDamage.sqf: before loop _isArtyStrikeFinished 
         ["TownCanceled", _nearest] remoteExecCall ["WFCL_FNC_TaskSystem"];
         sleep 3;
         _camps = _nearest getVariable ["camps", []];
-        _flags = _nearest getVariable ["flags", []];
-        { deleteVehicle _x } forEach _camps + _flags;
+        { deleteVehicle _x } forEach _camps;
 
         deleteVehicle _nearest
     } else {

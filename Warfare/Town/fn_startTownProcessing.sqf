@@ -300,8 +300,7 @@ _procesTowns = {
                             ["TownCanceled", _location] remoteExecCall ["WFCL_FNC_TaskSystem"];
                             sleep 3;
                             _camps = _location getVariable ["camps", []];
-                            _flags = _location getVariable ["flags", []];
-                            { deleteVehicle _x } forEach _camps + _flags;
+                        { deleteVehicle _x } forEach _camps;
 
                             deleteVehicle _location
                         } else {
