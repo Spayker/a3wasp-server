@@ -17,7 +17,7 @@ if(_hostUID == _playerUID) then {
             if (!isNull _area && _get < missionNamespace getVariable "WF_C_BASE_DEFENSE_MAX") then {
                 _area setVariable ['availStaticDefense', _get +1];
                 (parseText format ["Available Defenses: " +"<t color='#00FF00'>"+" %1"+"</t>",
-                    _area getVariable 'availStaticDefense']) remoteExecCall ["hintSilent", owner _player]
+                    _area getVariable 'availStaticDefense']) remoteExecCall ["hint", owner _player]
             }
         }
     } else {
