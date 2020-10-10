@@ -66,7 +66,6 @@ class CfgFunctions {
             file = "waspServer\Base\Request";
             class requestAutoWallConstructinChange {};
             class requestDefense {};
-            class requestDefenseSell {};
             class requestStructure {};
             class RequestStructureSell {};
         };

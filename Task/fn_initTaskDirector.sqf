@@ -13,10 +13,10 @@ _lastSide = sideEmpty;
 while { _directorDoWork } do {
 	{	
 		_task = _x;
-		_taskData = _x # 1;
-		_taskSides = _x # 2;
+		_taskData = _task # 1;
+		_taskSides = _task # 2;
 		
-		_taskAvailableLaunches = _x # 3;		
+		_taskAvailableLaunches = _task # 3;
 		
 		//--Do work with task if it dont started--		
 		if(!(missionNameSpace getVariable [format["taskIsRun%1", _taskData # 0], false]) && _taskAvailableLaunches > 0) then {
