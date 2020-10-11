@@ -96,6 +96,7 @@ class CfgFunctions {
             class sideMessage {};
             class updatePlayerDataDB {};
             class updatePlayersList {};
+            class groupQuery {};
         };
 
         class ServerTeam {

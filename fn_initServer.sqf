@@ -402,9 +402,6 @@ if(isMultiplayer && !isDedicated)then{
     [0] spawn WFSE_FNC_updatePlayersList;
 };
 
-//--- Base Area (grouped base)
-if ((missionNamespace getVariable "WFBE_C_BASE_AREA") > 0) then {[] execVM "\waspServer\FSM\basearea.sqf"};
-
 //--- Resistance base spawning
 emptyQueu = [];
 _startLocationPositions = [];
