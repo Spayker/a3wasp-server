@@ -6,8 +6,6 @@ _index = _structure getVariable ["wf_index", -1];
 _env = _structure getVariable ["wf_env", []];
 _position = getPos _structure;
 
-if (_isHq) then { _index = 0 };
-
 _delay = missionNamespace getVariable "WF_C_STRUCTURES_SALE_DELAY";
 
 //--- Inform the side (before).
@@ -17,6 +15,13 @@ sleep _delay;
 
 if !(alive _structure) exitWith {};
 
+if (_isHq) then {
+    _mhqs = (_side) Call WFCO_FNC_GetSideHQ;
+    _mhqs = _mhqs - [_structure];
+    _logik = (_side) Call WFCO_FNC_GetSideLogic;
+    _logik setVariable ["wf_hq", _mhqs, true];
+    _index = 0
+} else {
 if (_index > 0) then {
     _payback = (missionNamespace getVariable format["WF_%1STRUCTURECOSTS", _side]) # _index;
     _payback = round((_payback * (missionNamespace getVariable "WF_C_STRUCTURES_SALE_PERCENT")) / 100);
@@ -34,13 +39,6 @@ if (_index > 0) then {
     _logik setVariable ["wf_structures", (_logik getVariable "wf_structures") - [_structure, objNull], true];
 
     [_side, "Destroyed", ["Base", _structure]] spawn WFSE_FNC_SideMessage;
-} else {
-    _type = _structure getVariable "wf_structure_type";
-    if (_type == "Headquarters") then {
-        _mhqs = (_side) Call WFCO_FNC_GetSideHQ;
-        _mhqs = _mhqs - [_structure];
-        _logik = (_side) Call WFCO_FNC_GetSideLogic;
-        _logik setVariable ["wf_hq", _mhqs, true]
     }
 };
 
