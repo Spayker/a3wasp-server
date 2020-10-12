@@ -8,6 +8,8 @@ _town = _params # 0;
 
 _teams = _town getVariable ["wf_town_teams", []];
 _vehicles = _town getVariable ["wf_active_vehicles", []];
+_vehicles = _vehicles - [objNull];
+_town setVariable ["wf_active_vehicles", _vehicles];
 
 _scope setVariable [_varName, [_teams, _vehicles], owner _scope];
 
