@@ -4,7 +4,6 @@ _ii = missionNamespace getVariable "WF_C_ECONOMY_INCOME_INTERVAL";
 
 _incomeCoef = 1;
 _divisor = 0;
-_suppluy_max_limit = missionNamespace getVariable "WF_C_ECONOMY_SUPPLY_MAX_TEAM_LIMIT";
 
 _incomeCoef = missionNamespace getVariable "WF_C_ECONOMY_INCOME_COEF";
 _divisor = missionNamespace getVariable "WF_C_ECONOMY_INCOME_DIVIDED";
@@ -15,11 +14,7 @@ while {!WF_GameOver} do {
 		_income = 0; // declares money
 		_income_player = 0; // declares money income for a player
 		_income_commander = 0; // declares money income for a commander
-		_supply = 0; // declares supplies
-
 		_supply =  [_x, false] Call WFCO_FNC_GetTownsSupply;
-
-		if(_supply  < _suppluy_max_limit) then {
 
 			_income = [_x, true] Call WFCO_FNC_GetTownsSupply;
 			_team_count = (_logik getVariable "wf_teams_count");
@@ -28,8 +23,9 @@ while {!WF_GameOver} do {
 			_income_player = round(_income + ((_income / 100) * (100 - _commanderPercent)));
 			_income_commander = round(((_income * _incomeCoef) / 100) * _commanderPercent);			
 			
+        [_x, _supply] Call WFCO_FNC_ChangeSideSupply;
+
 			if (_income > 0) then {
-				[_x, _supply] Call WFCO_FNC_ChangeSideSupply;
 
 				_comTeam = (_x) Call WFCO_FNC_GetCommanderTeam;
 				if (isNull _comTeam) then {_comTeam = grpNull};
@@ -43,7 +39,7 @@ while {!WF_GameOver} do {
 					}
 				} forEach (_logik getVariable "wf_teams")
 			}
-		}
+
 	} forEach WF_PRESENTSIDES;
 	sleep _ii
 }
