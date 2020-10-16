@@ -37,6 +37,7 @@ class CfgFunctions {
             class synchronizeUpgade {};
             class startBaseAreaProcessing {};
             class CreateDestructionEffect {};
+            class startStaticDefenseProcessing {};
         };
 
         class ServerBaseAi {
@@ -58,7 +59,6 @@ class CfgFunctions {
             class buildingDamaged {};
             class buildingHandleDamage {};
             class buildingKilled {};
-            class handleDefense {};
             class handleBuildingRepair {};
         };
 
