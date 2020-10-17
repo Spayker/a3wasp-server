@@ -92,7 +92,7 @@ _procesTowns = {
                 if (_side != resistance) then {
                     if (time >= _supplyTruckTimeCheck) then {
                         if(isNull _supplyTruck) then {
-                            _safePosition = [getPosATL _location, 20, 30, 2, 0, 0, 0] call BIS_fnc_findSafePos;
+                            _safePosition = [getPosATL _location, 20, 60, 5, 0, 0, 0] call BIS_fnc_findSafePos;
 
                             _vehicle = [missionNamespace getVariable Format["WF_%1SUPPLY_TRUCK", str _side], _safePosition, _sideID, 0, false, false] Call WFCO_FNC_CreateVehicle;
                             _location setVariable ["supplyVehicle", _vehicle];
@@ -279,7 +279,7 @@ _procesTowns = {
 
                     if (WF_C_PORT in _locationSpecialities) then {
                         if (_newSide != resistance) then {
-                            _safePosition = [getPosATL _location, 2, 60, 5, 0, 0, 0] call BIS_fnc_findSafePos;
+                            _safePosition = [getPosATL _location, 20, 60, 5, 0, 0, 0] call BIS_fnc_findSafePos;
                             _vehicle = [missionNamespace getVariable Format["WF_%1SUPPLY_TRUCK", str _newSide], _safePosition, _newSID, 0, false, false] Call WFCO_FNC_CreateVehicle;
                             _location setVariable ["supplyVehicle", _vehicle];
                             _location setVariable ["supplyVehicleTimeCheck", time + _supplyTruckTimeCheckDelay];
