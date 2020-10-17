@@ -124,7 +124,7 @@ if (_manned && _defense emptyPositions "gunner" > 0 && (((missionNamespace getVa
 	};
 
 	if (_specDefenseIndex == -1) then {
-        [_defense, _side, _team] spawn WFSE_FNC_HandleDefense;
+        WF_static_defenses pushBack [_defense, _side, _team, time]
 	};
 };
 
