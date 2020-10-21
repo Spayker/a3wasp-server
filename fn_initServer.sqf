@@ -84,6 +84,10 @@ _present_res = missionNamespace getVariable "WF_GUER_PRESENT";
 	(missionNamespace getVariable Format ["WF_%1_DefenseTeam", _x]) setVariable ["wf_persistent", true];
 } forEach [west,east,resistance];
 
+//--- hq price penalty.
+missionNamespace setVariable [format ["wf_%1_hq_penalty", west], 0, true];
+missionNamespace setVariable [format ["wf_%1_hq_penalty", east], 0, true];
+
 //--- Select whether the spawn restriction is enabled or not.
 _locationLogics = [];
 if ((missionNamespace getVariable "WF_C_BASE_START_TOWN") > 0) then {
