@@ -11,7 +11,8 @@ _twn = objNull;
 
 {
     if(_x getVariable "sideID" == 2) then {
-	    _guertowns pushBack _x;
+        _townSpeciality = _town getVariable ["townSpeciality", []];
+        if(count _townSpeciality > 0)then { _guertowns pushBack _x }
 	};
 } forEach towns;
 
