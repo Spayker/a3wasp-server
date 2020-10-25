@@ -59,7 +59,7 @@ _team = grpNull;
 [1, _uid] spawn WFSE_FNC_updatePlayersList;
 
 //--- Headless Clients disconnection?.
-if (_uid == str (missionNamespace getVariable["WF_HEADLESSCLIENT_UID", 0])) then {
+if (_uid == (missionNamespace getVariable["WF_HEADLESSCLIENT_UID", '0'])) then {
 	missionNamespace setVariable ["WF_HEADLESSCLIENT_ID", nil];
 	missionNamespace setVariable ["WF_HEADLESSCLIENT_UID", nil];
 	["INFORMATION", format ["fn_OnPlayerDisconnected.sqf: missionNamespace variable WF_HEADLESSCLIENT_ID [%1]", missionNamespace getVariable["WF_HEADLESSCLIENT_ID", 0]]] call WFCO_FNC_LogContent;
