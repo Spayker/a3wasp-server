@@ -288,7 +288,7 @@ _procesTowns = {
                     };
 
                     // calculating town damage
-                        _halfTownRange = (_location getVariable "range")/2;
+                    _halfTownRange = (_location getVariable ["range", 500])/2;
                         _initialTownMaxSupplyValue = _location getVariable "initialMaxSupplyValue";
                         _townRuins = count (nearestObjects [_location, ["Ruins"], _halfTownRange]);
                         _newTownMaxSV = floor (_initialTownMaxSupplyValue - ((_initialTownMaxSupplyValue/100)*_townRuins));

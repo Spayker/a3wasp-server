@@ -63,7 +63,7 @@ if(!isNull _twn) then {
 		sleep 5;
 	};
 	
-	_twnSideID = _twn getVariable "sideID";
+	_twnSideID = _twn getVariable ["sideID", WF_C_UNKNOWN_ID];
 	_twnSide = _twnSideID call WFCO_FNC_GetSideFromID;
 	_sideID = (_side) call WFCO_FNC_GetSideID;
 	

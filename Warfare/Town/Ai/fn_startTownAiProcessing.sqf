@@ -42,7 +42,7 @@ for "_i" from 0 to ((count towns) - 1) step 1 do {
 		_infGroups = [];
 		_vehGroups = [];
 
-            _sideID = _town getVariable "sideID";
+       _sideID = _town getVariable ["sideID", WF_C_UNKNOWN_ID];
             if!(isNil "_sideID") then {
             _side = (_sideID) call WFCO_FNC_GetSideFromID;
 
