@@ -1,6 +1,7 @@
-private ['_lastUp', '_procesStaticDefenses'];
+private ['_lastUp', '_procesStaticDefenses', '_repeats'];
 
 _lastUp = 0;
+_repeats = -1;
 
 _procesStaticDefenses = {
     WF_static_defenses = WF_static_defenses - [objNull];
