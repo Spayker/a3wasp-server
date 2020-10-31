@@ -45,15 +45,15 @@ _team = grpNull;
 [format ["Player **%1** has left the game :wave:", _name]] call WFDC_FNC_LogContent;
 
 //--Update playing time statistic--
-//if(missionNamespace getVariable[format["wf_cj_%1", _uid], false]) then {
+if(missionNamespace getVariable[format["wf_cj_%1", _uid], true]) then {
     [_uid, _name, missionNamespace getVariable[format["wf_ps_%1", _uid], WF_C_UNKNOWN_ID],
         time - (missionNamespace getVariable [format["wf_pt_%1", _uid], time]),
         time - (missionNamespace getVariable [format["wf_ct_%1", _uid], time])] spawn WFSE_FNC_UpdatePlayingTime;
 	missionNamespace setVariable [format["wf_pt_%1", _uid], nil];
     missionNamespace setVariable [format["wf_ct_%1", _uid], nil];
 	missionNamespace setVariable [format["wf_ps_%1", _uid], nil];
-	//missionNamespace setVariable [format["wf_cj_%1", _uid], nil];
-//};
+	missionNamespace setVariable [format["wf_cj_%1", _uid], nil];
+};
 
 //--Update players global list--
 [1, _uid] spawn WFSE_FNC_updatePlayersList;

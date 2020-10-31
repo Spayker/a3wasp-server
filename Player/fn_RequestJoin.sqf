@@ -60,8 +60,6 @@ if !(isNil '_get') then { //--- Retrieve JIP Information if there's any.
 };
 
 ["INFORMATION", Format["fn_RequestJoin.sqf: Player [%1] [%2] can join? [%3].", _name, _uid, _canJoin]] Call WFCO_FNC_LogContent;
-/* if(_canJoin) then {
-    missionNamespace setVariable[format["wf_cj_%1", _uid], _canJoin];
-    missionNamespace setVariable[format["wf_ps_%1", _uid], _side call WFCO_FNC_GetSideID];
-}; */
+
+missionNamespace setVariable[format["wf_cj_%1", _uid], _canJoin];
 [_canJoin] remoteExecCall ["WFCL_FNC_updateCanJoinFlag", _player];
