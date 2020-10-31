@@ -8,6 +8,7 @@ WFSE_FNC_requestUpgrade = compile preprocessFileLineNumbers "waspServer\Base\fn_
 WFSE_FNC_synchronizeUpgade = compile preprocessFileLineNumbers "waspServer\Base\fn_synchronizeUpgade.sqf";
 WFSE_FNC_startBaseAreaProcessing = compile preprocessFileLineNumbers "waspServer\Base\fn_startBaseAreaProcessing.sqf";
 WFSE_FNC_CreateDestructionEffect = compile preprocessFileLineNumbers "waspServer\Base\fn_CreateDestructionEffect.sqf";
+WFSE_FNC_startStaticDefenseProcessing = compile preprocessFileLineNumbers "waspServer\Base\fn_startStaticDefenseProcessing.sqf";
             
 WFSE_FNC_createBasePatrol = compile preprocessFileLineNumbers "waspServer\Base\Ai\fn_createBasePatrol.sqf";
 

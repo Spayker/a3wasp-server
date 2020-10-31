@@ -41,7 +41,10 @@ if !(isNil '_get') then { //--- Retrieve JIP Information if there's any.
 
 			['Teamswap',_name,_uid,_sideOrigin,_side] remoteExecCall ["WFCL_FNC_LocalizeMessage"];
 
-			[14000, ["\n \n" + (localize 'STR_WF_Teamswap'), "PLAIN", 10]] remoteExec ["cutText", _player];
+            _canJoinText = {
+                14000 cutText ["<t size='3'>"+(localize 'STR_WF_Teamswap')+"</t>", "PLAIN", 20, true, true];
+            };
+            [_canJoinText] remoteExec ["call", _player];
 
 			if (canSuspend) then {
 				sleep 12;
