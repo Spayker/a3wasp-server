@@ -4,7 +4,7 @@ _fog_forecast=-10000;
 _overcast_forecast=-10000;
 
 if (WF_C_ENVIRONMENT_WEATHER_OVERCAST ==-1) then {
-	_overcast_setting = (random [10, 30, 49]) / 100
+	_overcast_setting = (random [10, 25, 45]) / 100
 } else { 
 	_overcast_setting = WF_C_ENVIRONMENT_WEATHER_OVERCAST / 100
 };
