@@ -41,7 +41,10 @@ if !(isNil '_get') then { //--- Retrieve JIP Information if there's any.
 
 			['Teamswap',_name,_uid,_sideOrigin,_side] remoteExecCall ["WFCL_FNC_LocalizeMessage"];
 
-			[14000, ["\n \n" + (localize 'STR_WF_Teamswap'), "PLAIN", 10]] remoteExec ["cutText", _player];
+            _canJoinText = {
+                14000 cutText ["<t size='3'>"+(localize 'STR_WF_Teamswap')+"</t>", "PLAIN", 20, true, true];
+            };
+            [_canJoinText] remoteExec ["call", _player];
 
 			if (canSuspend) then {
 				sleep 12;
@@ -60,8 +63,6 @@ if !(isNil '_get') then { //--- Retrieve JIP Information if there's any.
 };
 
 ["INFORMATION", Format["fn_RequestJoin.sqf: Player [%1] [%2] can join? [%3].", _name, _uid, _canJoin]] Call WFCO_FNC_LogContent;
-/* if(_canJoin) then {
-    missionNamespace setVariable[format["wf_cj_%1", _uid], _canJoin];
-    missionNamespace setVariable[format["wf_ps_%1", _uid], _side call WFCO_FNC_GetSideID];
-}; */
+
+missionNamespace setVariable[format["wf_cj_%1", _uid], _canJoin];
 [_canJoin] remoteExecCall ["WFCL_FNC_updateCanJoinFlag", _player];
