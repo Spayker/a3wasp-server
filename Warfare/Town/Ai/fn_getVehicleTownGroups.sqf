@@ -69,12 +69,16 @@ switch (true) do {
 	case (_sv >= 20 && _sv < 40): {
 		_unitTemplates = [
 					[Format ["Motorized_%1", _current_light_upgrade]],
+					[Format ["Motorized_%1", _current_light_upgrade]],
+					[Format ["Motorized_%1", _current_light_upgrade]],
 					[Format ["AA_Light_%1", _current_heavy_upgrade]]
 				];
 
 	};
 	case (_sv >= 40 && _sv <= 50): {
 		_unitTemplates = [
+					[Format ["Motorized_%1", _current_light_upgrade]],
+					[Format ["Motorized_%1", _current_light_upgrade]],
 					[Format ["Motorized_%1", _current_light_upgrade]],
 					[Format ["Motorized_%1", _current_light_upgrade]],
 					[Format ["AA_Light_%1", _current_aa_light_upgrade]]
@@ -84,6 +88,8 @@ switch (true) do {
 	case (_sv > 50 && _sv < 65): {
 		_unitTemplates = [
 					[Format ["Motorized_%1", _current_light_upgrade]],
+					[Format ["Motorized_%1", _current_light_upgrade]],
+					[Format ["Mechanized_%1", _current_heavy_upgrade]],
 					[Format ["Mechanized_%1", _current_heavy_upgrade]],
 					[Format ["AA_Light_%1", _current_aa_light_upgrade]]
 				];
@@ -92,6 +98,8 @@ switch (true) do {
 	case (_sv >= 65 && _sv < 80): {
 		_unitTemplates = [
 					[Format ["Motorized_%1", _current_light_upgrade]],
+					[Format ["Motorized_%1", _current_light_upgrade]],
+					[Format ["Mechanized_%1", _current_heavy_upgrade]],
 					[Format ["Mechanized_%1", _current_heavy_upgrade]],
 					[Format ["AA_Heavy_%1", _current_aa_light_upgrade]]
 				];
@@ -100,7 +108,11 @@ switch (true) do {
 	case (_sv >= 80 && _sv < 100): {
 		_unitTemplates = [
 					[Format ["Mechanized_%1", _current_heavy_upgrade]],
+					[Format ["Mechanized_%1", _current_heavy_upgrade]],
+					[Format ["Mechanized_%1", _current_heavy_upgrade]],
 					[Format ["AA_Heavy_%1", _current_aa_heavy_upgrade]],
+					[Format ["Armored_%1", _current_heavy_upgrade]],
+					[Format ["Armored_%1", _current_heavy_upgrade]],
 					[Format ["Armored_%1", _current_heavy_upgrade]]
 				];
 
@@ -108,10 +120,13 @@ switch (true) do {
 	case (_sv >= 100): {
             _unitTemplates = [
         			[Format ["Motorized_%1", _current_light_upgrade]],
+        			[Format ["Motorized_%1", _current_light_upgrade]],
+                    [Format ["Mechanized_%1", _current_heavy_upgrade]],
                     [Format ["Mechanized_%1", _current_heavy_upgrade]],
                     [Format ["AA_Heavy_%1", _current_aa_heavy_upgrade]],
                     [Format ["Armored_%1", _current_heavy_upgrade]],
-                    [Format ["Mechanized_%1", _current_air_upgrade]],
+                    [Format ["Armored_%1", _current_heavy_upgrade]],
+                    [Format ["Armored_%1", _current_heavy_upgrade]],
                     [Format ["Armored_%1", _current_air_upgrade]]
         		];
         	_groups_max = _groups_max + 2;

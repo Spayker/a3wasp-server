@@ -86,8 +86,10 @@ switch (true) do {
 	case (_sv >= 60 && _sv < 80): {
 		_unitTemplates = [
 					[format ["Squad_%1", _current_infantry_upgrade]],
+					[format ["Squad_%1", _current_infantry_upgrade]],
 					[format ["Team_MG_%1", _current_infantry_upgrade]],
 					["Team_AA"],
+					[format ["Team_AT_%1", _current_infantry_upgrade]],
 					[format ["Team_AT_%1", _current_infantry_upgrade]],
 					[format ["Team_Sniper_%1", _current_infantry_upgrade]]
 				];
@@ -105,7 +107,9 @@ switch (true) do {
 	case (_sv >= 100): {
 		_unitTemplates = [
 					[format ["Squad_%1", _current_infantry_upgrade]],
+					[format ["Squad_%1", _current_infantry_upgrade]],
 					[format ["Team_MG_%1", _current_infantry_upgrade]],
+					[format ["Team_%1", _current_infantry_upgrade]],
 					[format ["Team_%1", _current_infantry_upgrade]],
 					["Team_AA"],
 					[format ["Team_AT_%1", _current_infantry_upgrade]],
