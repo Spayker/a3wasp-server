@@ -1,9 +1,9 @@
 private ['_lastUp', '_procesStaticDefenses', '_repeats'];
 
 _lastUp = 0;
-_repeats = -1;
 
 _procesStaticDefenses = {
+
     WF_static_defenses = WF_static_defenses - [objNull];
 
     for "_i" from 0 to ((count WF_static_defenses) - 1) step 1 do {
@@ -12,6 +12,7 @@ _procesStaticDefenses = {
         _side = (WF_static_defenses # _i) # 1;
         _team = (WF_static_defenses # _i) # 2;
         _time = (WF_static_defenses # _i) # 3;
+        _repeats = -1;
 
         if(time > _time) then {
             if (alive _defense) then {
