@@ -4,12 +4,13 @@
 		- Defense Logic.
 		- Side.
 */
-params ["_town", "_defenseData", "_index", "_side"];
+params ["_town", ["_defenseData", objNull], "_index", "_side"];
 private ["_defense","_entity","_kind","_kinds","_nils","_random","_sideID"];
 
 _sideID = _side call WFCO_FNC_GetSideID;
 _defense = "";
 
+if !(isNull _defenseData) then {
 //--- Retrieve the possible kinds.
 _kinds = _defenseData # 0;
 
@@ -50,4 +51,5 @@ if (_defense != "") then {
 
 	_townDefenses set [_index, [_defenseData # 0, _defenseData # 1, _defenseData # 2, _entity]];
 	_town setVariable ["wf_town_defenses", _townDefenses, true];
-};
+    }
+}
