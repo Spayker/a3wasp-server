@@ -48,7 +48,7 @@ while{!_end} do {
         }
     };
 
-    [_inf_group, _nearTowns, 400, 'FILE', _isInfantry] Call WFSE_FNC_AITownPatrol;
+    [_inf_group, _nearTowns, 400, 'FILE', _isInfantry] Call WFCO_FNC_AITownPatrol;
 	sleep 300
 }
 

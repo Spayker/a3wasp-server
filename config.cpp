@@ -170,15 +170,6 @@ class CfgFunctions {
             class manningOfResBaseDefense {};
         };
 
-        class ServerModuleAiOrders {
-            file = "waspServer\Module\AI\Orders";
-            class aiMoveTo {};
-            class aiPatrol {};
-            class aiTownPatrol {};
-            class aiWPAdd {};
-            class aiWPRemove {};
-        };
-
         class ServerModuleIcbm {
             file = "waspServer\Module\ICBM";
             class processIcbmEvent {};

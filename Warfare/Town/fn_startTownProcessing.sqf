@@ -267,14 +267,15 @@ _procesTowns = {
                     };
 
                     if (WF_C_MINE in _locationSpecialities) then {
+                        _locationName = _location getVariable "name";
                         towns = towns - [_location];
                         missionNamespace setVariable ["totalTowns", count towns, true];
-                        [_location getVariable "name"] remoteExecCall ["WFCL_FNC_TownRemoved"];
+                        [_locationName] remoteExecCall ["WFCL_FNC_TownRemoved"];
 
                         _locationPosition = getPosATL _location;
                         deleteVehicle _location;
                         [missionNamespace getVariable Format["WF_%1SUPPLY_TRUCK", str _newSide], _locationPosition, _newSID, 0, false, false] Call WFCO_FNC_CreateVehicle;
-                        (format[localize "STR_WF_CHAT_Town_Supply_Truck_Spawned", _location getVariable "name"]) remoteExecCall ["WFCL_FNC_CommandChatMessage", _newSide]
+                        (format[localize "STR_WF_CHAT_Town_Supply_Truck_Spawned", _locationName]) remoteExecCall ["WFCL_FNC_CommandChatMessage", _newSide]
                     };
 
                     if (WF_C_PORT in _locationSpecialities) then {
@@ -289,7 +290,7 @@ _procesTowns = {
 
                     // calculating town damage
                     _halfTownRange = (_location getVariable ["range", 500])/2;
-                        _initialTownMaxSupplyValue = _location getVariable "initialMaxSupplyValue";
+                    _initialTownMaxSupplyValue = _location getVariable ["initialMaxSupplyValue", 50];
                         _townRuins = count (nearestObjects [_location, ["Ruins"], _halfTownRange]);
                         _newTownMaxSV = floor (_initialTownMaxSupplyValue - ((_initialTownMaxSupplyValue/100)*_townRuins));
 
