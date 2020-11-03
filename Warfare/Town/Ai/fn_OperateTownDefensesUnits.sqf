@@ -17,7 +17,7 @@ _hc = missionNamespace getVariable ["WF_HEADLESSCLIENT_ID", 0];
 switch (_action) do {
 	case "spawn": {
 	    [_town, _side, _sideID] Call WFSE_FNC_ManageTownDefenses;
-	    _allDefences = (_town getVariable "wf_town_defenses");
+	    _allDefences = _town getVariable ["wf_town_defenses", []];
 		if!(isNil "_allDefences") then {
             //--- Man the defenses.
             _team = createGroup [_side, true];
