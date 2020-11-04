@@ -62,6 +62,19 @@ call Compile format ["_defense addEventHandler ['Killed',{[_this # 0,_this selec
 _defense addEventHandler ['Deleted',{[_this # 0] call WFCO_FNC_KillStaticDefenseCrew;}];
 _defense addEventHandler ['incomingMissile', {_this spawn WFCO_FNC_HandleIncomingMissile}];
 
+//--Check if vehicle is arty vehicle and add EH--
+{
+    if(typeOf _defense == (_x # 0)) exitWith {
+		[_defense, ["Fired", {
+        	params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projectile", "_gunner"];
+
+			if(isPlayer _gunner || _gunner == (missionNamespace getVariable ["wf_remote_ctrl_unit", objNull])) then {
+				deleteVehicle _projectile;
+			};
+        }]] remoteExec ["addEventHandler", -2, true];
+    };
+} forEach (missionNamespace getVariable [format['WF_%1_ARTILLERY_CLASSNAMES', _side], []]);
+
 if (_manned && _defense emptyPositions "gunner" > 0 && (((missionNamespace getVariable "WF_C_BASE_DEFENSE_MAX") > 0))) then {
 	private ["_check","_team"];
 	_team = _area getVariable "DefenseTeam";
