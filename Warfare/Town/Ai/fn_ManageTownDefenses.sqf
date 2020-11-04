@@ -29,4 +29,4 @@ _sideID = _side call WFCO_FNC_GetSideID;
 	};
 	
 	if(diag_fps > 35) then { sleep 2 }
-} forEach (_town getVariable "wf_town_defenses")
+} forEach (_town getVariable ["wf_town_defenses", []])
