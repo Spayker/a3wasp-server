@@ -4,13 +4,13 @@
 		- Defense Logic.
 		- Side.
 */
-params ["_town", ["_defenseData", objNull], "_index", "_side"];
+params ["_town", "_defenseData", "_index", "_side"];
 private ["_defense","_entity","_kind","_kinds","_nils","_random","_sideID"];
 
 _sideID = _side call WFCO_FNC_GetSideID;
 _defense = "";
 
-if !(isNull _defenseData) then {
+if !(isNil _defenseData) then {
 //--- Retrieve the possible kinds.
 _kinds = _defenseData # 0;
 
