@@ -1,5 +1,5 @@
 params ["_side", "_template", "_building", "_status", ["_isInfantry", false]];
-private["_side", "_template", "_buildings", "_status", "_building", "_end", "_inf_group"];
+private["_buildings", "_status", "_end", "_inf_group", "_shallPatrol"];
 
 _end = false;
 _alives = [];
@@ -14,7 +14,7 @@ if(count _alives == 0) then {
 	} forEach _template
 };
 
-sleep 15;
+sleep 30;
 
 while{!_end} do {
 	_alives = (units _inf_group) Call WFCO_FNC_GetLiveUnits;
@@ -26,6 +26,26 @@ while{!_end} do {
 		_end = true
 	};
 
+    _shallPatrol = true;
+    if(_isInfantry) then {
+
+        private _playableSidesStructures = [];
+
+        _westBaseStructures = (west) Call WFCO_FNC_GetSideStructures;
+        _eastBaseStructures = (east) Call WFCO_FNC_GetSideStructures;
+
+        if (count _westBaseStructures > 0) then { _playableSidesStructures = _playableSidesStructures + _westBaseStructures };
+        if (count _eastBaseStructures > 0) then { _playableSidesStructures = _playableSidesStructures + _eastBaseStructures };
+
+        if(count _playableSidesStructures > 0)then {
+            _near = [_building, _playableSidesStructures] Call WFCO_FNC_SortByDistance;
+            _target = _near # 0;
+            [_inf_group, true, [[_target, 'SAD', 100, 60, "", []]]] Call WFCO_fnc_aiWpAdd;
+            _shallPatrol = false
+        }
+    };
+
+    if(_shallPatrol) then {
     _nearTowns = [];
     _near = [];
     _allSortedTownsByDistance = [getPosATL (leader _inf_group), towns] Call WFCO_FNC_SortByDistance;
@@ -48,7 +68,8 @@ while{!_end} do {
         }
     };
 
-    [_inf_group, _nearTowns, 400, 'FILE', _isInfantry] Call WFCO_FNC_AITownPatrol;
+        [_inf_group, _nearTowns, 400, 'FILE', _isInfantry] Call WFCO_FNC_AITownPatrol
+    };
 	sleep 300
 }
 
