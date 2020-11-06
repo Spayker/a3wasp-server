@@ -379,7 +379,7 @@ if ((missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") != 0) then {
 //--- Don't pause the server init script.
 [] spawn {
 	waitUntil {townInit};
-		[] spawn WFSE_fnc_startEndGameConditionProcessing;
+		[] spawn WFSE_fnc_startCommonLogicProcessing;
 		["INITIALIZATION", "fn_initServer.sqf: Victory Condition FSM is initialized."] Call WFCO_FNC_LogContent;
 
 	[] spawn WFSE_fnc_updateResources;

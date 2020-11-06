@@ -28,6 +28,7 @@ while {!WF_GameOver} do {
         [scoreSide east, scoreSide west, scoreSide resistance] spawn WFSE_FNC_UpdateSidesStats;
     };
 
+	//--Calculate Start/End game condition--
 	{
 		_side = _x;
 		_hqs = (_side) call WFCO_FNC_GetSideHQ;
@@ -85,5 +86,5 @@ while {!WF_GameOver} do {
 };
 
 sleep 5;
-diag_log format["[WF (OUTRO)][frameno:%1 | ticktime:%2] fn_startEndGameConditionProcessing.sqf: Mission end - [Done]",diag_frameno,diag_tickTime];
+diag_log format["[WF (OUTRO)][frameno:%1 | ticktime:%2] fn_startCommonLogicProcessing.sqf: Mission end - [Done]",diag_frameno,diag_tickTime];
 failMission "END1";

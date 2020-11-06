@@ -210,7 +210,7 @@ class CfgFunctions {
             file = "\waspServer\Environment";
             class startEmptyVehiclesCollector {};
             class startGarbageCollector {};
-            class startEndGameConditionProcessing {};
+            class startCommonLogicProcessing {};
         };
 
         class ServerStatistic {

@@ -110,7 +110,7 @@ WFSE_FNC_initTaskDirector = compile preprocessFileLineNumbers "waspServer\Task\f
 
 WFSE_FNC_startEmptyVehiclesCollector = compile preprocessFileLineNumbers "waspServer\Environment\fn_startEmptyVehiclesCollector.sqf";
 WFSE_FNC_startGarbageCollector = compile preprocessFileLineNumbers "waspServer\Environment\fn_startGarbageCollector.sqf";
-WFSE_FNC_startEndGameConditionProcessing = compile preprocessFileLineNumbers "waspServer\Environment\fn_startEndGameConditionProcessing.sqf";
+WFSE_FNC_startCommonLogicProcessing = compile preprocessFileLineNumbers "waspServer\Environment\fn_startCommonLogicProcessing.sqf";
 
 WFSE_FNC_FinishGameInfo = compile preprocessFileLineNumbers "waspServer\Warfare\Statistic\fn_FinishGameInfo.sqf";
 WFSE_FNC_InitGameInfo = compile preprocessFileLineNumbers "waspServer\Warfare\Statistic\fn_InitGameInfo.sqf";
