@@ -220,6 +220,7 @@ class CfgFunctions {
             class FinishGameInfo {};
             class InsertStructureKilled {};
             class ShowPlayerStats {};
+            class UpdateSidesStats {};
         };
     };
 };

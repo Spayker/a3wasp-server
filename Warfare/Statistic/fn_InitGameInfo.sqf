@@ -9,5 +9,6 @@ if(extDBOpened) then {
 	_queryRes = [_query,2,true] call DB_fnc_asyncCall;
 	if(count _queryRes > 0) then {
         missionNamespace setVariable["WF_GAME_ID", (_queryRes # 0) # 0];
+        [format["GAME ID = %1",  missionNamespace getVariable["WF_GAME_ID", 0]], 1] call WFDC_FNC_LogContent;
 	};
 };

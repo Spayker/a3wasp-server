@@ -23,6 +23,11 @@ while {!WF_GameOver} do {
         _lastSunState = _currentSunState;
     };
 
+    //--Store info about sides score--
+    if(missionNamespace getVariable ["WF_GAME_ID", 0] > 0) then {
+        [scoreSide east, scoreSide west, scoreSide resistance] spawn WFSE_FNC_UpdateSidesStats;
+    };
+
 	{
 		_side = _x;
 		_hqs = (_side) call WFCO_FNC_GetSideHQ;
@@ -72,7 +77,7 @@ while {!WF_GameOver} do {
                 };
 			} forEach (allPlayers - entities "HeadlessClient_F");
 
-			[format["GAME ID = %1",  missionNamespace getVariable["WF_GAME_ID", 0]], 1] call WFDC_FNC_LogContent;
+			[format["GAME IS OVER ID = %1",  missionNamespace getVariable["WF_GAME_ID", 0]], 1] call WFDC_FNC_LogContent;
 		};
 	} forEach WF_PRESENTSIDES - [WF_DEFENDER];
 

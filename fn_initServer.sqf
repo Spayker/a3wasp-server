@@ -425,6 +425,7 @@ _startLocationPositions = [];
 {_x spawn WFSE_FNC_VoteForCommander} forEach WF_PRESENTSIDES;
 
 [worldName, missionNamespace getVariable ["WF_MISSIONNAME", ""]] spawn WFSE_FNC_InitGameInfo;
+["GAME IS STARTED", 1] call WFDC_FNC_LogContent;
 
 [format [":regional_indicator_g: :regional_indicator_a: :regional_indicator_m: :regional_indicator_e:   :regional_indicator_s: :regional_indicator_t: :regional_indicator_a: :regional_indicator_r: :regional_indicator_t: :regional_indicator_e: :regional_indicator_d:   :point_right:   **%1**", missionNamespace getVariable "WF_MISSIONNAME"]] Call WFDC_FNC_LogContent;
 
