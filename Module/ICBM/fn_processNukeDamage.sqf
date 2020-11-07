@@ -43,7 +43,7 @@ for [{_z = 0},{_z < 5},{_z = _z + 1}] do {
 				_x removeAllEventHandlers "HandleDamage";
                     [_x] spawn WFSE_FNC_BuildingKilled;
             } else {
-                _x setDamage [0.25, false];
+                _x setDamage [0.5, false];
             };
 		} forEach _arrayHouse;
 
@@ -69,7 +69,7 @@ for [{_z = 0},{_z < 5},{_z = _z + 1}] do {
 				_x removeAllEventHandlers "HandleDamage";
                     [_x] spawn WFSE_FNC_BuildingKilled;
             } else {
-                _x setDamage [0.25, false];
+                _x setDamage [0.5, false];
             };
 		} forEach _arrayHouseEP;
 
