@@ -10,9 +10,9 @@ _guertowns = [];
 _twn = objNull;
 
 {
-    if(_x getVariable "sideID" == 2) then {
+    if(_x getVariable "sideID" == 2 && _x getVariable "wf_active" == false && count (_x getVariable ["camps", []]) > 0) then {
         _townSpeciality = _x getVariable ["townSpeciality", []];
-        if(count _townSpeciality > 0)then { _guertowns pushBack _x }
+        if(count _townSpeciality <= 0) then { _guertowns pushBack _x }
 	};
 } forEach towns;
 
