@@ -1,6 +1,7 @@
 params ["_side", "_structure", "_isHq"];
-private ["_index", "_delay", "_payback", "_env", "_logik", "_current", "_position"];
+private ["_index", "_delay", "_payback", "_env", "_logik", "_current", "_position", "_commander"];
 
+_logik = (_side) Call WFCO_FNC_GetSideLogic;
 _structure setVariable ["wf_sold", true, true];
 _index = _structure getVariable ["wf_index", -1];
 _env = _structure getVariable ["wf_env", []];
@@ -18,29 +19,34 @@ if !(alive _structure) exitWith {};
 if (_isHq) then {
     _mhqs = (_side) Call WFCO_FNC_GetSideHQ;
     _mhqs = _mhqs - [_structure];
-    _logik = (_side) Call WFCO_FNC_GetSideLogic;
     _logik setVariable ["wf_hq", _mhqs, true];
-    _index = 0
+    _index = 0;
+
+    //--Payback money to commander--
+    _commander = _logik getVariable ["wf_commander", objNull];
+    if(!isNull _commander) then {
+        _commander = leader _commander;
+        if(isPlayer _commander) then {
+            7500 remoteExecCall ["WFCL_FNC_ChangePlayerFunds", _commander];
+        };
+    };
 } else {
-if (_index > 0) then {
-    _payback = (missionNamespace getVariable format["WF_%1STRUCTURECOSTS", _side]) # _index;
-    _payback = round((_payback * (missionNamespace getVariable "WF_C_STRUCTURES_SALE_PERCENT")) / 100);
+    if (_index > 0) then {
+        _payback = (missionNamespace getVariable format["WF_%1STRUCTURECOSTS", _side]) # _index;
+        _payback = round((_payback * (missionNamespace getVariable "WF_C_STRUCTURES_SALE_PERCENT")) / 100);
 
-    [_side, _payback] call WFCO_FNC_ChangeSideSupply;
+        [_side, _payback] call WFCO_FNC_ChangeSideSupply;
 
-    //--Decrement buildings limit--
+        //--Decrement buildings limit--
+        _current = _logik getVariable "wf_structures_live";
+        _current set [_index - 1, (_current # (_index-1)) - 1];
+        _logik setVariable ["wf_structures_live", _current, true];
 
-    _logik = (_side) Call WFCO_FNC_GetSideLogic;
-
-    _current = _logik getVariable "wf_structures_live";
-    _current set [_index - 1, (_current # (_index-1)) - 1];
-    _logik setVariable ["wf_structures_live", _current, true];
-
-    _logik setVariable ["wf_structures", (_logik getVariable "wf_structures") - [_structure, objNull], true];
-
-    [_side, "Destroyed", ["Base", _structure]] spawn WFSE_FNC_SideMessage;
+        _logik setVariable ["wf_structures", (_logik getVariable "wf_structures") - [_structure, objNull], true];
     }
 };
+
+[_side, "Destroyed", ["Base", _structure]] spawn WFSE_FNC_SideMessage;
 
 //--- Inform the side.
 ['StructureSold', _index] remoteExec ["WFCL_FNC_LocalizeMessage", _side];

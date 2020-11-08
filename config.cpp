@@ -62,6 +62,11 @@ class CfgFunctions {
             class handleBuildingRepair {};
         };
 
+        class ServerBaseHq {
+            file = "waspServer\Base\Hq";
+            class OnHQKilled {};
+        };
+
         class ServerBaseRequest {
             file = "waspServer\Base\Request";
             class requestAutoWallConstructinChange {};
