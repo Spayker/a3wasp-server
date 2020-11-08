@@ -23,13 +23,15 @@ switch (_action) do {
             _team = createGroup [_side, true];
             _defences = [];
             {
+                if!(isNil '_x') then {
                 _defense = _x # 3;
                 _defense enableSimulationGlobal true;
                 if (alive _defense) then {
                     if !(alive gunner _defense) then { //--- Make sure that the defense gunner is null or dead.
                         _defences pushBack _defense;                        
-                    };
-                };
+                        }
+                    }
+                }
             } forEach (_allDefences);
 			
             if (_hc > 0) then {
@@ -43,6 +45,7 @@ switch (_action) do {
 	case "remove": {
 		//--- De-man the defenses.
 		{
+		    if!(isNil '_x') then {
 			_defense = _x # 3;
 			if !(isNil '_defense') then {
 				_crewUnits = _defense getVariable ["_crewUnits", []];
@@ -71,7 +74,8 @@ switch (_action) do {
 
 				_defense setVariable ["_crewUnits", nil, _publicFor];
 				deleteVehicle _defense
-            };
+                }
+		    }
 		} forEach (_town getVariable "wf_town_defenses");
 
 		["INFORMATION", format ["fn_OperateTownDefensesUnits.sqf : Town [%1] defenses units were removed for [%2] defenses.", _town getVariable "name", count (_town getVariable "wf_town_defenses")]] call WFCO_FNC_LogContent;

@@ -40,7 +40,7 @@ for "_i" from 0 to ((count towns) - 1) step 1 do {
 	_town = towns # _i;
 
        if (isNil '_town') then {
-           towns = towns - [_town]
+           towns = towns - [objNull]
        } else {
 		_position = [];
 		_infGroups = [];
