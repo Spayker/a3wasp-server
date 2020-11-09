@@ -60,7 +60,6 @@ _defense setVariable ["wf_defense", true]; //--- This is one of our defenses.
 
 call Compile format ["_defense addEventHandler ['Killed',{[_this # 0,_this select 1,%1] spawn WFCO_FNC_OnUnitKilled; [_this # 0] spawn WFCO_FNC_KillStaticDefenseCrew;}]",_sideID];
 _defense addEventHandler ['Deleted',{[_this # 0] call WFCO_FNC_KillStaticDefenseCrew;}];
-_defense addEventHandler ['incomingMissile', {_this spawn WFCO_FNC_HandleIncomingMissile}];
 
 //--Check if vehicle is arty vehicle and add EH--
 {
