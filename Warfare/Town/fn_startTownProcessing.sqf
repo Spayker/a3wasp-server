@@ -294,7 +294,7 @@ _procesTowns = {
                         _townRuins = count (nearestObjects [_location, ["Ruins"], _halfTownRange]);
                         _newTownMaxSV = floor (_initialTownMaxSupplyValue - ((_initialTownMaxSupplyValue/100)*_townRuins));
 
-                        if (_newTownMaxSV < _initialStartingSupplyValue) then {
+                    if (_newTownMaxSV < _initialTownMaxSupplyValue / 10) then {
                             towns = towns - [_location];
                             missionNamespace setVariable ["totalTowns", count towns, true];
                             [_location getVariable "name", _location getVariable "camps"] remoteExecCall ["WFCL_FNC_TownRemoved"];
