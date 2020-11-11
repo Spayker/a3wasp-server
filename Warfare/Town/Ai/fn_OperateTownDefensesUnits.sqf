@@ -25,12 +25,14 @@ switch (_action) do {
             {
                 if!(isNil '_x') then {
                 _defense = _x # 3;
+                    if!(isNil '_defense') then {
                 _defense enableSimulationGlobal true;
                 if (alive _defense) then {
                     if !(alive gunner _defense) then { //--- Make sure that the defense gunner is null or dead.
                         _defences pushBack _defense;                        
                         }
                     }
+                }
                 }
             } forEach (_allDefences);
 			

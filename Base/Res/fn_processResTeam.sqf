@@ -40,8 +40,12 @@ while{!_end} do {
         if(count _playableSidesStructures > 0)then {
             _near = [_building, _playableSidesStructures] Call WFCO_FNC_SortByDistance;
             _target = _near # 0;
+            if!(isNil '_target') then {
             [_inf_group, true, [[_target, 'SAD', 100, 60, "", []]]] Call WFCO_fnc_aiWpAdd;
             _shallPatrol = false
+            } else {
+                _shallPatrol = true
+            }
         }
     };
 
