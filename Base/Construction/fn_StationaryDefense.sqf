@@ -118,6 +118,10 @@ if (_manned && _defense emptyPositions "gunner" > 0 && (((missionNamespace getVa
         		_unit setVehicleAmmo 1;
             	};
             }];
+
+		if ((missionNamespace getVariable "WF_C_GAMEPLAY_MISSILES_RANGE") != 0) then {
+            _defense addeventhandler ["fired", { _this spawn WFCO_FNC_HandleIncomingMissile }]
+		} //--- Max missile range.
 	} else {
 		if!([typeOf _defense] in (missionNamespace getVariable [format['WF_%1_ARTILLERY_CLASSNAMES', _side], []])) then {
 			_defense addeventhandler ["fired", {
