@@ -8,6 +8,12 @@ _receiver = _logik getVariable "wf_radio_hq_rec";
 _topicSide = _logik getVariable "wf_radio_hq_id";
 _announcerType = _logik getVariable "wf_radio_hq_type";
 
+if(isNil '_speaker') then {
+    _speaker = (createGroup sideLogic) createUnit ["Logic",[0,0,0],[],0,"NONE"];
+    [_speaker] joinSilent (createGroup _side);
+    _logik setVariable ["wf_radio_hq", _speaker, true];
+};
+
 switch (true) do {
 	case (_message in ["Lost","Captured","HostilesDetectedNear"]): {
 		_locRaw = "";
