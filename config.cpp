@@ -175,6 +175,11 @@ class CfgFunctions {
             class manningOfResBaseDefense {};
         };
 
+        class ServerModuleCram {
+            file = "waspServer\Module\Cram";
+            class initCram {};
+        };
+
         class ServerModuleIcbm {
             file = "waspServer\Module\ICBM";
             class processIcbmEvent {};
