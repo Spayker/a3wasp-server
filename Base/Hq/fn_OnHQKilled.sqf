@@ -9,7 +9,7 @@ if(!isServer) exitWith {};
 params ["_mhq", "_killer"];
 private ["_side", "_hqs", "_teamkill", "_killer_uid", "_logik"];
 
-_side = _mhq getVariable "wf_side";
+_side = _mhq getVariable ["wf_side", side _mhq];
 //--- Spawn a radio message.
 [_side, "Destroyed", ["Base", _mhq]] call WFSE_FNC_SideMessage;
 

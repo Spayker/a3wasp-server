@@ -26,8 +26,9 @@ for "_j" from 0 to ((count towns) - 1) step 1 do {
 
 _procesTowns = {
     params ["_isTimeToUpdateSuppluys"];
-    for "_i" from 0 to ((count towns) - 1) step 1 do {
-        _location = towns # _i;
+    _towns = towns - [objNull];
+    for "_i" from 0 to ((count _towns) - 1) step 1 do {
+        _location = _towns # _i;
         if!(isNil "_location") then {
             _locationSpecialities = _location getVariable "townSpeciality";
             _maxSupplyValue = _location getVariable "maxSupplyValue";
