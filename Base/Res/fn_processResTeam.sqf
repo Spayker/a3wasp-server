@@ -27,8 +27,6 @@ while{!_end} do {
 	};
 
     _shallPatrol = true;
-    if(_isInfantry) then {
-
         private _playableSidesStructures = [];
 
         _westBaseStructures = (west) Call WFCO_FNC_GetSideStructures;
@@ -46,7 +44,6 @@ while{!_end} do {
             } else {
                 _shallPatrol = true
             }
-        }
     };
 
     if(_shallPatrol) then {
