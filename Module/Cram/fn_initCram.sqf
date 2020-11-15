@@ -4,7 +4,6 @@ private["_cram","_range","_incoming","_target","_targetTime"];
 _range = 2000;
 while{ alive _cram } do {
     _incoming = _cram nearObjects["ShellBase",_range];
-    _incoming = _incoming + (_cram nearObjects["MissileBase",_range]);
 
     if(count _incoming > 0) then {
       _target = selectRandom _incoming;
