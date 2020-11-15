@@ -4,9 +4,19 @@ private["_cram","_range","_incoming","_target","_targetTime"];
 _range = 2000;
 while{ alive _cram } do {
     _incoming = _cram nearObjects["ShellBase",_range];
+    _incoming = _incoming + (_cram nearObjects["MissileBase",_range]);
 
     if(count _incoming > 0) then {
       _target = selectRandom _incoming;
+
+        if!(isNull _target) then {
+            _artyVehicleSide = civilian;
+            _shotParents = getShotParents _target;
+
+            if(count _shotParents > 0) then { _artyVehicleSide = side (_shotParents # 0) };
+
+            if (_artyVehicleSide != side _cram) then {
+
       _fromTarget = _target getDir _cram;
       _dirTarget = direction _target;
 
@@ -21,7 +31,7 @@ while{ alive _cram } do {
         }
       };
 
-      if(alive _target && alive _cram && _target distance _cram < _range && _target distance _cram > 40 && (getPos _target) # 2 > 10)then{
+                if(alive _target && alive _cram && _target distance _cram < _range && _target distance _cram > 40 && (getPos _target) # 2 > 10)then{
         _null = [_target,_cram]spawn{
             private["_target","_cram","_expPos","_exp"];
             _target = _this # 0;
@@ -31,6 +41,14 @@ while{ alive _cram } do {
             _exp = "helicopterexplosmall" createVehicle _expPos
         }
       }
+
+            }
+
+
+        };
+
+
+
     };
 
     if(count _incoming == 0)then{ sleep 1 }
