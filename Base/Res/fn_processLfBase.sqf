@@ -74,5 +74,5 @@ while { alive _building } do {
         [_side, _templateToUse, _building, Format ["%1%2TeamBaseLightPatrol%3", _sideText, _facIndex, 1]] spawn WFSE_FNC_processResTeam;
         WF_Logic setVariable [Format ["%1%2TeamBaseLightPatrol%3", _sideText, _facIndex, 1], true]
 	};
-	sleep 1200
+	sleep 600
 }
