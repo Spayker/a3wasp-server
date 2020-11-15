@@ -16,6 +16,10 @@ _town_supply_time = if ((missionNamespace getVariable "WF_C_ECONOMY_SUPPLY_SYSTE
 
 _town_defender_enabled = if ((missionNamespace getVariable "WF_C_TOWNS_DEFENDER") > 0) then {true} else {false};
 _town_occupation_enabled = if ((missionNamespace getVariable "WF_C_TOWNS_OCCUPATION") > 0) then {true} else {false};
+
+_distance = missionNamespace getVariable "WF_C_DEPOT_BUY_DISTANCE";
+_direction = missionNamespace getVariable "WF_C_DEPOT_BUY_DIR";
+
 _isTimeToUpdateSuppluys = false;
 
 for "_j" from 0 to ((count towns) - 1) step 1 do {
@@ -93,7 +97,8 @@ _procesTowns = {
                 if (_side != resistance) then {
                     if (time >= _supplyTruckTimeCheck) then {
                         if(isNull _supplyTruck) then {
-                            _safePosition = [getPosATL _location, 20, 60, 5, 0, 0, 0] call BIS_fnc_findSafePos;
+                            _position = _location modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
+                            _safePosition = [_position, 2, 30, 5, 0, 20, 0] call BIS_fnc_findSafePos;
 
                             _vehicle = [missionNamespace getVariable Format["WF_%1SUPPLY_TRUCK", str _side], _safePosition, _sideID, 0, false, false] Call WFCO_FNC_CreateVehicle;
                             _vehicle setVariable ['isSupplyVehicle', true, true];
@@ -282,7 +287,8 @@ _procesTowns = {
 
                     if (WF_C_PORT in _locationSpecialities) then {
                         if (_newSide != resistance) then {
-                            _safePosition = [getPosATL _location, 20, 60, 5, 0, 0, 0] call BIS_fnc_findSafePos;
+                            _position = _location modelToWorld [(sin _direction * _distance), (cos _direction * _distance), 0];
+                            _safePosition = [_position, 2, 30, 5, 0, 20, 0] call BIS_fnc_findSafePos;
                             _vehicle = [missionNamespace getVariable Format["WF_%1SUPPLY_TRUCK", str _newSide], _safePosition, _newSID, 0, false, false] Call WFCO_FNC_CreateVehicle;
                             _vehicle setVariable ['isSupplyVehicle', true, true];
                             _location setVariable ["supplyVehicle", _vehicle];
