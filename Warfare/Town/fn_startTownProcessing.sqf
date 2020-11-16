@@ -38,7 +38,7 @@ _procesTowns = {
             _maxSupplyValue = _location getVariable "maxSupplyValue";
 		_startingSupplyValue = _location getVariable "startingSupplyValue";
             _initialStartingSupplyValue = _location getVariable "initialStartSupplyValue";
-        _sideID = _location getVariable "sideID";
+            _sideID = _location getVariable ["sideID", WF_C_GUER_ID];
         _side = (_sideID) Call WFCO_FNC_GetSideFromID;
         _objects = (_location nearEntities[["Man","Car","Motorcycle","Tank","Air","Ship"], 	WF_C_TOWNS_CAPTURE_RANGE]) unitsBelowHeight 10;
 
@@ -315,7 +315,7 @@ _procesTowns = {
                             deleteVehicle _location
                         } else {
                         _location setVariable ["maxSupplyValue", _newTownMaxSV, true];
-                        _currentSupplyValue = _location getVariable "supplyValue";
+                        _currentSupplyValue = _location getVariable ["supplyValue", _newTownMaxSV];
                         if(_currentSupplyValue >= _newTownMaxSV) then {
                             _location setVariable ["supplyValue", _newTownMaxSV, true]
                         }

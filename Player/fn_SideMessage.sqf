@@ -81,10 +81,11 @@ switch (true) do {
 				case "AARadar": { _localizedString = localize "STRAntiAirRadar";_value = "AntiAirRadar"};
 				case "ArtyRadar": { _localizedString = localize "STRArtilleryRadar";_value = "ArtilleryRadar"};
 			};
-						
-			_speaker kbTell [_receiver, _topicSide, "simpletwo",["1","",_localizedString,[format ["\sounds\%1\%3.%2", _announcerType # 0, _announcerType # 1, _value]]],
-			["2","",localize (format["STR%1", _message]),[format ["\sounds\%1\%3.%2", _announcerType # 0, _announcerType # 1, _message]]], true];
-		} else {
+			if!(isNil '_speaker') then {			
+			     _speaker kbTell [_receiver, _topicSide, "simpletwo",["1","",_localizedString,[format ["\sounds\%1\%3.%2", _announcerType # 0, _announcerType # 1, _value]]],
+			     ["2","",localize (format["STR%1", _message]),[format ["\sounds\%1\%3.%2", _announcerType # 0, _announcerType # 1, _message]]], true];
+		        }
+                 } else {
 			_localizedString = (_parameters # 1) getVariable "name";
 			_dub = (_parameters # 1) getVariable "wf_town_dubbing";
 			if (_dub != "Town") then {if (count(getArray(configFile >> (missionNamespace getVariable Format ["WF_%1_RadioAnnouncers_Config", _side]) >> "Words" >> _dub)) == 0) then {_dub = "Town"}};

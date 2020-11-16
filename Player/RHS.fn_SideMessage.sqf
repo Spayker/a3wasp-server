@@ -81,9 +81,10 @@ switch (true) do {
 				case "AARadar": { _localizedString = localize "STRAntiAirRadar";_value = "AntiAirRadar"};
 				case "ArtyRadar": { _localizedString = localize "STRArtilleryRadar";_value = "ArtilleryRadar"};
 			};
-			
+			if!(isNil '_speaker') then {
 			_speaker kbTell [_receiver, _topicSide, _message,["1","",_localizedString,[format ["\CUP\Dubbing%1warfare\%3.%2", _announcerType # 0, _announcerType # 1, _value]]],
-			["2","",_localizedString,[format ["\CUP\Dubbing%1warfare\%3.%2", _announcerType # 0, _announcerType # 1, _message]]], true];			
+			    ["2","",_localizedString,[format ["\CUP\Dubbing%1warfare\%3.%2", _announcerType # 0, _announcerType # 1, _message]]], true]
+			}
 		} else {
 			_localizedString = (_parameters # 1) getVariable "name";
 			_dub = (_parameters # 1) getVariable "wf_town_dubbing";
