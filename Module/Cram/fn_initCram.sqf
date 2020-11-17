@@ -41,16 +41,10 @@ while{ alive _cram } do {
             _exp = "helicopterexplosmall" createVehicle _expPos
         }
       }
-
             }
-
-
         };
-
-
-
     };
 
-    if(count _incoming == 0)then{ sleep 1 }
+    if(count _incoming == 0) then { sleep 5 }
 }
 
