@@ -19,10 +19,55 @@ while {!WF_GameOver} do {
 	_alldead = _alldead - [objNull];
 
 	{
-		_wf_trashed_time = _x getVariable ["wf_trashed_time", 0];
+	    _object = _x;
+		_wf_trashed_time = _object getVariable ["wf_trashed_time", 0];
+
+	    if(_wf_trashed_time == 0) then {
+	        _wf_trashed_time = time + (selectRandom [5, 10, 15]);
+            _object setVariable ["wf_trashed_time", _wf_trashed_time]
+        };
+
 		if((time - _wf_trashed_time - 5) > _WF_C_UNITS_CLEAN_TIMEOUT) then {
-            _x setVariable ["wf_trashed_time", time];
-            _x spawn WFCO_FNC_TrashObject;
+            if !(isNull _object) then {
+            	_isMan = (_object isKindOf "Man");
+
+            	_group = [grpNull, group _object] select (_isMan);
+
+            	_delay = missionNamespace getVariable ["WF_C_UNITS_CLEAN_TIMEOUT", 120];
+
+            	//sleep _delay;
+
+                if !(isNull _object) then {
+                    ["INFORMATION", Format["fn_TrashObject.sqf: Deleting [%1], it has been [%2] seconds.", _object, _delay]] Call WFCO_FNC_LogContent;
+
+                    if (_isMan) then {
+                        if (!isNull (objectParent _object)) then {
+                            (objectParent _object) deleteVehicleCrew _object
+                        } else {
+                            deleteVehicle _object
+                        };
+
+                        if !(isNull _group) then {
+                            if (isNil {_group getVariable "wf_persistent"}) then {if (count (units _group) <= 0) then {deleteGroup _group}}
+                        }
+                    } else {
+                        _crew = crew _object;
+                        if (count _crew > 0) then {
+                            {
+                                _x removeAllEventHandlers "killed";
+                                _x removeAllEventHandlers "hit";
+            					_x removeAllEventHandlers "Fired";
+                                ["INFORMATION", Format["fn_TrashObject.sqf: Deleting crew unit [%1] of trashed object [%2].", _x, _object]] Call WFCO_FNC_LogContent;
+                                _object deleteVehicleCrew _x
+                            } forEach _crew;
+                        };
+
+                        deleteVehicle _object
+                    }
+                }
+            };
+
+
             ["INFORMATION", Format["fn_startGarbageCollector.sqf: Exec WFCO_FNC_TrashObject for [%1].", _x]] Call WFCO_FNC_LogContent;
 		};
 	} forEach _alldead;
@@ -47,5 +92,5 @@ while {!WF_GameOver} do {
     } forEach allMissionObjects "";
 
 	
-	sleep 30;
+	sleep 5;
 };
