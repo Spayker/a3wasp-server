@@ -389,9 +389,6 @@ if ((missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") != 0) then {
 	["INITIALIZATION", "fn_initServer.sqf: camps update script is initialized."] Call WFCO_FNC_LogContent;
 };
 
-[] spawn WFSE_fnc_startGarbageCollector;
-["INITIALIZATION", "fn_initServer.sqf: Garbage Collector is defined."] Call WFCO_FNC_LogContent;
-
 //--- Base Area (grouped base)
 if ((missionNamespace getVariable "WF_C_BASE_AREA") > 0) then {[] spawn WFSE_fnc_startBaseAreaProcessing};
 

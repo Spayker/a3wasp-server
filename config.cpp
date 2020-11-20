@@ -219,7 +219,6 @@ class CfgFunctions {
         class ServerEnvironment {
             file = "\waspServer\Environment";
             class startEmptyVehiclesCollector {};
-            class startGarbageCollector {};
             class startCommonLogicProcessing {};
         };
 
