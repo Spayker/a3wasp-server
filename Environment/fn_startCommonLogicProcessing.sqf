@@ -82,6 +82,8 @@ while {!WF_GameOver} do {
 		};
 	} forEach WF_PRESENTSIDES - [WF_DEFENDER];
 
+	missionNamespace setVariable["WF_SERVER_FPS", diag_fps, true];
+
 	sleep _loopTimer;
 };
 

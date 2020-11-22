@@ -399,9 +399,6 @@ if ((missionNamespace getVariable "WF_C_BASE_AREA") > 0) then {[] spawn WFSE_fnc
 //--- Waiting until that the game is launched.
 waitUntil { time > 0 };
 
-//--Start broadcast FPS  of the server--
-[] spawn WFSE_FNC_broadCastFPS;
-
 //--Update players global list--
 if(isMultiplayer && !isDedicated)then{
     [0] spawn WFSE_FNC_updatePlayersList;

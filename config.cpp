@@ -25,7 +25,6 @@ class CfgFunctions {
         class ServerMain {
             file = "waspServer";
             class initServer {};
-			class broadCastFPS {};
         };
 
         class ServerBase {
