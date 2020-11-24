@@ -281,7 +281,8 @@ _procesTowns = {
 
                         _locationPosition = getPosATL _location;
                         deleteVehicle _location;
-                        [missionNamespace getVariable Format["WF_%1SUPPLY_TRUCK", str _newSide], _locationPosition, _newSID, 0, false, false] Call WFCO_FNC_CreateVehicle;
+                        _vehicle = [missionNamespace getVariable Format["WF_%1SUPPLY_TRUCK", str _newSide], _locationPosition, _newSID, 0, false, false] Call WFCO_FNC_CreateVehicle;
+                        _vehicle setVariable ['isSupplyVehicle', true, true];
                         (format[localize "STR_WF_CHAT_Town_Supply_Truck_Spawned", _locationName]) remoteExecCall ["WFCL_FNC_CommandChatMessage", _newSide]
                     };
 
