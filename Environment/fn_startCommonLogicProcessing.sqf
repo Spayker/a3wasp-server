@@ -2,7 +2,6 @@ private["_total","_side","_hq","_structures","_towns","_factories","_uid","_name
 "_lastSunState","_currentSunState"];
 
 _loopTimer = 60;
-_total = count towns;
 _sunriseSunsetTime = date call BIS_fnc_sunriseSunsetTime;
 
 //--TRUE - day, FALSE - night--
@@ -10,6 +9,8 @@ _currentSunState = daytime > (_sunriseSunsetTime # 0) && daytime < (_sunriseSuns
 _lastSunState = !_currentSunState;
 
 while {!WF_GameOver} do {
+
+    _total = count towns;
 
     //--Day/Night time multiplier managment--
     _currentSunState = daytime > (_sunriseSunsetTime # 0) && daytime < (_sunriseSunsetTime # 1);
