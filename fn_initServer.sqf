@@ -384,9 +384,6 @@ if ((missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") != 0) then {
 
 	[] spawn WFSE_fnc_updateResources;
 	["INITIALIZATION", "fn_initServer.sqf: Resources FSM is initialized."] Call WFCO_FNC_LogContent;
-
-	[] spawn WFCO_FNC_updateCampsInTown;
-	["INITIALIZATION", "fn_initServer.sqf: camps update script is initialized."] Call WFCO_FNC_LogContent;
 };
 
 //--- Base Area (grouped base)
