@@ -118,12 +118,13 @@ switch (true) do {
 	};
 	case (_sv >= 100): {
             _unitTemplates = [
+					[Format ["Motorized_%1", _current_light_upgrade]],
                     [Format ["Mechanized_%1", _current_heavy_upgrade]],
                     [Format ["AA_Heavy_%1", _current_aa_heavy_upgrade]],
                     [Format ["Armored_%1", _current_heavy_upgrade]],
                     [Format ["Armored_%1", _current_heavy_upgrade]],
                     [Format ["Armored_%1", _current_heavy_upgrade]],
-                [Format ["Armored_%1", _current_heavy_upgrade]]
+					[Format ["Armored_%1", _current_heavy_upgrade]]
         		];
         	_groups_max = _groups_max + 2;
     	};
