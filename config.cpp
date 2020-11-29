@@ -121,9 +121,6 @@ class CfgFunctions {
         class ServerTownAi {
             file = "waspServer\Warfare\Town\Ai";
             class getTownPatrol {};
-            class manageTownDefenses {};
-            class operateTownDefensesUnits {};
-            class spawnTownDefense {};
         };
 
         class ServerResBases {

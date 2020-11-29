@@ -102,11 +102,11 @@ _procesTowns = {
 
                             _vehicle = [missionNamespace getVariable Format["WF_%1SUPPLY_TRUCK", str _side], _safePosition, _sideID, 0, false, false] Call WFCO_FNC_CreateVehicle;
                             _vehicle setVariable ['isSupplyVehicle', true, true];
-                            _location setVariable ["supplyVehicle", _vehicle];
+                            _location setVariable ["supplyVehicle", _vehicle, true];
                             (format[localize "STR_WF_CHAT_Town_Supply_Truck_Spawned", _location getVariable "name"]) remoteExecCall ["WFCL_FNC_CommandChatMessage", _side];
                             [_side, "SupplyTruckSpawned", _location] Spawn WFSE_FNC_SideMessage;
                         };
-                        _location setVariable ["supplyVehicleTimeCheck", time + _supplyTruckTimeCheckDelay];
+                        _location setVariable ["supplyVehicleTimeCheck", time + _supplyTruckTimeCheckDelay, true];
                     }
                 }
             };
@@ -177,7 +177,7 @@ _procesTowns = {
                 ["INFORMATION", Format ["WFSE_fnc_startTownProcessing: Town [%1] was captured by [%2] From [%3].", _location, _newSide, _side]] Call WFCO_FNC_LogContent;
 
                 //--Store town capturing time--
-                _location setVariable ["captureTime",time];
+                    _location setVariable ["captureTime",time, true];
 
                 if(_side != resistance && _newSide != resistance) then {
                     [format [":homes: town **%1** was captured by %2%3 from %4%5", _location, _newSide Call WFCO_FNC_GetSideFLAG, _newSide, _side Call WFCO_FNC_GetSideFLAG, _side]] Call WFDC_FNC_LogContent;
@@ -239,6 +239,7 @@ _procesTowns = {
                         if(_hc > 0) then {
                             //--Command HC to kill remaining infantry--
                         	[_location, 1, false] remoteExec ["WFHC_FNC_RemoveTownAI", _hc];
+                                [_location, _side, "remove"] remoteExec ["WFHC_FNC_OperateTownDefensesUnits", _hc];
                         } else { //--Do it on server--
                             //--- Teams Units.
                             {
@@ -255,6 +256,7 @@ _procesTowns = {
                     } else { //--Remove only man which is in building--
                         if(_hc > 0) then {
                                 [_location, 2, false] remoteExec ["WFHC_FNC_RemoveTownAI", _hc];
+                                [_location, _side, "remove"] remoteExec ["WFHC_FNC_OperateTownDefensesUnits", _hc];
                         } else {
                             {
                                 if(!isNull _x) then {
@@ -292,8 +294,8 @@ _procesTowns = {
                             _safePosition = [_position, 2, 30, 5, 0, 20, 0] call BIS_fnc_findSafePos;
                             _vehicle = [missionNamespace getVariable Format["WF_%1SUPPLY_TRUCK", str _newSide], _safePosition, _newSID, 0, false, false] Call WFCO_FNC_CreateVehicle;
                             _vehicle setVariable ['isSupplyVehicle', true, true];
-                            _location setVariable ["supplyVehicle", _vehicle];
-                            _location setVariable ["supplyVehicleTimeCheck", time + _supplyTruckTimeCheckDelay];
+                            _location setVariable ["supplyVehicle", _vehicle, true];
+                            _location setVariable ["supplyVehicleTimeCheck", time + _supplyTruckTimeCheckDelay, true];
                             (format[localize "STR_WF_CHAT_Town_Supply_Truck_Spawned", _location getVariable "name"]) remoteExecCall ["WFCL_FNC_CommandChatMessage", _newSide]
                         }
                     };
