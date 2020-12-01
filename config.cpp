@@ -112,8 +112,6 @@ class CfgFunctions {
 
         class ServerTown {
             file = "waspServer\Warfare\Town";
-            class markTownInactive {};
-            class saveTownSurvivedGroups {};
             class startTownProcessing {};
 	    class initTowns {};
         };
