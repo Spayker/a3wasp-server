@@ -56,7 +56,6 @@ class CfgFunctions {
         class ServerBaseEventHandling {
             file = "waspServer\Base\EventHandling";
             class buildingDamaged {};
-            class buildingHandleDamage {};
             class buildingKilled {};
             class handleBuildingRepair {};
         };
@@ -121,17 +120,6 @@ class CfgFunctions {
             class getTownPatrol {};
         };
 
-        class ServerResBases {
-            file = "waspServer\Base\Res";
-            class CreateBaseComposition {};
-            class processBrBase {};
-            class processLfBase {};
-            class processHfBase {};
-            class processAfBase {};
-            class processResTeam {};
-            class resBuyUnit {};
-        };
-
         class ServerCamp {
             file = "waspServer\Warfare\Camp";
             class setCampsToSide {};
@@ -161,7 +149,6 @@ class CfgFunctions {
             file = "waspServer\Module\AI";
             class aiComUpgrade {};
             class delegateAIHeadless {};
-            class manningOfResBaseDefense {};
         };
 
         class ServerModuleCram {

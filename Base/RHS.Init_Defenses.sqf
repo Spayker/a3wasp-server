@@ -97,39 +97,3 @@ missionNamespace setVariable ['WF_NEURODEF_AAPOD',[
 	['Land_fort_bagfence_long',[1.4,-5.5,0],0],
 	['Land_fort_bagfence_corner',[-1.8,-5,0],0]
 ]];
-
-missionNamespace setVariable ['WF_NEURODEF_RESISTANCE_BR', [
-    ["CUP_I_ZU23_NAPA",[-3.94189,0.834961,-0.075161],271.306],
-    ["Land_StoneWall_01_s_d_F",[-6.88037,0.893066,0],268.267],
-    ["Gue_WarfareBBarracks",[10.6921,0.741211,0],178.933],
-    ["CUP_I_DSHKM_NAPA",[23.6787,-1.04395,-0.0750008],89.7327],
-    ["Land_fort_bagfence_round",[24.5161,2.25732,0],11.2262],
-    ["Land_fort_bagfence_round",[24.8291,-3.47168,0],161.226]
-]];
-
-missionNamespace setVariable ['WF_NEURODEF_RESISTANCE_LF', [
-    ["CUP_I_ZU23_NAPA",[-3.94189,0.834961,-0.075161],271.306],
-    ["Land_StoneWall_01_s_d_F",[-6.88037,0.893066,0],268.267],
-    ["Gue_WarfareBLightFactory",[10.6921,0.741211,0],178.933],
-    ["CUP_I_DSHKM_NAPA",[23.6787,-1.04395,-0.0750008],89.7327],
-    ["Land_fort_bagfence_round",[24.5161,2.25732,0],11.2262],
-    ["Land_fort_bagfence_round",[24.8291,-3.47168,0],161.226]
-]];
-
-missionNamespace setVariable ['WF_NEURODEF_RESISTANCE_HF', [
-    ["CUP_I_ZU23_NAPA",[-3.94189,0.834961,-0.075161],271.306],
-    ["Land_StoneWall_01_s_d_F",[-6.88037,0.893066,0],268.267],
-    ["Gue_WarfareBHeavyFactory",[10.6921,0.741211,0],178.933],
-    ["CUP_I_DSHKM_NAPA",[23.6787,-1.04395,-0.0750008],89.7327],
-    ["Land_fort_bagfence_round",[24.5161,2.25732,0],11.2262],
-    ["Land_fort_bagfence_round",[24.8291,-3.47168,0],161.226]
-]];
-
-missionNamespace setVariable ['WF_NEURODEF_RESISTANCE_AF', [
-    ["CUP_I_ZU23_NAPA",[-3.94189,0.834961,-0.075161],271.306],
-    ["Land_StoneWall_01_s_d_F",[-6.88037,0.893066,0],268.267],
-    ["GUE_WarfareBAircraftFactory",[10.6921,0.741211,0],178.933],
-    ["CUP_I_DSHKM_NAPA",[23.6787,-1.04395,-0.0750008],89.7327],
-    ["Land_fort_bagfence_round",[24.5161,2.25732,0],11.2262],
-    ["Land_fort_bagfence_round",[24.8291,-3.47168,0],161.226]
-]];
