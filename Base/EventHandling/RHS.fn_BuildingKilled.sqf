@@ -90,6 +90,9 @@ if(_side != resistance) then {
     }
 };
 
+[_structure] spawn {
+    params ['_structure'];
 sleep WF_DELETE_RUINS_LAT;
 deleteVehicle _structure
+}
 

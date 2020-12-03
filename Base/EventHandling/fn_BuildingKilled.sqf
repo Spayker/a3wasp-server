@@ -102,16 +102,22 @@ if(_side != resistance) then {
     [_side, "Destroyed", ["Base", _master]] Spawn WFSE_FNC_SideMessage;
 };
 
-//--Delete all ruins--
-sleep WF_DELETE_RUINS_LAT;
-//--Get attached objects and remove each of them--
-{
-	deleteVehicle _x;
-} forEach _env;
-deleteVehicle _master;
-_ruins = nearestObjects [_position, ["ruins"], 25];
+[_env, _master, _position] spawn {
+	params ['_env', '_master', '_position'];
+	//--Delete all ruins--
+	sleep WF_DELETE_RUINS_LAT;
+	//--Get attached objects and remove each of them--
+	{
+		deleteVehicle _x;
+	} forEach _env;
+	deleteVehicle _master;
+	_ruins = nearestObjects [_position, ["ruins"], 25];
 
-//--Delete ruins--
-{
-	deleteVehicle _x;
-} forEach _ruins;
+	//--Delete ruins--
+	{
+		deleteVehicle _x;
+	} forEach _ruins
+}
+
+
+
