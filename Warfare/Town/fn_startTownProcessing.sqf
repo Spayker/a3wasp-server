@@ -200,8 +200,12 @@ _procesTowns = {
 
                 [_location, _sideID, _newSID] Spawn WFSE_FNC_SetCampsToSide;
 
+                    //--Check if HC is online--
+                    _hc = missionNamespace getVariable ["WF_HEADLESSCLIENT_ID", 0];
+                    if(_hc > 0) then {
                 //--- Clear the town defenses, units first then replace the defenses if needed.
-                [_location, _side, "remove"] Call WFSE_FNC_OperateTownDefensesUnits;
+                        [_location, _side, "remove"] remoteExec ["WFHC_FNC_OperateTownDefensesUnits", _hc]
+                    };
 
                 //--- Check if the side is enabled in town and add defenses if needed.
                 _side_enabled = false;
@@ -231,9 +235,6 @@ _procesTowns = {
                     		} forEach (units _x);
                     	} forEach (_grps);
                     };
-
-                    //--Check if HC is online--
-                    _hc = missionNamespace getVariable ["WF_HEADLESSCLIENT_ID", 0];
 
                     if(_totalTownUnitsCount <= _totalTownUnitsCountLimit) then {
                         if(_hc > 0) then {
