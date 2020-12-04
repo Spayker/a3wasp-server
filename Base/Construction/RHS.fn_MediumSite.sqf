@@ -144,7 +144,7 @@ if (!isNull _site) then {
         }];
 
         _site addEventHandler ["HandleDamage", {
-            _this call WFSE_FNC_BuildingHandleDamage;
+            _this call WFCO_FNC_BuildingHandleDamage;
             false;
         }];
 	
