@@ -105,7 +105,7 @@ if (_manned && _defense emptyPositions "gunner" > 0 && (((missionNamespace getVa
 			[str _side, 'UnitsCreated', 1] call WFCO_FNC_UpdateStatistics;
 		} forEach _crewUnits;
 
-		_defense setVariable ["_crewUnits", _crewUnits];
+		_defense setVariable ["crewUnits", _crewUnits];
             
 	    _defense addeventhandler ["fired", {
 			params ["_unit"];

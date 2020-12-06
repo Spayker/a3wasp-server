@@ -61,7 +61,7 @@ while {true} do {
 					[_site,false,_sideID] remoteExec ["WFCL_fnc_initBaseStructure"];
 					
 					_site addEventHandler ["hit",{_this Spawn WFSE_fnc_BuildingDamaged}];
-						_site addEventHandler ['handleDamage',{[_this select 0,_this select 2,_this select 3] Call WFSE_fnc_BuildingHandleDamage}];
+						_site addEventHandler ['handleDamage',{[_this select 0,_this select 2,_this select 3] Call WFCO_fnc_BuildingHandleDamage}];
 					
 					Call Compile Format ["_site AddEventHandler ['killed',{[_this select 0,_this select 1,'%1'] Spawn WFSE_fnc_BuildingKilled}];",_type];
 						[_side, -round((_buildingsCosts select _index)/2)] Call WFCO_FNC_ChangeSideSupply;
