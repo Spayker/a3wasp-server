@@ -187,11 +187,6 @@ class CfgFunctions {
             class deleteGearTemplate {};
         };
 
-        class ServerTaskDirector {
-            file = "\waspServer\Task";
-            class initTaskDirector {};
-        };
-
         class ServerEnvironment {
             file = "\waspServer\Environment";
             class startEmptyVehiclesCollector {};

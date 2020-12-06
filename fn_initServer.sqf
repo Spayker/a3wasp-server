@@ -383,10 +383,6 @@ if ((missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") != 0) then {
 //--- Base Area (grouped base)
 if ((missionNamespace getVariable "WF_C_BASE_AREA") > 0) then {[] spawn WFSE_fnc_startBaseAreaProcessing};
 
-//--WASP MODULES: start TaskDirector--
-["INITIALIZATION", Format ["fn_initServer.sqf: Server start TaskDirector at [%1]", time]] Call WFCO_FNC_LogContent;
-[] spawn WFSE_fnc_initTaskDirector;
-
 //--- Waiting until that the game is launched.
 waitUntil { time > 0 };
 
