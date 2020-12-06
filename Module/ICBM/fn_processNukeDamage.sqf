@@ -13,9 +13,6 @@ _array = _target nearEntities [["Man","Car","Motorcycle","Tank","Ship","Air","St
 {if ((typeOf _x) in _blackListed) then {_array deleteAt _forEachIndex}} forEach _array;
 
 {
-	_x removeAllEventHandlers "Killed";
-	_x removeAllEventHandlers "Hit";
-	_x removeAllEventHandlers "HandleDamage";
 	{_x setDamage  [1, false]} forEach crew _x;
 	_x setDamage [1, false];
 } forEach _array;
@@ -25,9 +22,6 @@ for [{_z = 0},{_z < 5},{_z = _z + 1}] do {
 		{
 		    if((_x getVariable ["wf_site_health", 0]) > 0 && _x getVariable ["wf_site_alive", true]) then {
                 _x setVariable ["wf_site_health", 0];
-				_x removeAllEventHandlers "Killed";
-				_x removeAllEventHandlers "Hit";
-				_x removeAllEventHandlers "HandleDamage";
                     [_x] spawn WFSE_FNC_BuildingKilled;
 		    } else {
 		        _x setDamage [1, false];
@@ -38,9 +32,6 @@ for [{_z = 0},{_z < 5},{_z = _z + 1}] do {
 		{
 		    if((_x getVariable ["wf_site_health", 0]) > 0 && _x getVariable ["wf_site_alive", true]) then {
                 _x setVariable ["wf_site_health", 0];
-				_x removeAllEventHandlers "Killed";
-				_x removeAllEventHandlers "Hit";
-				_x removeAllEventHandlers "HandleDamage";
                     [_x] spawn WFSE_FNC_BuildingKilled;
             } else {
                 _x setDamage [0.5, false];
@@ -64,9 +55,6 @@ for [{_z = 0},{_z < 5},{_z = _z + 1}] do {
 		{
 		    if((_x getVariable ["wf_site_health", 0]) > 0 && _x getVariable ["wf_site_alive", true]) then {
                 _x setVariable ["wf_site_health", 0];
-				_x removeAllEventHandlers "Killed";
-				_x removeAllEventHandlers "Hit";
-				_x removeAllEventHandlers "HandleDamage";
                     [_x] spawn WFSE_FNC_BuildingKilled;
             } else {
                 _x setDamage [0.5, false];
