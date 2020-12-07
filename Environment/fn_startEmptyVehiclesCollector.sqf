@@ -42,9 +42,5 @@ while {!WF_GameOver} do {
 	missionNamespace setVariable ["WF_EmptyVehiclesQueue", _WF_EmptyVehiclesQueue];
 	["WF_EmptyVehiclesQueueLocked", missionNamespace] call WFCO_FNC_MutexUnlock;
 	
-	if(diag_fps > 35) then {
-		sleep 1;
-	} else {
-		sleep 5;
-	};
+	sleep 30
 };
