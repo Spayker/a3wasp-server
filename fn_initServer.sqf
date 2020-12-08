@@ -361,9 +361,6 @@ if((missionNamespace getVariable "WF_DEBUG_DISABLE_TOWN_INIT") == 0) then {
 	waitUntil{count towns == totalTowns};
 };
 
-// run one global server town script to process supply updates in each town
-[] spawn WFSE_fnc_startTownProcessing;
-
 if ((missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") != 0) then {
 	[] spawn WFSE_fnc_initTowns;
 } else {

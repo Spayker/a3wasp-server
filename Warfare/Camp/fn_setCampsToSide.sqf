@@ -5,12 +5,8 @@
 		- Old Side.
 		- New Side.
 */
-
+Params ['_town', '_side_old', '_side_new'];
 Private ["_camps","_side_old","_side_new","_startingSV","_town"];
-
-_town = _this # 0;
-_side_old = _this # 1;
-_side_new = _this # 2;
 
 _camps = _town getVariable "camps";
 
