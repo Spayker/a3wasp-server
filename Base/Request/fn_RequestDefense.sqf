@@ -4,8 +4,6 @@ private ["_index", "_inBaseArea", "_logik", "_areas", "_areaRange", "_playerArea
 
 _index = (missionNamespace getVariable Format["WF_%1DEFENSENAMES",str _side]) find _defenseType;
 if (_index != -1) then {
-    ["WF_PLAYERS_FORTIFICATIONS_AREA_LOCKED", missionNamespace] call WFCO_FNC_MutexLock;
-
 	_defense = [_defenseType,_side,_pos,_dir,_manned,_playerUID] call WFSE_fnc_StationaryDefense;
 
 	//--Check if new item in basearea--
@@ -69,5 +67,4 @@ if (_index != -1) then {
         missionNamespace setVariable ["WF_FORTITIFACTIONS_AREAS", _playerAreas, _playerID];
 	};
 
-	["WF_PLAYERS_FORTIFICATIONS_AREA_LOCKED", missionNamespace] call WFCO_FNC_MutexUnlock;
 };

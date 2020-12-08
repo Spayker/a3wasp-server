@@ -29,15 +29,12 @@ _team = grpNull;
 //--Next client with same id must to store other areas array--
 {
     if(_x # 0 == owner _unit) exitWith {
-        ["WF_PLAYERS_FORTIFICATIONS_AREA_LOCKED", missionNamespace] call WFCO_FNC_MutexLock;
-
         private _areas = missionNamespace getVariable ["WF_PLAYERS_FORTIFICATIONS_AREA", []];
         if(count _areas > _forEachIndex) then {
             _areas set [_forEachIndex, [-time - (owner _unit), (_areas # _forEachIndex) # 1]];
         };
 
         missionNamespace setVariable ["WF_PLAYERS_FORTIFICATIONS_AREA", _areas];
-        ["WF_PLAYERS_FORTIFICATIONS_AREA_LOCKED", missionNamespace] call WFCO_FNC_MutexUnlock;
     };
 } forEach (missionNamespace getVariable ["WF_PLAYERS_FORTIFICATIONS_AREA", []]);
 

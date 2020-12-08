@@ -95,9 +95,6 @@ while {!WF_GameOver} do {
         };
     } forEach _playersAreas;
 
-    //--Clean global array of players fortifications areas--
-    ["WF_PLAYERS_FORTIFICATIONS_AREA_LOCKED", missionNamespace] call WFCO_FNC_MutexLock;
-
     _playersAreas = missionNamespace getVariable ["WF_PLAYERS_FORTIFICATIONS_AREA", []];
     {
         _playerAreas = _x # 1;
@@ -109,8 +106,6 @@ while {!WF_GameOver} do {
     } forEach _playersAreas;
 
     missionNamespace setVariable ["WF_PLAYERS_FORTIFICATIONS_AREA", _playersAreas];
-
-    ["WF_PLAYERS_FORTIFICATIONS_AREA_LOCKED", missionNamespace] call WFCO_FNC_MutexUnlock;
 
 	sleep 30;
 };

@@ -236,42 +236,15 @@ _procesTowns = {
                     	} forEach (_grps);
                     };
 
-                    if(_totalTownUnitsCount <= _totalTownUnitsCountLimit) then {
                         if(_hc > 0) then {
+                    if(_totalTownUnitsCount <= _totalTownUnitsCountLimit) then {
                             //--Command HC to kill remaining infantry--
                         	[_location, 1, false] remoteExec ["WFHC_FNC_RemoveTownAI", _hc];
-                                [_location, _side, "remove"] remoteExec ["WFHC_FNC_OperateTownDefensesUnits", _hc];
-                        } else { //--Do it on server--
-                            //--- Teams Units.
-                            {
-                                if!(isNull _x) then {
-                                    {
-                                        if(vehicle _x == _x) then {
-                                            _x setDamage 1;
-                                        };
-                                    } forEach units _x;
-                                    deleteGroup _x;
-                                };
-                            } forEach (_grps);
-                    	};
-                    } else { //--Remove only man which is in building--
-                        if(_hc > 0) then {
+                                [_location, _side, "remove"] remoteExec ["WFHC_FNC_OperateTownDefensesUnits", _hc]
+                            } else {
+                                //--Remove only man which is in building--
                                 [_location, 2, false] remoteExec ["WFHC_FNC_RemoveTownAI", _hc];
-                                [_location, _side, "remove"] remoteExec ["WFHC_FNC_OperateTownDefensesUnits", _hc];
-                        } else {
-                            {
-                                if(!isNull _x) then {
-                                    {
-                                        if(!isNull _x) then {
-                                            if(vehicle _x == _x && alive _x) then {
-                                                if([_x] call WFCO_FNC_IsUnitInBuilding) then {
-                                                    _x setDamage 1;
-                                                };
-                                            };
-                                        };
-                                    } forEach units _x;
-                                };
-                            } forEach (_grps);
+                                [_location, _side, "remove"] remoteExec ["WFHC_FNC_OperateTownDefensesUnits", _hc]
                             }
                         }
                     };
