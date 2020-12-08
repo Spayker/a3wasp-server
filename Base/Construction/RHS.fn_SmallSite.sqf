@@ -101,7 +101,7 @@ if(!isNil "_constructed")then{
 	} forEach _constructed;
 };
 
-_site = createVehicle [_type, _position, [], 0, "NONE"];
+_site = createVehicle [_type, [0,0,random [25,50,100]], [], 0, "NONE"];
 _site setDir _direction;
 _site setPos _position;
 _site setVariable ["wf_side", _side];
