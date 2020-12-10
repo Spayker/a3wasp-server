@@ -1,6 +1,4 @@
-private ['_lastUp', '_procesStaticDefenses', '_repeats'];
-
-_lastUp = 0;
+private ['_procesStaticDefenses', '_repeats'];
 
 _procesStaticDefenses = {
 
@@ -69,6 +67,5 @@ _procesStaticDefenses = {
 
 while {!WF_GameOver} do {
 	[] call _procesStaticDefenses;
-	sleep 5;
-	if (time >= _lastUp) then { _lastUp = time + 5 }
+	sleep 90
 }
