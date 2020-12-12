@@ -36,7 +36,6 @@ class CfgFunctions {
             class synchronizeUpgade {};
             class startBaseAreaProcessing {};
             class CreateDestructionEffect {};
-            class startStaticDefenseProcessing {};
         };
 
         class ServerBaseAi {
@@ -48,7 +47,6 @@ class CfgFunctions {
             file = "waspServer\Base\Construction";
             class hQSite {};
             class smallSite {};
-            class stationaryDefense {};
             class mediumSite {};
             class mediumSiteObjects {};
         };

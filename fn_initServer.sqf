@@ -51,10 +51,6 @@ if (_dbresult == "") then {
 	};
 };
 
-//--- Stationary defense init
-WF_static_defenses = [];
-[] spawn WFSE_FNC_startStaticDefenseProcessing;
-
 //--- Server Init is now complete.
 serverInitComplete = true;
 ["INITIALIZATION", "fn_initServer.sqf: Functions are loaded."] Call WFCO_FNC_LogContent;
