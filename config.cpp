@@ -68,7 +68,8 @@ class CfgFunctions {
             class requestAutoWallConstructinChange {};
             class requestDefense {};
             class requestStructure {};
-            class RequestStructureSell {};
+            class requestStructureSell {};
+            class processBaseDefense {};
         };
 
         class ServerCommander {
@@ -153,10 +154,9 @@ class CfgFunctions {
             class initCram {};
         };
 
-        class ServerModuleIcbm {
-            file = "waspServer\Module\ICBM";
-            class processIcbmEvent {};
-            class processNukeDamage {};
+        class ServerModuleCruiseMissile {
+            file = "waspServer\Module\CruiseMissile";
+            class processCruiseMissileEvent {};
         };
 
         class ServerModuleRole {
