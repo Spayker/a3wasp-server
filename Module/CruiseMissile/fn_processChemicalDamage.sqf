@@ -15,24 +15,24 @@ _fog setParticleCircle [0.001, [0, 0, -0.12]];
 _fog setDropInterval 0.01;
 
 _timeMissileStriked = time;
-
 _unitIsWeared = false;
+
 while {time - _timeMissileStriked < 300} do {
+
+    _units = [];
+    _units = _units + (_dropPosition nearEntities [["Man"], _radiusZone]);
+    _vehicles = _dropPosition nearEntities [["Motorcycle", "Car", "Ship", "StaticWeapon"], _radiusZone];
+
+    {
+        _vehicle = _x;
+        { _units pushBackUnique _x } forEach (crew _vehicle)
+    } foreach _vehicles;
+
     {
         _unit = _x;
         _currentDamage = getdammage _unit;
-
         _unitIsWeared = false;
         _isUnitInLightVehicle = false;
-        _veh = vehicle _unit;
-
-        if(_veh != _unit) then {
-            if (_veh iskindof "tank" || _veh iskindof "apc" || _veh iskindof "plane"|| _veh iskindof "Helicopter") then {
-                _unitIsWeared = true;
-            } else {
-                _isUnitInLightVehicle = true;
-            }
-        };
 
         if !(_unitIsWeared) then {
             if ((goggles _unit) in WF_C_GAS_MASKS) then {
@@ -42,41 +42,10 @@ while {time - _timeMissileStriked < 300} do {
             }
         };
 
-        if((_unit distance _dropPosition) < _radiusZone) then {
-
             if (_unitIsWeared) then {
                 sleep (1.2 + random 1)
             } else {
                 _unitIsWeared = false;
-                0 = ["DynamicBlur", 400, [1]] spawn {
-                    params ["_name", "_priority", "_effect", "_handle"];
-                    while {
-                        _handle = ppEffectCreate [_name, _priority];
-                        _handle < 0
-                    } do {
-                        _priority = _priority + 1;
-                        sleep 0.01;
-                    };
-                    _handle ppEffectEnable true;
-                    _handle ppEffectAdjust _effect;
-                    _handle ppEffectCommit 1;
-                    waitUntil {ppEffectCommitted _handle};
-                    uiSleep 1;
-                    _handle ppEffectAdjust [0];
-                    _handle ppEffectCommit 1;
-                    uiSleep 2;
-                    _handle ppEffectEnable false;
-                    ppEffectDestroy _handle;
-                };
-
-                _noise_rad = ppEffectCreate ["FilmGrain", 2000];
-                _noise_rad ppEffectEnable true;
-                _noise_rad ppEffectAdjust[0.1,0.1,0.3+random 0.3,0.1+ random 0.3,0.1+ random 0.3,false];
-                _noise_rad ppEffectCommit 0;
-                enableCamShake true;
-                _shake_b = linearConversion [0.1, 1,(getdammage _unit), 0, 1, true];
-                addCamShake [_shake_b, 3, 17];
-                _afect = ["NoSound","cough_1","NoSound","NoSound","cough","NoSound","NoSound","NoSound","cough_2","NoSound","NoSound","NoSound","NoSound","cough_1","NoSound","NoSound","NoSound","NoSound","NoSound","cough_2","NoSound","NoSound","NoSound"] call BIS_fnc_selectRandom;
                 _currentDamage= _currentDamage + _chemicalDamage;
                 _unit setdammage _currentDamage;
                 if (_isUnitInLightVehicle) then {
@@ -87,10 +56,8 @@ while {time - _timeMissileStriked < 300} do {
 
                 _amplificat_effect = linearConversion [0, 1,(getdammage _unit), 2, 0.1, true];
                 sleep _amplificat_effect;
-                _noise_rad ppEffectEnable false
-            }
-        }
-    } forEach (_dropPosition nearEntities [["Man", "Motorcycle", "Car", "Tank", "Apc", "Plane", "Helicopter", "StaticWeapon"], _radiusZone]);
+        };
+    } forEach _units;
     sleep 5
 };
 
