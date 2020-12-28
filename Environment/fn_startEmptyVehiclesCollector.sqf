@@ -11,6 +11,7 @@ _prolongVehClasses = _prolongVehClasses + (missionNamespace getVariable ["WF_AMB
 while {!WF_GameOver} do {
 
 	_WF_EmptyVehiclesQueue = missionNamespace getVariable ["WF_EmptyVehiclesQueue", []];
+    _WF_EmptyVehiclesQueue = _WF_EmptyVehiclesQueue - [objNull];
 
 	{
 		if(alive _x) then {
@@ -24,15 +25,15 @@ while {!WF_GameOver} do {
 			if (_subtraction > WF_C_UNITS_EMPTY_TIMEOUT) then {
 				["INFORMATION", Format["fn_startEmptyVehiclesCollector.sqf: Deleting empty vehicle [%1], it has been [%2] seconds.",
 					_x, floor _subtraction]] Call WFCO_FNC_LogContent;
-				deleteVehicle _x;
-				_WF_EmptyVehiclesQueue = _WF_EmptyVehiclesQueue - [_x] - [objNull];
+				_WF_EmptyVehiclesQueue = _WF_EmptyVehiclesQueue - [_x];
+				deleteVehicle _x
 			} else {
-				_x setVariable ["_empVehTick", _empVehTick];
-			};
-		};
+				_x setVariable ["_empVehTick", _empVehTick]
+			}
+		}
 	} forEach _WF_EmptyVehiclesQueue;
 
 	missionNamespace setVariable ["WF_EmptyVehiclesQueue", _WF_EmptyVehiclesQueue];
 	
 	sleep 60
-};
+}
