@@ -159,7 +159,6 @@ class CfgFunctions {
             class processCruiseMissileEvent {};
             class processChemicalMissileEvent {};
             class processMissileDamage {};
-            class processChemicalDamage {};
         };
 
         class ServerModuleRole {
