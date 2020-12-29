@@ -198,7 +198,6 @@ class CfgFunctions {
             class InitGameInfo {};
             class FinishGameInfo {};
             class InsertStructureKilled {};
-            class ShowPlayerStats {};
             class UpdateSidesStats {};
         };
     };

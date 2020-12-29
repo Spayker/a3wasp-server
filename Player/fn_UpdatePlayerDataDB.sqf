@@ -27,6 +27,4 @@ if(extDBOpened) then {
 		['CommonText', "STR_WF_M_PlayerAlsoKnownAS", _name, _alsoknown] remoteExecCall ["WFCL_FNC_LocalizeMessage", -2];
 		[format ["Player **%1** is also known as: %2 :point_up:", _name, _alsoknownDC]] Call WFDC_FNC_LogContent;
 	};
-
-	[_uid, _name] spawn WFSE_FNC_ShowPlayerStats;
 };
