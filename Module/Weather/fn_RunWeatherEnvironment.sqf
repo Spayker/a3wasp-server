@@ -34,7 +34,8 @@ _nexttime setFog [_fog_setting, 0.01 + random (0.04), random(10)];
 _nexttime setWindStr _wind_setting;
 _nexttime setWaves _waves_setting;
 
-_fog_forecast = fogForecast;
-_overcast_forecast = overcastForecast;
+0 setRain 0;
+forceWeatherChange;
+999999 setRain 0;
 
 setWind [random [-10,0,10], random [-10,0,10], true];
