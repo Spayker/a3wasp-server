@@ -38,19 +38,3 @@ _fog_forecast = fogForecast;
 _overcast_forecast = overcastForecast;
 
 setWind [random [-10,0,10], random [-10,0,10], true];
-
-waitUntil {_overcast_forecast != overcastForecast || _fog_forecast != fogForecast};
-
-while {!WF_GameOver} do {
-	_nexttime=random(nextWeatherChange-100);
-	_nexttime setOvercast _overcast_setting;
-	_nexttime setFog [_fog_setting, 0.01 + random (0.04), random(10)];
-	_nexttime setWaves _waves_setting;
-	_fog_forecast = fogForecast;
-	_overcast_forecast = overcastForecast;
-
-		sleep WF_C_ENVIRONMENT_WEATHER_TRANSITION;
-
-		setWind [random [-10,0,10], random [-10,0,10], true];
-		_nexttime setWindStr _wind_setting;
-	}
