@@ -2,7 +2,9 @@ params ["_side", "_defenseType", "_pos", "_dir", "_manned","_playerUID", "_playe
 private ["_index", "_inBaseArea", "_logik", "_areas", "_areaRange", "_playerAreas", "_inPlayerArea", "_playerArea",
 "_playerForts", "_defense", "_grp", "_playerAreasIndex"];
 
+if(_defense isKindOf "staticWeapon") then {
 [_defense] spawn WFSE_FNC_addEmptyVehicleToQueue;
+};
 
 _index = (missionNamespace getVariable Format["WF_%1DEFENSENAMES",str _side]) find _defenseType;
 if (_index != -1) then {
