@@ -29,69 +29,7 @@ _constructed = ([_position,_direction,_WF_SMALL_SITE_1_OBJECTS] call WFSE_FNC_Cr
 //--- Create the logic.
 (createGroup sideLogic) createUnit ["LocationArea_F",_position,[],0,"NONE"];
 
-_nearLogic = objNull;
-if ((missionNamespace getVariable "WF_C_STRUCTURES_CONSTRUCTION_MODE") == 0) then {
-	//--- Grab the logic.
-	_nearLogic = _position nearEntities [["LocationArea_F"],15];
-	_nearLogic = [_position, _nearLogic] Call WFCO_FNC_GetClosestEntity;
-	
-	if (isNull _nearLogic) exitWith {};
-	
-	//--- Position the logic.
-	_nearLogic setPos _position;
-	
-	_nearLogic setVariable ["WF_B_Type", _rlType];
-
-	waitUntil {time >= _timeNextUpdate};
-	_timeNextUpdate = _startTime + _time * 2;
-} else {
-	//--- Grab the logic.
-	_nearLogic = _position nearEntities [["LocationArea_F"],15];
-	_nearLogic = [_position, _nearLogic] Call WFCO_FNC_GetClosestEntity;
-	
-	if (isNull _nearLogic) exitWith {};
-	
-	//--- Position the logic.
-	_nearLogic setPos _position;
-	
-	//--- Instanciate the logic.
-	_nearLogic setVariable ["WF_B_Completion", 0];
-	_nearLogic setVariable ["WF_B_CompletionRatio", 1.1];
-	_nearLogic setVariable ["WF_B_Direction", _direction];
-	_nearLogic setVariable ["WF_B_Position", _position];
-	_nearLogic setVariable ["WF_B_Repair", false];
-	_nearLogic setVariable ["WF_B_Type", _rlType];
-	
-	//--- Add the logic to the list.
-	_logik setVariable ["wf_structures_logic", (_logik getVariable "wf_structures_logic") + [_nearLogic]];
-	
-	//--- Awaits for 50% of completion.
-	while {true} do {
-		sleep 1;
-		if ((_nearLogic getVariable "WF_B_Completion") >= 50) exitWith {};
-	};
-};
-
 _constructed = _constructed + ([_position,_direction,_WF_SMALL_SITE_2_OBJECTS] Call WFSE_FNC_CreateObjectsFromArray);
-
-if ((missionNamespace getVariable "WF_C_STRUCTURES_CONSTRUCTION_MODE") == 0) then {
-	waitUntil {time >= _timeNextUpdate};
-	
-	if !(isNull _nearLogic) then {
-		_group = group _nearLogic;
-		deleteVehicle _nearLogic;
-		deleteGroup _group;
-	};
-} else {
-	//--- Awaits for 100%
-	while {true} do {
-		sleep 1;
-		if ((_nearLogic getVariable "WF_B_Completion") >= 100) exitWith {};
-	};
-	
-	//--- Remove the logic from the list since it's built. Add it back if destroyed.
-	_logik setVariable ["wf_structures_logic", (_logik getVariable "wf_structures_logic") + [_nearLogic]];
-};
 
 if(!isNil "_constructed")then{
 	{

@@ -25,7 +25,6 @@ _onAreaRemoved = {
 				_unit = gunner _x;
 				if (alive _unit) then {
 					if (isNil {(group _unit) getVariable "wf_funds"}) then {
-						_unit setPos (getPosATL _x);
 						deleteVehicle _unit;
 					} else {
 						_delete = false;

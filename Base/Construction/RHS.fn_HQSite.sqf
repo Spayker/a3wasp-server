@@ -21,11 +21,11 @@ _HQ = [_position, _mhqs] call WFCO_FNC_GetClosestEntity;
 _deployed = [_side, _HQ] Call WFCO_FNC_GetSideHQDeployStatus;
 
 if (!_deployed) then {
-	_HQ setPos [1,1,1];
+    _mhqs = _mhqs - [_HQ];
+    deleteVehicle _HQ;
 	
 	_site = createVehicle [_type, _position, [], 0, "NONE"];
 	_site setDir _direction;
-	_site setPos _position;
 	_site setVariable ["wf_side", _side];
 	_site setVariable ["wf_structure_type", "Headquarters"];
 	_site setVariable ["wf_site_maxhealth", _siteMaxHealth];
@@ -38,8 +38,7 @@ if (!_deployed) then {
 
     _site setVariable ['wf_hq_deployed', true, true];
 
-    _mhqs pushBack _site;
-    _mhqs = _mhqs - [_HQ];
+    _mhqs pushBack _site;;
     _logik setVariable ["wf_hq", _mhqs, true];
 	
 	[_site,true,_sideID] remoteExec ["WFCL_fnc_initBaseStructure", 0, true];
@@ -74,8 +73,6 @@ if (!_deployed) then {
 	};
 	
 	["INFORMATION", Format ["Construction_HQSite.sqf: [%1] MHQ has been deployed.", _sideText]] Call WFCO_FNC_LogContent;
-	
-	deleteVehicle _HQ;
 	};
 
 

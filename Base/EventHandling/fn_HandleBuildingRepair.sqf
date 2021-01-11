@@ -17,7 +17,6 @@ _direction = _logic getVariable "WF_B_Direction";
 //--- Create ruins wherever the building get destroyed.
 _ruins = _ruinsType createVehicle _position;
 _ruins setDir _direction;
-_ruins setPos _position;
 
 while {true} do {
 	_etat = _logic getVariable 'WF_B_Completion';
@@ -45,7 +44,6 @@ while {true} do {
 			if ((_current select _index) < _limit) then {			
 				_site = _type createVehicle _position;
 				_site setDir _direction;
-				_site setPos _position;
 				_site setVariable ["wf_side", _side];
 				_site setVariable ["wf_structure_type", _buildingsType select _index];
 				

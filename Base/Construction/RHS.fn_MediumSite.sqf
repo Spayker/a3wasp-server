@@ -29,82 +29,14 @@ _constructed = ([_position,_direction,_WF_MEDIUM_SITE_1_OBJECTS] Call WFSE_FNC_C
 //--- Create the logic.
 (createGroup sideLogic) createUnit ["LocationArea_F",_position,[],0,"NONE"];
 
-_nearLogic = objNull;
-if ((missionNamespace getVariable "WF_C_STRUCTURES_CONSTRUCTION_MODE") == 0) then {
-	//--- Grab the logic.
-	_nearLogic = _position nearEntities [["LocationArea_F"],15];
-	_nearLogic = [_position, _nearLogic] Call WFCO_FNC_GetClosestEntity;
-	
-	if (isNull _nearLogic) exitWith {};
-	
-	//--- Position the logic.
-	_nearLogic setPos _position;
-	
-	_nearLogic setVariable ["WF_B_Type", _rlType];
-
-	waitUntil {time >= _timeNextUpdate};
-	_timeNextUpdate = _startTime + _time * 2;
-} else {
-	//--- Grab the logic.
-	_nearLogic = _position nearEntities [["LocationArea_F"],15];
-	_nearLogic = [_position, _nearLogic] Call WFCO_FNC_GetClosestEntity;
-	
-	if (isNull _nearLogic) exitWith {};
-	
-	//--- Position the logic.
-	_nearLogic setPos _position;
-	
-	//--- Instanciate the logic.
-	_nearLogic setVariable ["WF_B_Completion", 0];
-	_nearLogic setVariable ["WF_B_CompletionRatio", 0.6];
-	_nearLogic setVariable ["WF_B_Direction", _direction];
-	_nearLogic setVariable ["WF_B_Position", _position];
-	_nearLogic setVariable ["WF_B_Repair", false];
-	_nearLogic setVariable ["WF_B_Type", _rlType];
-	
-	//--- Add the logic to the list.
-	_logik setVariable ["wf_structures_logic", (_logik getVariable "wf_structures_logic") + [_nearLogic]];
-	
-	//--- Awaits for 33% of completion.
-	while {true} do {
-		sleep 1;
-		if ((_nearLogic getVariable "WF_B_Completion") >= 33.33) exitWith {};
-	};
-};
-
 _constructed = _constructed + ([_position,_direction,_WF_MEDIUM_SITE_2_OBJECTS] Call WFSE_FNC_CreateObjectsFromArray);
 
 if ((missionNamespace getVariable "WF_C_STRUCTURES_CONSTRUCTION_MODE") == 0) then {
 	waitUntil {time >= _timeNextUpdate};
 	_timeNextUpdate = _startTime + _time * 3;
-} else {
-	//--- Awaits for 66%
-	while {true} do {
-		sleep 1;
-		if ((_nearLogic getVariable "WF_B_Completion") >= 66.66) exitWith {};
-	};
 };
 
 _constructed = _constructed + ([_position,_direction,_WF_MEDIUM_SITE_3_OBJECTS] Call WFSE_FNC_CreateObjectsFromArray);
-
-if ((missionNamespace getVariable "WF_C_STRUCTURES_CONSTRUCTION_MODE") == 0) then {
-	waitUntil {time >= _timeNextUpdate};
-	
-	if !(isNull _nearLogic) then {
-		_group = group _nearLogic;
-		deleteVehicle _nearLogic;
-		deleteGroup _group;
-	};
-} else {
-	//--- Awaits for 100%
-	while {true} do {
-		sleep 1;
-		if ((_nearLogic getVariable "WF_B_Completion") >= 100) exitWith {};
-	};
-	
-	//--- Remove the logic from the list since it's built. Add it back if destroyed.
-	_logik setVariable ["wf_structures_logic", (_logik getVariable "wf_structures_logic") - [_nearLogic]];
-};
 
 if(!isNil "_constructed")then{
 	{

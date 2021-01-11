@@ -136,9 +136,7 @@ for "_i" from 0 to ((count _objs) - 1) do
 	
 		//Create the object and make sure it's in the correct location.
 		_newObj = _type createVehicle _newPos;
-		_newObj enableSimulationGlobal false;
 		_newObj setDir (_azi + _azimuth);
-		_newObj setPos _newPos;
 		
 		//If fuel and damage were grabbed, map them.
 		if (!isNil "_fuel") then {_newObj setFuel _fuel};

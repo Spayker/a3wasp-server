@@ -20,14 +20,12 @@ if(!(isNil '_template'))then{
     	};
 
     	if !(_skip) then {
-    		_toplace = createVehicle [_object, [0,0,0], [], 0, "NONE"];
-    		_toplace setVariable ["wf_defense", true]; //--- This is one of our defenses.
-
     		_toWorld = _origin modelToWorld _relPos;
     		_toWorld set [2,0];
 
+    		_toplace = createVehicle [_object, _toWorld, [], 0, "NONE"];
+    		_toplace setVariable ["wf_defense", true]; //--- This is one of our defenses.
     		_toplace setDir (_dir - _relDir);
-    		_toplace setPos _toWorld;
     	} else {
     		_toplace = _existingTemplate select _i;
     	};
