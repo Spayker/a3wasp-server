@@ -12,5 +12,6 @@ while {alive _target} do {
 };
 
 if (_height < 10) then {
-    [_dropPosition] call WFSE_FNC_processMissileDamage
+    [_dropPosition] remoteExecCall ["WFCL_FNC_processChemicalDamage", -2, true]
 }
+
