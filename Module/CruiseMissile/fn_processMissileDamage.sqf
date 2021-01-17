@@ -7,7 +7,7 @@ _blackListed pushback (missionNamespace getVariable "WF_C_DEPOT");
 _blackListed pushback "Land_BagBunker_Tower_F";
 _blackListed pushback "LocationCamp_F";
 
-_range = 50;
+_range = 100;
 _array = _target nearEntities [["Man","Car","Motorcycle","Tank","Ship","Air","StaticWeapon", "UAV"], _range];
 
 {if ((typeOf _x) in _blackListed) then {_array deleteAt _forEachIndex}} forEach _array;

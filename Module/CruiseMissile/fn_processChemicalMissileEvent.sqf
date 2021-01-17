@@ -7,11 +7,12 @@ if (isNull _target || !alive _target) exitWith {};
 _height = (getPosAtl _target) # 2;
 while {alive _target} do {
     if(alive _target)then{
-        _height = (getPosATL _target) # 2
+        _height = (getPos _target) # 2
     }
 };
 
-if (_height < 10) then {
+if (_height < 25) then {
     [_dropPosition] remoteExecCall ["WFCL_FNC_processChemicalDamage", -2, true]
 }
+
 
