@@ -149,11 +149,6 @@ class CfgFunctions {
             class delegateAIHeadless {};
         };
 
-        class ServerModuleCram {
-            file = "waspServer\Module\Cram";
-            class initCram {};
-        };
-
         class ServerModuleCruiseMissile {
             file = "waspServer\Module\CruiseMissile";
             class processCruiseMissileEvent {};
