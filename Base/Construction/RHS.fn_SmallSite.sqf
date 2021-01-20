@@ -26,8 +26,8 @@ _timeNextUpdate = _startTime + _time;
 
 _constructed = ([_position,_direction,_WF_SMALL_SITE_1_OBJECTS] call WFSE_FNC_CreateObjectsFromArray);
 
-//--- Create the logic.
-(createGroup sideLogic) createUnit ["LocationArea_F",_position,[],0,"NONE"];
+waitUntil {time >= _timeNextUpdate};
+_timeNextUpdate = _startTime + _time * 2;
 
 _constructed = _constructed + ([_position,_direction,_WF_SMALL_SITE_2_OBJECTS] Call WFSE_FNC_CreateObjectsFromArray);
 

@@ -26,17 +26,17 @@ _timeNextUpdate = _startTime + _time;
 
 _constructed = ([_position,_direction,_WF_MEDIUM_SITE_1_OBJECTS] Call WFSE_FNC_CreateObjectsFromArray);
 
-//--- Create the logic.
-(createGroup sideLogic) createUnit ["LocationArea_F",_position,[],0,"NONE"];
+waitUntil {time >= _timeNextUpdate};
+_timeNextUpdate = _startTime + _time * 2;
 
 _constructed = _constructed + ([_position,_direction,_WF_MEDIUM_SITE_2_OBJECTS] Call WFSE_FNC_CreateObjectsFromArray);
 
-if ((missionNamespace getVariable "WF_C_STRUCTURES_CONSTRUCTION_MODE") == 0) then {
-	waitUntil {time >= _timeNextUpdate};
-	_timeNextUpdate = _startTime + _time * 3;
-};
+waitUntil {time >= _timeNextUpdate};
+_timeNextUpdate = _startTime + _time * 3;
 
 _constructed = _constructed + ([_position,_direction,_WF_MEDIUM_SITE_3_OBJECTS] Call WFSE_FNC_CreateObjectsFromArray);
+
+waitUntil {time >= _timeNextUpdate};
 
 if(!isNil "_constructed")then{
 	{
