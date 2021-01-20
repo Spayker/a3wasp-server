@@ -86,19 +86,6 @@ _logic setVariable ["wf_commander", group _commander, true];
 [_commander] remoteExecCall ["WFCL_FNC_processVoteCommanderResults", _side];
 
 //--- Process the AI Commander FSM if it's not running.
-if (isNull _commander) then {
-	if ((missionNamespace getVariable "WF_C_AI_COMMANDER_ENABLED") > 0) then {
-		sleep 300; // if players decide to revote we give them 120 seconds to revote
-		if !(isNull _commander) then {if !(isPlayer _commander) then {_commander = objNull;}};
-		if (isNull _commander) then {
-			if !(_logic getVariable "wf_aicom_running") then {
-				_logic setVariable ["wf_aicom_running", true];
-				[_side] ExecFSM "waspServer\Base\Ai\aicommander.fsm";
-			};
-		};
-	};
-} else {
     //--Set new commander start time--
     missionNamespace setVariable [format["wf_ct_%1", getPlayerUID _commander], time];
 	if (_logic getVariable "wf_aicom_running") then {_logic setVariable ["wf_aicom_running", false]};
-};
