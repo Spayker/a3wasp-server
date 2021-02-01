@@ -27,7 +27,7 @@ if (!_deployed) then {
 	_site = createVehicle [_type, _position, [], 0, "NONE"];
 	_site setDir _direction;
 	_site setVariable ["wf_side", _side];
-	_site setVariable ["wf_structure_type", "Headquarters"];
+    _site setVariable ["wf_structure_type", "Headquarters", true];
 	_site setVariable ["wf_site_maxhealth", _siteMaxHealth];
     _site setVariable ["wf_site_health", _siteMaxHealth, true];
     _site setVariable ["wf_reducer", _dmgr # 0];

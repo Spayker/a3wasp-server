@@ -46,7 +46,7 @@ if (isNull _team || _max == 0) exitWith {
 [0, _uid, _name, _sideJoined] spawn WFSE_FNC_updatePlayersList;
 
 _logic = _sideJoined Call WFCO_FNC_GetSideLogic;
-_teams = _logic getVariable "wf_teams";
+_teams = _logic getVariable ["wf_teams", []];
 _teams pushBackUnique _team;
 
 {
