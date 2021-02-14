@@ -12,6 +12,8 @@ private ["_funds","_get","_max","_sideJoined","_sideOrigin","_team","_units"];
 //--- Wait for a proper common & server initialization before going any further.
 waitUntil {commonInitComplete && serverInitFull};
 
+
+
 ["INFORMATION", format ["fn_OnPlayerConnected.sqf: Player [%1] [%2] has joined the game", _name, _uid]] Call WFCO_FNC_LogContent;
 
 //--- Skip this script if the server is trying to run this.
@@ -21,19 +23,22 @@ if (_name == '__SERVER__' || _uid == '' || local player) exitWith {};
 //--- We try to get the player and it's group from the playableUnits.
 _team = grpNull;
 _sideJoined = nil;
-_max = 10;
-while {_max > 0 && isNull _team} do {
+
+waitUntil {commonInitComplete && serverInitFull};
+
+_sideJoined = switch (getNumber(configFile >> "CfgVehicles" >> typeof (leader _team) >> "side")) do {case 0: {east}; case 1: {west}; case 2: {resistance}; default {civilian}};
+
+while {isNull _team} do {
 	{
 		if ((getPlayerUID _x) == _uid) exitWith {
 			_team = group _x;
 			_sideJoined = side (leader _team);
 		};
 	} forEach playableUnits;
-	if (isNull _team) then {sleep 0.5};
-	_max = _max - 1
+	if (isNull _team) then {sleep 1};
 };
 
-if (isNull _team || _max == 0) exitWith {
+if (isNull _team) exitWith {
     ["INFORMATION", format ["fn_OnPlayerConnected.sqf: Player [%1] [%2] can not join to game", _name, _uid]] Call WFCO_FNC_LogContent;
 };
 
