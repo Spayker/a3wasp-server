@@ -38,7 +38,7 @@ if (!_deployed) then {
 
     _site setVariable ['wf_hq_deployed', true, true];
 
-    _mhqs pushBack _site;;
+    _mhqs pushBackUnique _site;
     _logik setVariable ["wf_hq", _mhqs, true];
 	
 	[_site,true,_sideID] remoteExec ["WFCL_fnc_initBaseStructure", 0, true];
