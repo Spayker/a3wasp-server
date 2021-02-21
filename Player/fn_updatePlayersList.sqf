@@ -13,12 +13,12 @@ if(_action == 0) then {
     _players = missionNamespace getVariable [format["WF_PLAYERS_%1", _side], []];
             _uid = getPlayerUID _x;
             _name = name _x;
-            _players pushBackUnique [_uid, _name, _side];
+    _players pushBack [_uid, _name, _side];
             missionNamespace setVariable [format["WF_PLAYERS_%1", _side], _players, true]
         } forEach (allPlayers - entities "HeadlessClient_F");
     } else {
         _players = missionNamespace getVariable [format["WF_PLAYERS_%1", _side], []];
-        _players pushBackUnique [_uid, _name, _side];
+        _players pushBack [_uid, _name, _side];
         missionNamespace setVariable [format["WF_PLAYERS_%1", _side], _players, true]
     }
 };

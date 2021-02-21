@@ -319,6 +319,32 @@ if (_use_random) then {
 				_vehicle = [_tVeh, _safePos, east, 0, false] Call WFCO_FNC_CreateVehicle;
 			};
 		};
+
+		//--- Groups init.
+		_teams = [];
+		{
+			if !(isNil '_x') then {
+				if (_x isKindOf "Man") then {
+					Private ["_group"];
+					_group = group _x;
+					_teams pushBack _group;
+
+					if (isNil {_group getVariable "wf_funds"}) then {_group setVariable ["wf_funds", missionNamespace getVariable Format ["WF_C_ECONOMY_FUNDS_START_%1", _side], true]};
+					_group setVariable ["wf_side", _side];
+					_group setVariable ["wf_persistent", true];
+					_group setVariable ["wf_queue", []];
+					_group setVariable ["wf_vote", -1, true];
+					_group setVariable ["wf_role", "", true];
+					(leader _group) enableSimulationGlobal true;
+
+					["INITIALIZATION", Format["fn_initServer.sqf: [%1] Team [%2] was initialized.", _side, _group]] Call WFCO_FNC_LogContent;
+				};
+
+			};
+		} forEach ((getPosATL _logik) nearObjects ["Man", 150]);
+
+		_logik setVariable ["wf_teams", _teams, true];
+		_logik setVariable ["wf_teams_count", count _teams];
 	};
 } forEach [[_present_east, east, _startE],[_present_west, west, _startW]];
 
@@ -350,60 +376,13 @@ if ((missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") != 0) then {
 //--- Base Area (grouped base)
 if ((missionNamespace getVariable "WF_C_BASE_AREA") > 0) then {[] spawn WFSE_fnc_startBaseAreaProcessing};
 
-{
-    [_x] spawn {
-        params ['_side'];
-        //--- Groups init.
-        _sidePlayers = [];
-        while {count _sidePlayers == 0 && time < 60} do {
-            private _headlessClients = entities "HeadlessClient_F";
-            private _humanPlayers = (call BIS_fnc_listPlayers) - _headlessClients;
-            {
-                if (alive _x) then {
-                    _sidePlayer = switch (getNumber(configFile >> "CfgVehicles" >> typeof _x >> "side")) do {case 0: {east}; case 1: {west}; case 2: {resistance}; default {civilian}};
-                    if (_sidePlayer == _side) then {
-                        _sidePlayers pushBackUnique _x;
-                   };
-                }
-            } forEach _humanPlayers;
-            sleep 0.5
-        };
-
-        _logik = (_side) Call WFCO_FNC_GetSideLogic;
-        _teams = [];
-        {
-            if !(isNil '_x') then {
-                if (_x isKindOf "Man") then {
-                    Private ["_group"];
-                    _group = group _x;
-                    _teams pushBack _group;
-
-                    if (isNil {_group getVariable "wf_funds"}) then {_group setVariable ["wf_funds", missionNamespace getVariable Format ["WF_C_ECONOMY_FUNDS_START_%1", _side], true]};
-                    _group setVariable ["wf_side", _side];
-                    _group setVariable ["wf_persistent", true];
-                    _group setVariable ["wf_queue", []];
-                    _group setVariable ["wf_vote", -1, true];
-                    _group setVariable ["wf_role", "", true];
-                    (leader _group) enableSimulationGlobal true;
-
-                    ["INITIALIZATION", Format["fn_initServer.sqf: [%1] Team [%2] was initialized.", _side, _group]] Call WFCO_FNC_LogContent;
-                };
-
-            };
-        } forEach _sidePlayers;
-        _logik setVariable ["wf_teams", _teams, true];
-        _logik setVariable ["wf_teams_count", count _teams];
+//--- Waiting until that the game is launched.
+waitUntil { time > 0 };
 
 //--Update players global list--
 if(isMultiplayer && !isDedicated)then{
     [0] spawn WFSE_FNC_updatePlayersList;
 };
-
-        //--- Voting process init
-        ["INITIALIZATION", Format ["fn_initServer.sqf: Server start autovoting at [%1]", time]] Call WFCO_FNC_LogContent;
-        _side spawn WFSE_FNC_VoteForCommander;
-    }
-} forEach [east, west];
 
 [] spawn {
     waitUntil { missionNamespace getVariable ["WF_HEADLESSCLIENT_ID", 0] > 0 };
@@ -417,6 +396,10 @@ if(isMultiplayer && !isDedicated)then{
 } forEach ([0,0,0] nearEntities [["LocationOutpost_F"], 100000]);
     [_resBasePositions] remoteExec ["WFHC_FNC_CreateBaseComposition",_hc]
 };
+
+//--- Voting process init
+["INITIALIZATION", Format ["fn_initServer.sqf: Server start autovoting at [%1]", time]] Call WFCO_FNC_LogContent;
+{_x spawn WFSE_FNC_VoteForCommander} forEach WF_PRESENTSIDES;
 
 [worldName, missionNamespace getVariable ["WF_MISSIONNAME", ""]] spawn WFSE_FNC_InitGameInfo;
 ["GAME IS STARTED", 1] call WFDC_FNC_LogContent;
