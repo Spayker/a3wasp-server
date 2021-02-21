@@ -10,7 +10,7 @@ Private ["_camps","_side_old","_side_new","_startingSV","_town"];
 
 _camps = _town getVariable "camps";
 
-if !(isNil "_camp") then {
+if !(isNil "_camps") then {
 _startingSV = _town getVariable "startingSupplyValue";
 
 {
@@ -21,6 +21,6 @@ _startingSV = _town getVariable "startingSupplyValue";
 ["INFORMATION",Format ["Server_SetCampsToSide.sqf : [%1] Camps [%2] were set to [%3], previously owned by [%4].", _town getVariable "name", count _camps, _side_new, _side_old]] Call WFCO_FNC_LogContent;
 
 if (count _camps > 0) then {
-	[_town, _side_old, _side_new] remoteExecCall ["WFCL_FNC_AllCampsCaptured"];
+        [_town, _side_old, _side_new] remoteExecCall ["WFCL_FNC_AllCampsCaptured", -2];
     }
 }
