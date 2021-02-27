@@ -24,7 +24,6 @@ switch (missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") do {
 		{
             _x setVariable ['sideID',WESTID,true];
             _locationSpecialities = _x getVariable ["townSpeciality", []];
-            if (WF_C_RADAR in _locationSpecialities) then { [_x] remoteExec ["WFCL_FNC_UpdateRadarMarker", (WESTID) call WFCO_FNC_GetSideFromID, true] };
 
 		    _camps = _x getVariable ["camps", []];
 		    if(count _camps > 0) then {
@@ -34,7 +33,6 @@ switch (missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") do {
 		{
             _x setVariable ['sideID',EASTID,true];
             _locationSpecialities = _x getVariable ["townSpeciality", []];
-            if (WF_C_RADAR in _locationSpecialities) then { [_x] remoteExec ["WFCL_FNC_UpdateRadarMarker", (EASTID) call WFCO_FNC_GetSideFromID, true] };
 		    _camps = _x getVariable "camps";
 		    if(count _camps > 0) then {
                 {_x setVariable ['sideID',EASTID,true]} forEach _camps
@@ -76,7 +74,6 @@ switch (missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") do {
 		{
 		     _x setVariable ['sideID',WESTID,true];
              _locationSpecialities = _x getVariable ["townSpeciality", []];
-             if (WF_C_RADAR in _locationSpecialities) then { [_x] remoteExec ["WFCL_FNC_UpdateRadarMarker", (WESTID) call WFCO_FNC_GetSideFromID, true] };
 		    _camps = _x getVariable "camps";
 		     if !(isNil "_camps") then {
 		     if(count _camps > 0) then {
@@ -88,7 +85,6 @@ switch (missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") do {
 		{
             _x setVariable ['sideID',EASTID,true];
             _locationSpecialities = _x getVariable ["townSpeciality", []];
-            if (WF_C_RADAR in _locationSpecialities) then { [_x] remoteExec ["WFCL_FNC_UpdateRadarMarker", (EASTID) call WFCO_FNC_GetSideFromID, true] };
 		    _camps = _x getVariable "camps";
 		    if !(isNil "_camps") then {
             if(count _camps > 0) then {
@@ -164,7 +160,6 @@ switch (missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") do {
 				if (count _nearTownsW < _half) then {
                     _town setVariable ['sideID',WESTID,true];
                     _locationSpecialities = _town getVariable ["townSpeciality", []];
-                    if (WF_C_RADAR in _locationSpecialities) then { [_town] remoteExec ["WFCL_FNC_UpdateRadarMarker", (WESTID) call WFCO_FNC_GetSideFromID, true] };
                     _nearTownsW pushBack _town;
 					_camps = _x getVariable "camps";
                     if(count _camps > 0) then {
@@ -173,7 +168,6 @@ switch (missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") do {
 				} else {
                     _town setVariable ['sideID',EASTID,true];
                     _locationSpecialities = _town getVariable ["townSpeciality", []];
-                    if (WF_C_RADAR in _locationSpecialities) then { [_town] remoteExec ["WFCL_FNC_UpdateRadarMarker", (EASTID) call WFCO_FNC_GetSideFromID, true] };
 				    _camps = _x getVariable "camps";
                 	if(count _camps > 0) then {
 					    {_x setVariable ['sideID',EASTID,true]} forEach _camps
@@ -189,7 +183,6 @@ switch (missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") do {
 				if (count _nearTownsW < _half) then {
                     _town setVariable ['sideID',WESTID,true];
                     _locationSpecialities = _town getVariable ["townSpeciality", []];
-                    if (WF_C_RADAR in _locationSpecialities) then { [_town] remoteExec ["WFCL_FNC_UpdateRadarMarker", (WESTID) call WFCO_FNC_GetSideFromID, true] };
 				    _camps = _x getVariable "camps";
                     if(count _camps > 0) then {
 					    _nearTownsW pushBack _town;
@@ -198,7 +191,6 @@ switch (missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") do {
 				} else {
                     _town setVariable ['sideID',EASTID,true];
                     _locationSpecialities = _town getVariable ["townSpeciality", []];
-                    if (WF_C_RADAR in _locationSpecialities) then { [_town] remoteExec ["WFCL_FNC_UpdateRadarMarker", (EASTID) call WFCO_FNC_GetSideFromID, true] };
 				    _camps = _x getVariable "camps";
                     if(count _camps > 0) then {
 					    {_x setVariable ['sideID',EASTID,true]} forEach _camps

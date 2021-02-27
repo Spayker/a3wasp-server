@@ -111,6 +111,7 @@ class CfgFunctions {
         class ServerTown {
             file = "waspServer\Warfare\Town";
 	    class initTowns {};
+	        class updateRadarTower {};
         };
 
         class ServerTownAi {
