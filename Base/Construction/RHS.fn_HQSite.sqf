@@ -24,8 +24,9 @@ if (!_deployed) then {
     _mhqs = _mhqs - [_HQ];
     deleteVehicle _HQ;
 	
-	_site = createVehicle [_type, _position, [], 0, "NONE"];
+    _site = createVehicle [_type, [_position # 0, _position # 1, -0.6], [], 0, "NONE"];
 	_site setDir _direction;
+    _site setVectorUp surfaceNormal position _site;
 	_site setVariable ["wf_side", _side];
     _site setVariable ["wf_structure_type", "Headquarters", true];
 	_site setVariable ["wf_site_maxhealth", _siteMaxHealth];
@@ -64,11 +65,11 @@ if (!_deployed) then {
 		};
 		if (_update) then {
 			_grp = createGroup sideLogic;
-			_logic = _grp createUnit ["Logic",[0,0,0],[],0,"NONE"];	
+            _logic = _grp createUnit ["Logic",_position,[],0,"NONE"];
 			_logic setVariable ["DefenseTeam", createGroup [_side, true]];
             (_logic getVariable "DefenseTeam") setVariable ["wf_persistent", true];
 	        _logic setVariable ["weapons",missionNamespace getVariable "WF_C_BASE_DEFENSE_MAX_AI"];
-			[_logic, _position,_side,_logik,_areas] remoteExecCall ["WFCL_FNC_RequestBaseArea",_side];
+            [_logic, _side,_logik,_areas] remoteExecCall ["WFCL_FNC_RequestBaseArea",_side];
 		};
 	};
 	

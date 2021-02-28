@@ -39,7 +39,7 @@ if(!isNil "_constructed")then{
 	} forEach _constructed;
 };
 
-_site = createVehicle [_type, _position, [], 0, "NONE"];
+_site = createVehicle [_type, [_position # 0, _position # 1, -0.6], [], 0, "NONE"];
 _site setDir _direction;
 _site setVectorUp surfaceNormal position _site;
 _site setVariable ["wf_side", _side];
