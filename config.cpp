@@ -36,6 +36,7 @@ class CfgFunctions {
             class synchronizeUpgade {};
             class startBaseAreaProcessing {};
             class CreateDestructionEffect {};
+            class CreateStartUpBase {};
         };
 
         class ServerBaseAi {

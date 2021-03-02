@@ -218,11 +218,6 @@ if (_use_random) then {
 		_logik = (_side) Call WFCO_FNC_GetSideLogic;
 		_sideID = (_side) Call WFCO_FNC_GetSideID;
 
-		//--- HQ init.
-		_safePos = [_pos, 1, 5, 4, 0, 20, 0] call BIS_fnc_findSafePos;
-		_hq = [missionNamespace getVariable Format["WF_%1MHQNAME", _side], _safePos, _sideID, getDir _pos, true, false, true] Call WFCO_FNC_CreateVehicle;
-		if(damage _hq > 0) then { _hq setDamage 0; };
-       
 		//--- Get upgrade clearance for side.
 		_clearance = missionNamespace getVariable "WF_C_GAMEPLAY_UPGRADES_CLEARANCE";
 		_upgrades = false;
@@ -272,6 +267,9 @@ if (_use_random) then {
 		for '_i' from 0 to count(missionNamespace getVariable Format["WF_%1STRUCTURES",_side])-2 do {_str set [_i, 0]};
 		_logik setVariable ["wf_structures_live", _str, true];
 
+		//--- start base
+        [_side, _pos, missionNamespace getVariable format ["WF_NEURODEF_%1_BASE", _side]] call WFSE_FNC_CreateStartupBase;
+
 		//--- Radio: Initialize the announcers entities.
 		_radio_hq1 = (createGroup sideLogic) createUnit ["Logic",[0,0,0],[],0,"NONE"];
 		_radio_hq2 = (createGroup sideLogic) createUnit ["Logic",[0,0,0],[],0,"NONE"];
@@ -295,14 +293,17 @@ if (_use_random) then {
 		_logik setVariable ["wf_radio_hq_id", _radio_hq_id, true];
 
 		//--- Starting vehicles.
+		/*
 		{
 			_pos = getPosATL _hq;
 			_safePos = [_pos, 15, 15, 4, 0, 20, 0] call BIS_fnc_findSafePos;
 			_vehicle = [_x, _pos, _sideID, 0, false] Call WFCO_FNC_CreateVehicle;
 			(_vehicle) call WFCO_FNC_ClearVehicleCargo;
 		} forEach (missionNamespace getVariable Format ['WF_%1STARTINGVEHICLES', _side]);
+		*/
 
 		//--- spawn of additional vehicles
+		/*
 		switch _side do{
 			case west: {
 				call WFCO_fnc_respawnStartVeh;
@@ -319,6 +320,7 @@ if (_use_random) then {
 				_vehicle = [_tVeh, _safePos, east, 0, false] Call WFCO_FNC_CreateVehicle;
 			};
 		};
+		*/
 
 		//--- Groups init.
 		_teams = [];
