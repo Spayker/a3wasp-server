@@ -292,36 +292,6 @@ if (_use_random) then {
 		_radio_hq1 kbAddTopic [_radio_hq_id, "Common\Module\Kb\hq.bikb","Common\Module\Kb\hq.fsm", {call WFCO_fnc_initHq}];
 		_logik setVariable ["wf_radio_hq_id", _radio_hq_id, true];
 
-		//--- Starting vehicles.
-		/*
-		{
-			_pos = getPosATL _hq;
-			_safePos = [_pos, 15, 15, 4, 0, 20, 0] call BIS_fnc_findSafePos;
-			_vehicle = [_x, _pos, _sideID, 0, false] Call WFCO_FNC_CreateVehicle;
-			(_vehicle) call WFCO_FNC_ClearVehicleCargo;
-		} forEach (missionNamespace getVariable Format ['WF_%1STARTINGVEHICLES', _side]);
-		*/
-
-		//--- spawn of additional vehicles
-		/*
-		switch _side do{
-			case west: {
-				call WFCO_fnc_respawnStartVeh;
-				_tVeh = WEST_StartVeh # floor(random (count WEST_StartVeh));
-				_pos = getPosATL _hq;
-				_safePos = [_pos, 1, 25, 4, 0, 20, 0] call BIS_fnc_findSafePos;
-				_vehicle = [_tVeh,_safePos, west, 0, false] Call WFCO_FNC_CreateVehicle;
-			};
-			case east:{
-				call WFCO_fnc_respawnStartVeh;
-				_tVeh = EAST_StartVeh # floor(random (count EAST_StartVeh));
-				_pos = getPosATL _hq;
-				_safePos = [_pos, 1, 25, 4, 0, 20, 0] call BIS_fnc_findSafePos;
-				_vehicle = [_tVeh, _safePos, east, 0, false] Call WFCO_FNC_CreateVehicle;
-			};
-		};
-		*/
-
 		//--- Groups init.
 		_teams = [];
 		{
