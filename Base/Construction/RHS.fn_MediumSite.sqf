@@ -1,7 +1,7 @@
 //*****************************************************************************************
 //Description: Creates a small construction site.
 //*****************************************************************************************
-params ["_type", "_side", "_position", "_direction", "_index", "_playerUID"];
+params ["_type", "_side", "_position", "_direction", "_index", "_playerUID", ["_isStartBase", false]];
 private ["_construct","_constructed","_group","_logik","_nearLogic","_rlType","_sideID","_site","_siteName","_startTime",
 "_structures","_structuresNames","_time","_timeNextUpdate","_siteMaxHealth","_dmgr",
 "_WF_MEDIUM_SITE_1_OBJECTS", "_WF_MEDIUM_SITE_2_OBJECTS", "_WF_MEDIUM_SITE_3_OBJECTS"];
@@ -12,6 +12,7 @@ _logik = (_side) Call WFCO_FNC_GetSideLogic;
 _sideID = (_side) Call WFCO_FNC_GetSideID;
 
 _time = ((missionNamespace getVariable Format ["WF_%1STRUCTURETIMES",str _side]) select _index) / 2;
+if (_isStartBase) then { _time = 1 };
 
 _siteName = missionNamespace getVariable Format["WF_%1CONSTRUCTIONSITE",str _side];
 
@@ -58,13 +59,16 @@ _site setVariable ["wf_index", _index];
 
 [_site, _rlType] remoteExec ["WFCL_FNC_addBaseBuildingRepAction", _side, true];
 
+if!(_isStartBase) then {
 //--Not for AAR construction--
 if((missionNamespace getVariable[format["WF_AutoWallConstructingEnabled_%1", _playerUID], WF_AutoWallConstructingEnabled]) && !(_rlType in ["AARadar","ArtyRadar"])) then {
     _defenses = [_site, missionNamespace getVariable format ["WF_NEURODEF_%1_WALLS", _rlType]] call WFSE_FNC_CreateDefenseTemplate;
     _site setVariable ["WF_Walls", _defenses];
 };
 
-[_side, "Constructed", ["Base", _site]] Spawn WFSE_FNC_SideMessage;
+    [_side, "Constructed", ["Base", _site]] Spawn WFSE_FNC_SideMessage
+};
+
 
 if (!isNull _site) then {
 	_logik setVariable ["wf_structures", (_logik getVariable "wf_structures") + [_site], true];

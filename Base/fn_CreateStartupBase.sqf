@@ -12,6 +12,8 @@ _vehicleStartPositions = [];
 _shallCreateBaseArea = true;
 _skip = true;
 
+{ deleteVehicle _x } forEach nearestObjects [_origin, ['house', 'Rocks_base_F', 'Base_CUP_Tree', 'Land_WoodenLog_02_F','Tree','Rock','Bush'], WF_C_BASE_HQ_BUILD_RANGE];
+
 if(!(isNil '_template'))then{
     for '_i' from 0 to count(_template)-1 do {
     	_current = _template select _i;
@@ -45,15 +47,21 @@ if(!(isNil '_template'))then{
         } else {
             if(_object isKindOf 'Base_WarfareBBarracks') then {
                 _toWorld = _origin modelToWorld _relPos;
-                _toWorld set [2,-0.5];
-                [_object, _side,_toWorld,(_dir - _relDir),0,-1] spawn WFSE_fnc_SmallSite;
+                _toWorld set [2,-0.6];
+                [_object, _side,_toWorld,(_dir - _relDir),0,-1, true] spawn WFSE_fnc_SmallSite;
                 _skip = true;
             };
 
             if (_object isKindOf 'Base_WarfareBLightFactory') then {
                 _toWorld = _origin modelToWorld _relPos;
                 _toWorld set [2,-0.6];
-                [_object,_side,_toWorld,(_dir - _relDir),1,-1] spawn WFSE_fnc_MediumSite;
+                [_object,_side,_toWorld,(_dir - _relDir),1,-1, true] spawn WFSE_fnc_MediumSite;
+                _skip = true;
+            };
+
+            if (_object isKindOf 'Base_WarfareBUAVterminal') then {
+                _toWorld = _origin modelToWorld _relPos;
+                [_object, _side,_toWorld,(_dir - _relDir),0,-1, true] spawn WFSE_fnc_SmallSite;
                 _skip = true;
             };
 

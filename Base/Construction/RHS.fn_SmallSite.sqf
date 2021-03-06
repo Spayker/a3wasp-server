@@ -1,7 +1,7 @@
 //*****************************************************************************************
 //Description: Creates a small construction site.
 //*****************************************************************************************
-params ["_type", "_side", "_position", "_direction", "_index", "_playerUID"];
+params ["_type", "_side", "_position", "_direction", "_index", "_playerUID", ["_isStartBase", false]];
 private ["_construct","_constructed","_group","_logik","_nearLogic","_rlType","_sideID","_site","_siteName",
 "_startTime","_structures","_structuresNames","_time","_timeNextUpdate","_siteMaxHealth","_dmgr",
 "_WF_SMALL_SITE_1_OBJECTS", "_WF_SMALL_SITE_2_OBJECTS"];
@@ -12,6 +12,8 @@ _logik = (_side) Call WFCO_FNC_GetSideLogic;
 _sideID = (_side) Call WFCO_FNC_GetSideID;
 
 _time = ((missionNamespace getVariable Format ["WF_%1STRUCTURETIMES",str _side]) # _index) / 2;
+if (_isStartBase) then { _time = 1 };
+
 	
 _siteName = missionNamespace getVariable Format["WF_%1CONSTRUCTIONSITE",str _side];
 
@@ -39,7 +41,13 @@ if(!isNil "_constructed")then{
 	} forEach _constructed;
 };
 
-_site = createVehicle [_type, [_position # 0, _position # 1, -0.65], [], 0, "NONE"];
+if(typeOf _type == 'Base_WarfareBUAVterminal') then {
+    _position = [_position # 0, _position # 1, -0.1]
+} else {
+    _position = [_position # 0, _position # 1, -0.65];
+};
+
+_site = createVehicle [_type, _position, [], 0, "NONE"];
 _site setDir _direction;
 _site setVectorUp surfaceNormal position _site;
 _site setVariable ["wf_side", _side];
@@ -51,12 +59,20 @@ _site setVariable ["wf_index", _index];
 
 [_site, _rlType] remoteExec ["WFCL_FNC_addBaseBuildingRepAction", _side, true];
 
+if!(_isStartBase) then {
 if(missionNamespace getVariable[format["WF_AutoWallConstructingEnabled_%1", _playerUID], WF_AutoWallConstructingEnabled]) then {
 	_defenses = [_site, missionNamespace getVariable format ["WF_NEURODEF_%1_WALLS", _rlType]] call WFSE_FNC_CreateDefenseTemplate;
 	_site setVariable ["WF_Walls", _defenses];
 };
 
 [_side, "Constructed", ["Base", _site]] Spawn WFSE_FNC_SideMessage;
+
+    //--- Base Patrols.
+    if (_rlType == "Barracks" && (missionNamespace getVariable "WF_C_BASE_PATROLS_INFANTRY") > 0) then {
+    	[_site, _side] spawn WFSE_fnc_createBasePatrol;
+    	["INFORMATION", Format ["fn_SmallSite.sqf: [%1] Base patrol has been triggered upon Barrack creation.", str _side]] Call WFCO_FNC_LogContent;
+    }
+};
 
 if (!isNull _site) then {
 	_logik setVariable ["wf_structures", (_logik getVariable "wf_structures") + [_site], true];
@@ -73,10 +89,4 @@ if (!isNull _site) then {
     }];
 	
 	["INFORMATION", Format ["fn_SmallSite.sqf: [%1] Structure [%2] has been constructed.", str _side, _type]] Call WFCO_FNC_LogContent;
-};
-
-//--- Base Patrols.
-if (_rlType == "Barracks" && (missionNamespace getVariable "WF_C_BASE_PATROLS_INFANTRY") > 0) then {
-	[_site, _side] spawn WFSE_fnc_createBasePatrol;
-	["INFORMATION", Format ["fn_SmallSite.sqf: [%1] Base patrol has been triggered upon Barrack creation.", str _side]] Call WFCO_FNC_LogContent;
 };
