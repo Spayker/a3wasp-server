@@ -41,10 +41,10 @@ if(!isNil "_constructed")then{
 	} forEach _constructed;
 };
 
-if(typeOf _type == 'Base_WarfareBUAVterminal') then {
+if(_type == 'Base_WarfareBUAVterminal') then {
     _position = [_position # 0, _position # 1, -0.1]
 } else {
-    _position = [_position # 0, _position # 1, -0.65];
+    _position = [_position # 0, _position # 1, -0.65]
 };
 
 _site = createVehicle [_type, _position, [], 0, "NONE"];
