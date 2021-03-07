@@ -98,6 +98,7 @@ missionNamespace setVariable ['WF_NEURODEF_AAPOD',[
 	['Land_fort_bagfence_corner',[-1.8,-5,0],0]
 ]];
 
+if (WF_Camo) then {
 missionNamespace setVariable ['WF_NEURODEF_EAST_BASE',[
     ["RU_WarfareBLightFactory",[9.57227,12.7861,-0.600006],90],
     ["RU_WarfareBUAVterminal",[-8.06445,15.25,0],0],
@@ -148,4 +149,30 @@ missionNamespace setVariable ['WF_NEURODEF_WEST_BASE',[
     ["Land_JumpTarget_F",[-29.957,-0.140625,0],0],
     ["Land_JumpTarget_F",[-29.957,16.9697,0],0],
     ["Land_JumpTarget_F",[-29.957,-17.4082,0],0]
+    ]]
+} else {
+    missionNamespace setVariable ['WF_NEURODEF_EAST_BASE',[
+        ["TK_WarfareBLightFactory_base_EP1",[9.57227,12.7861,-0.600006],90],
+        ["TK_WarfareBUAVterminal_Base_EP1",[-8.06445,15.25,0],0],
+        ["TK_WarfareBBarracks_Base_EP1",[8.91406,-14.2578,-0.600006],0],
+        ["BTR90_HQ_unfolded",[-11.7051,-14.7051,0],90],
+        ["Base_WarfareBBarrier10xTall",[20.6318,6.98145,0],90],
+        ["Base_WarfareBBarrier10xTall",[-23.4258,-7.65527,0],90],
+        ["Base_WarfareBBarrier10xTall",[-0.323242,-30.1289,0],0],
+        ["Base_WarfareBBarrier10xTall",[-0.0878906,29.1484,0],0],
+        ["Land_HBarrierTower_F",[17.2803,24.665,0],180],
+        ["Land_HBarrierTower_F",[16.2432,-25.417,0],90],
+        ["Base_WarfareBBarrier10xTall",[20.6768,-22.3057,0],90],
+        ["Base_WarfareBBarrier10xTall",[20.6768,22.2783,0],90],
+        ["Land_HBarrierTower_F",[-19.0898,-24.624,0],0],
+        ["Land_HBarrierTower_F",[-17.3887,26.0361,0],270],
+        ["Base_WarfareBBarrier10xTall",[-23.4258,22.4785,0],90],
+        ["Base_WarfareBBarrier10xTall",[-23.4258,-22.6533,0],90],
+        ["Base_WarfareBBarrier10xTall",[14.6885,-30.0479,0],0],
+        ["Base_WarfareBBarrier10xTall",[14.6885,29.0986,0],0],
+        ["Base_WarfareBBarrier10xTall",[-15.6221,-30.1768,0],0],
+        ["Base_WarfareBBarrier10xTall",[-15.415,29.1445,0],0],
+        ["Land_JumpTarget_F",[-29.957,-0.140625,0],0],
+        ["Land_JumpTarget_F",[-29.957,16.9697,0],0],
+        ["Land_JumpTarget_F",[-29.957,-17.4082,0],0]
 ]];
