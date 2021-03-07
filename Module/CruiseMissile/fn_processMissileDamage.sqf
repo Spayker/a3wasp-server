@@ -6,6 +6,7 @@ _blackListed = [];
 _blackListed pushback (missionNamespace getVariable "WF_C_DEPOT");
 _blackListed pushback "Land_BagBunker_Tower_F";
 _blackListed pushback "LocationCamp_F";
+_hc = missionNamespace getVariable "WF_HEADLESSCLIENT_ID";
 
 _range = 100;
 _array = _target nearEntities [WF_C_ALL_MAN_VEHICLE_KINDS, _range];
@@ -23,9 +24,9 @@ for [{_z = 0},{_z < 5},{_z = _z + 1}] do {
 		    if((_x getVariable ["wf_site_health", 0]) > 0 && _x getVariable ["wf_site_alive", true]) then {
                 _x setVariable ["wf_site_health", 0];
                 if(_x getVariable ["wf_hq", false]) then {
-                    [_x, objNull] spawn WFSE_FNC_OnHQKilled;
+                    [_x, objNull] remoteExecCall ["WFHC_FNC_OnHQKilled", _hc]
                 } else {
-                    [_x] spawn WFSE_FNC_BuildingKilled;
+                    [_x] remoteExecCall ["WFHC_FNC_BuildingKilled", _hc]
                 };
 		    } else {
 		        _x setDamage [1, false];
@@ -37,9 +38,9 @@ for [{_z = 0},{_z < 5},{_z = _z + 1}] do {
 		    if((_x getVariable ["wf_site_health", 0]) > 0 && _x getVariable ["wf_site_alive", true]) then {
                 _x setVariable ["wf_site_health", 0];
                 if(_x getVariable ["wf_hq", false]) then {
-                    [_x, objNull] spawn WFSE_FNC_OnHQKilled;
+                    [_x, objNull] remoteExecCall ["WFHC_FNC_OnHQKilled", _hc]
                 } else {
-                    [_x] spawn WFSE_FNC_BuildingKilled;
+                    [_x] remoteExecCall ["WFHC_FNC_BuildingKilled", _hc]
                 };
             } else {
                 _x setDamage [0.25, false];
@@ -64,9 +65,9 @@ for [{_z = 0},{_z < 5},{_z = _z + 1}] do {
 		    if((_x getVariable ["wf_site_health", 0]) > 0 && _x getVariable ["wf_site_alive", true]) then {
                 _x setVariable ["wf_site_health", 0];
                 if(_x getVariable ["wf_hq", false]) then {
-                    [_x, objNull] spawn WFSE_FNC_OnHQKilled;
+                    [_x, objNull] remoteExecCall ["WFHC_FNC_OnHQKilled", _hc]
                 } else {
-                    [_x] spawn WFSE_FNC_BuildingKilled;
+                    [_x] remoteExecCall ["WFHC_FNC_BuildingKilled", _hc]
                 };
             } else {
                 _x setDamage [0.25, false];

@@ -268,7 +268,10 @@ if (_use_random) then {
 		_logik setVariable ["wf_structures_live", _str, true];
 
 		//--- start base
-        [_side, _pos, missionNamespace getVariable format ["WF_NEURODEF_%1_BASE", _side]] call WFSE_FNC_CreateStartupBase;
+		_hc = missionNamespace getVariable "WF_HEADLESSCLIENT_ID";
+		if(_hc > 0) then {
+            [_side, _pos, missionNamespace getVariable format ["WF_NEURODEF_%1_BASE", _side]] remoteExecCall ["WFHC_FNC_CreateStartupBase", _hc]
+        };
 
 		//--- Radio: Initialize the announcers entities.
 		_radio_hq1 = (createGroup sideLogic) createUnit ["Logic",[0,0,0],[],0,"NONE"];
@@ -335,19 +338,6 @@ if ((missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") != 0) then {
 	townInitServer = true;
 };
 
-//--- Don't pause the server init script.
-[] spawn {
-	waitUntil {townInit};
-		[] spawn WFSE_fnc_startCommonLogicProcessing;
-		["INITIALIZATION", "fn_initServer.sqf: Victory Condition FSM is initialized."] Call WFCO_FNC_LogContent;
-
-	[] spawn WFSE_fnc_updateResources;
-	["INITIALIZATION", "fn_initServer.sqf: Resources FSM is initialized."] Call WFCO_FNC_LogContent;
-};
-
-//--- Base Area (grouped base)
-if ((missionNamespace getVariable "WF_C_BASE_AREA") > 0) then {[] spawn WFSE_fnc_startBaseAreaProcessing};
-
 //--- Waiting until that the game is launched.
 waitUntil { time > 0 };
 
@@ -377,6 +367,16 @@ if(isMultiplayer && !isDedicated)then{
 ["GAME IS STARTED", 1] call WFDC_FNC_LogContent;
 
 [format [":regional_indicator_g: :regional_indicator_a: :regional_indicator_m: :regional_indicator_e:   :regional_indicator_s: :regional_indicator_t: :regional_indicator_a: :regional_indicator_r: :regional_indicator_t: :regional_indicator_e: :regional_indicator_d:   :point_right:   **%1**", missionNamespace getVariable "WF_MISSIONNAME"]] Call WFDC_FNC_LogContent;
+
+//--- Don't pause the server init script.
+[] spawn {
+	sleep 30;
+    [] spawn WFSE_fnc_startCommonLogicProcessing;
+    ["INITIALIZATION", "fn_initServer.sqf: Victory Condition FSM is initialized."] Call WFCO_FNC_LogContent;
+
+	[] spawn WFSE_fnc_updateResources;
+	["INITIALIZATION", "fn_initServer.sqf: Resources FSM is initialized."] Call WFCO_FNC_LogContent;
+};
 
 ["INITIALIZATION", Format ["fn_initServer.sqf: Server initialization ended at [%1]", time]] Call WFCO_FNC_LogContent;
 [format ["Server initialization ended at [%1]", time]] Call WFDC_FNC_LogContent;

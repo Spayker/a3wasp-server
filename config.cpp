@@ -29,39 +29,10 @@ class CfgFunctions {
 
         class ServerBase {
             file = "waspServer\Base";
-            class createDefenseTemplate {};
-            class createObjectsFromArray {};
             class processUpgrade {};
             class requestUpgrade {};
             class synchronizeUpgade {};
-            class startBaseAreaProcessing {};
             class CreateDestructionEffect {};
-            class CreateStartUpBase {};
-        };
-
-        class ServerBaseAi {
-            file = "waspServer\Base\Ai";
-            class createBasePatrol {};
-        };
-		
-		class ServerBaseConstruction {
-            file = "waspServer\Base\Construction";
-            class hQSite {};
-            class smallSite {};
-            class mediumSite {};
-            class mediumSiteObjects {};
-        };
-
-        class ServerBaseEventHandling {
-            file = "waspServer\Base\EventHandling";
-            class buildingDamaged {};
-            class buildingKilled {};
-            class handleBuildingRepair {};
-        };
-
-        class ServerBaseHq {
-            file = "waspServer\Base\Hq";
-            class OnHQKilled {};
         };
 
         class ServerBaseRequest {
