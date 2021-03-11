@@ -13,10 +13,10 @@ createCenter civilian;
 //--- MAke res forces not friendly to all playable sides.
 resistance setFriend [west,0];
 resistance setFriend [east,0];
-resistance setFriend [civilian,1];
+resistance setFriend [civilian,0];
 civilian setFriend [west, 0];
 civilian setFriend [east, 0];
-civilian setFriend [resistance, 1];
+civilian setFriend [resistance, 0];
 
 // Prepare extDB before starting the initialization process for the server.
 private _extDBNotLoaded = "";
