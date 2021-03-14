@@ -10,6 +10,7 @@ switch (missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") do {
 		_half = round(count towns)/2;
 		_wStart = (west Call WFCO_FNC_GetSideLogic) getVariable "WF_startpos";
 		_eStart = (east Call WFCO_FNC_GetSideLogic) getVariable "WF_startpos";
+		_gStart = (resistance Call WFCO_FNC_GetSideLogic) getVariable "WF_startpos";
 
 		_nearTownsW = [];
 		_nearTownsE = [];
@@ -22,20 +23,20 @@ switch (missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") do {
 		_nearTownsE = (towns - _nearTownsW);
 
 		{
-            _x setVariable ['sideID',WESTID,true];
+            _x setVariable ['sideID',WF_C_WEST_ID,true];
             _locationSpecialities = _x getVariable ["townSpeciality", []];
 
 		    _camps = _x getVariable ["camps", []];
 		    if(count _camps > 0) then {
-                {_x setVariable ['sideID',WESTID,true]} forEach _camps
+                {_x setVariable ['sideID',WF_C_WEST_ID,true]} forEach _camps
 			}
 		} forEach _nearTownsW;
 		{
-            _x setVariable ['sideID',EASTID,true];
+            _x setVariable ['sideID',WF_C_EAST_ID,true];
             _locationSpecialities = _x getVariable ["townSpeciality", []];
 		    _camps = _x getVariable "camps";
 		    if(count _camps > 0) then {
-                {_x setVariable ['sideID',EASTID,true]} forEach _camps
+                {_x setVariable ['sideID',WF_C_EAST_ID,true]} forEach _camps
             }
 		} forEach _nearTownsE
 	};
@@ -45,9 +46,14 @@ switch (missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") do {
 		_total = count towns;
 		_wStart = (west Call WFCO_FNC_GetSideLogic) getVariable "WF_startpos";
 		_eStart = (east Call WFCO_FNC_GetSideLogic) getVariable "WF_startpos";
+		_gStart = (resistance Call WFCO_FNC_GetSideLogic) getVariable "WF_startpos";
+
+
+
 		_limit = missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE";
 		_nearTownsW = [];
 		_nearTownsE = [];
+		_nearTownsG = [];
 
 		_near = [_wStart,towns] Call WFCO_FNC_SortByDistance;
 		if (count _near > 0) then {
@@ -71,27 +77,49 @@ switch (missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") do {
 			}
 		};
 
+		_near = [_gStart,(towns - _nearTownsW - _nearTownsE)] Call WFCO_FNC_SortByDistance;
+        if (count _near > 0) then {
+            for [{_z = 0},{_z < _limit},{_z = _z + 1}] do {
+                _town = _near # _z;
+                _locationSpecialities = _town getVariable ["townSpeciality", []];
+                if !(WF_C_MINE in _locationSpecialities) then {
+                    _nearTownsG pushBack (_town)
+                }
+            }
+        };
+
 		{
-		     _x setVariable ['sideID',WESTID,true];
+		     _x setVariable ['sideID',WF_C_WEST_ID,true];
              _locationSpecialities = _x getVariable ["townSpeciality", []];
 		    _camps = _x getVariable "camps";
 		     if !(isNil "_camps") then {
 		     if(count _camps > 0) then {
-                    {_x setVariable ['sideID',WESTID,true]} forEach _camps
+                    {_x setVariable ['sideID',WF_C_WEST_ID,true]} forEach _camps
                  }
 		     }
 		} forEach _nearTownsW;
 
 		{
-            _x setVariable ['sideID',EASTID,true];
+            _x setVariable ['sideID',WF_C_EAST_ID,true];
             _locationSpecialities = _x getVariable ["townSpeciality", []];
 		    _camps = _x getVariable "camps";
 		    if !(isNil "_camps") then {
             if(count _camps > 0) then {
-                    {_x setVariable ['sideID',EASTID,true]} forEach _camps
+                    {_x setVariable ['sideID',WF_C_EAST_ID,true]} forEach _camps
                 }
 		    }
 		} forEach _nearTownsE;
+
+		{
+            _x setVariable ['sideID',WF_C_GUER_ID,true];
+            _locationSpecialities = _x getVariable ["townSpeciality", []];
+            _camps = _x getVariable "camps";
+            if !(isNil "_camps") then {
+                if(count _camps > 0) then {
+                    {_x setVariable ['sideID',WF_C_GUER_ID,true]} forEach _camps
+                }
+            }
+        } forEach _nearTownsG;
 	};
 	
 	//--- Random Towns (25% East, 25% West, 50% Res).
@@ -158,19 +186,19 @@ switch (missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") do {
 				_index = _towns find _town;
 				if(_index > -1)then{_towns deleteAt _index};
 				if (count _nearTownsW < _half) then {
-                    _town setVariable ['sideID',WESTID,true];
+                    _town setVariable ['sideID',WF_C_WEST_ID,true];
                     _locationSpecialities = _town getVariable ["townSpeciality", []];
                     _nearTownsW pushBack _town;
 					_camps = _x getVariable "camps";
                     if(count _camps > 0) then {
-					    {_x setVariable ['sideID',WESTID,true]} forEach _camps
+					    {_x setVariable ['sideID',WF_C_WEST_ID,true]} forEach _camps
 					}
 				} else {
-                    _town setVariable ['sideID',EASTID,true];
+                    _town setVariable ['sideID',WF_C_EAST_ID,true];
                     _locationSpecialities = _town getVariable ["townSpeciality", []];
 				    _camps = _x getVariable "camps";
                 	if(count _camps > 0) then {
-					    {_x setVariable ['sideID',EASTID,true]} forEach _camps
+					    {_x setVariable ['sideID',WF_C_EAST_ID,true]} forEach _camps
 					}
 				}
 			}
@@ -181,19 +209,19 @@ switch (missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") do {
 				_index = _towns find _town;
 				if(_index > -1)then{_towns deleteAt _index};
 				if (count _nearTownsW < _half) then {
-                    _town setVariable ['sideID',WESTID,true];
+                    _town setVariable ['sideID',WF_C_WEST_ID,true];
                     _locationSpecialities = _town getVariable ["townSpeciality", []];
 				    _camps = _x getVariable "camps";
                     if(count _camps > 0) then {
 					    _nearTownsW pushBack _town;
-					    {_x setVariable ['sideID',WESTID,true]} forEach _camps
+					    {_x setVariable ['sideID',WF_C_WEST_ID,true]} forEach _camps
 					}
 				} else {
-                    _town setVariable ['sideID',EASTID,true];
+                    _town setVariable ['sideID',WF_C_EAST_ID,true];
                     _locationSpecialities = _town getVariable ["townSpeciality", []];
 				    _camps = _x getVariable "camps";
                     if(count _camps > 0) then {
-					    {_x setVariable ['sideID',EASTID,true]} forEach _camps
+					    {_x setVariable ['sideID',WF_C_EAST_ID,true]} forEach _camps
 					}
 				}
 			}

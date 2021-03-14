@@ -86,11 +86,6 @@ class CfgFunctions {
 	        class updateRadarTower {};
         };
 
-        class ServerTownAi {
-            file = "waspServer\Warfare\Town\Ai";
-            class getTownPatrol {};
-        };
-
         class ServerCamp {
             file = "waspServer\Warfare\Camp";
             class setCampsToSide {};
