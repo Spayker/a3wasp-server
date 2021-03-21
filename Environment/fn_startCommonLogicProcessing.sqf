@@ -35,7 +35,6 @@ while {!WF_GameOver} do {
 		_hqs = (_side) call WFCO_FNC_GetSideHQ;
 		_structures = (_side) call WFCO_FNC_GetSideStructures;
 		_towns = (_x) call WFCO_FNC_GetTownsHeld;
-
 		_aliveHq = false;
 		{
 		    if (alive _x) exitWith { _aliveHq = true }
@@ -46,6 +45,34 @@ while {!WF_GameOver} do {
 			_factories = _factories + count([_side,missionNamespace getVariable format ["WF_%1%2TYPE",_side,_x], _structures] call WFCO_FNC_GetFactories);
 		} forEach ["BARRACKS","LIGHT","HEAVY","AIRCRAFT"];
 
+		if(_side == resistance) then {
+		    if (!WF_GameOver && ((!(_aliveHq) && _factories == 0))) then {
+                _locationLogics = WF_Logic getVariable ["wf_spawnpos", []];
+                _total = count _locationLogics;
+
+                if(_total > 0) then {
+                    _startG = nil;
+                    while {isNil '_startG'} do {
+                        _rPosG = _locationLogics # floor(random _total);
+                        _detected = (_rPosG nearEntities ["AllVehicles", 1000]) unitsBelowHeight 20;
+                        _enemies = [_detected, _side] call WFCO_FNC_GetAreaEnemiesCount;
+
+                        if (_enemies == 0) then {
+                            _startG = _rPosG;
+
+                            _hqName = missionNamespace getVariable Format["WF_%1MHQNAME", _side];
+                            _sideID = (_side) Call WFCO_FNC_GetSideID;
+                            _startGPos = getPosATL _startG;
+                            _hq = [_hqName, [_startGPos # 0, _startGPos # 1, 5], _sideID, 0, true, false, true] Call WFCO_FNC_CreateVehicle;
+                            _hq setVectorUp surfaceNormal position _hq;
+                            _hq setDir 90;
+                            if(damage _hq > 0) then { _hq setDamage 0 };
+                        };
+                        sleep 0.5
+                    }
+                }
+		    }
+		} else {
 		if (!WF_GameOver && ((!(_aliveHq) && _factories == 0) || _towns == _total)) then {
 			WF_Logic setVariable ["WF_Winner", _side];
 			WF_GameOver = true;
@@ -80,7 +107,8 @@ while {!WF_GameOver} do {
 			} forEach (allPlayers - entities "HeadlessClient_F");
 
 			[format["GAME IS OVER ID = %1",  missionNamespace getVariable["WF_GAME_ID", 0]], 1] call WFDC_FNC_LogContent;
-		};
+            }
+		}
 	} forEach WF_PRESENTSIDES - [WF_DEFENDER];
 
 	missionNamespace setVariable["WF_SERVER_FPS", diag_fps, true];

@@ -88,4 +88,3 @@ _logic setVariable ["wf_commander", group _commander, true];
 //--- Process the AI Commander FSM if it's not running.
     //--Set new commander start time--
     missionNamespace setVariable [format["wf_ct_%1", getPlayerUID _commander], time];
-	if (_logic getVariable "wf_aicom_running") then {_logic setVariable ["wf_aicom_running", false]};

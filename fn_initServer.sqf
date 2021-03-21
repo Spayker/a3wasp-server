@@ -7,7 +7,6 @@ if (!isServer || time > 30) exitWith {
 ["INITIALIZATION", Format ["fn_initServer.sqf: Server initialization begins at [%1]", time]] Call WFCO_FNC_LogContent;
 
 //--- Allow resistance and civilian group to be spawned without a placeholder.
-createCenter resistance;
 createCenter civilian;
 
 //--- MAke res forces not friendly to all playable sides.
@@ -78,11 +77,12 @@ _present_res = missionNamespace getVariable "WF_GUER_PRESENT";
 {
 	missionNamespace setVariable [Format ["WF_%1_DefenseTeam", _x], createGroup [_x, true]];
 	(missionNamespace getVariable Format ["WF_%1_DefenseTeam", _x]) setVariable ["wf_persistent", true];
-} forEach [west,east,resistance];
+} forEach [west,east,resistance,civilian];
 
 //--- hq price penalty.
 missionNamespace setVariable [format ["wf_%1_hq_penalty", west], 0, true];
 missionNamespace setVariable [format ["wf_%1_hq_penalty", east], 0, true];
+missionNamespace setVariable [format ["wf_%1_hq_penalty", resistance], 0, true];
 
 //--- Select whether the spawn restriction is enabled or not.
 _locationLogics = [];
