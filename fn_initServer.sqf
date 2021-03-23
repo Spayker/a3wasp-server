@@ -12,10 +12,8 @@ createCenter civilian;
 //--- MAke res forces not friendly to all playable sides.
 resistance setFriend [west,0];
 resistance setFriend [east,0];
-resistance setFriend [civilian,0];
-civilian setFriend [west, 0];
-civilian setFriend [east, 0];
-civilian setFriend [resistance, 0];
+west setFriend [resistance, 0];
+east setFriend [resistance, 0];
 
 // Prepare extDB before starting the initialization process for the server.
 private _extDBNotLoaded = "";
@@ -77,7 +75,7 @@ _present_res = missionNamespace getVariable "WF_GUER_PRESENT";
 {
 	missionNamespace setVariable [Format ["WF_%1_DefenseTeam", _x], createGroup [_x, true]];
 	(missionNamespace getVariable Format ["WF_%1_DefenseTeam", _x]) setVariable ["wf_persistent", true];
-} forEach [west,east,resistance,civilian];
+} forEach [west,east,resistance];
 
 //--- hq price penalty.
 missionNamespace setVariable [format ["wf_%1_hq_penalty", west], 0, true];

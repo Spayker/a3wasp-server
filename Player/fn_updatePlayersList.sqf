@@ -26,7 +26,8 @@ if(_action == 0) then {
 //--Player disconnected--
 if(_action == 1) then {
     _players = (missionNamespace getVariable ["WF_PLAYERS_WEST", []]) +
-                    (missionNamespace getVariable ["WF_PLAYERS_EAST", []]);
+                    (missionNamespace getVariable ["WF_PLAYERS_EAST", []]) +
+                        (missionNamespace getVariable ["WF_PLAYERS_GUER", []]);
     //--Determine side of disconnected player--
     {
         if(_x # 0 == _uid) exitWith {
