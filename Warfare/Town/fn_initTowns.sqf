@@ -48,9 +48,7 @@ switch (missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") do {
 		_eStart = (east Call WFCO_FNC_GetSideLogic) getVariable "WF_startpos";
 		_gStart = (resistance Call WFCO_FNC_GetSideLogic) getVariable "WF_startpos";
 
-
-
-		_limit = missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE";
+		_limit = (missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") + 8;
 		_nearTownsW = [];
 		_nearTownsE = [];
 		_nearTownsG = [];
@@ -77,17 +75,6 @@ switch (missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") do {
 			}
 		};
 
-		_near = [_gStart,(towns - _nearTownsW - _nearTownsE)] Call WFCO_FNC_SortByDistance;
-        if (count _near > 0) then {
-            for [{_z = 0},{_z < _limit},{_z = _z + 1}] do {
-                _town = _near # _z;
-                _locationSpecialities = _town getVariable ["townSpeciality", []];
-                if !(WF_C_MINE in _locationSpecialities) then {
-                    _nearTownsG pushBack (_town)
-                }
-            }
-        };
-
 		{
 		     _x setVariable ['sideID',WF_C_WEST_ID,true];
              _locationSpecialities = _x getVariable ["townSpeciality", []];
@@ -110,16 +97,6 @@ switch (missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") do {
 		    }
 		} forEach _nearTownsE;
 
-		{
-            _x setVariable ['sideID',WF_C_GUER_ID,true];
-            _locationSpecialities = _x getVariable ["townSpeciality", []];
-            _camps = _x getVariable "camps";
-            if !(isNil "_camps") then {
-                if(count _camps > 0) then {
-                    {_x setVariable ['sideID',WF_C_GUER_ID,true]} forEach _camps
-                }
-            }
-        } forEach _nearTownsG;
 	};
 	
 	//--- Random Towns (25% East, 25% West, 50% Res).
