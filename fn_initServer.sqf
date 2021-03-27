@@ -368,6 +368,7 @@ if(isMultiplayer && !isDedicated)then{
         _resBasePositions pushBack (getPosAtl _x);
     deleteVehicle _x
 } forEach ([0,0,0] nearEntities [["LocationOutpost_F"], 100000]);
+    sleep 30;
     [_resBasePositions] remoteExec ["WFHC_FNC_CreateBaseComposition",_hc]
 };
 
