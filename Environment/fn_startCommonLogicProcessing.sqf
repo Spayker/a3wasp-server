@@ -1,16 +1,18 @@
 private["_total","_side","_hq","_structures","_towns","_factories","_uid","_name","_sunriseSunsetTime",
 "_lastSunState","_currentSunState"];
 
-_loopTimer = 60;
+_loopTimer = 30;
 _sunriseSunsetTime = date call BIS_fnc_sunriseSunsetTime;
 
 //--TRUE - day, FALSE - night--
 _currentSunState = daytime > (_sunriseSunsetTime # 0) && daytime < (_sunriseSunsetTime # 1);
 _lastSunState = !_currentSunState;
+_isThreeSideMode = true;
+_threePresentedSides = WF_PRESENTSIDES;
+_structureTypes = ["BARRACKS","LIGHT","HEAVY","AIRCRAFT"];
+_firstOutTeamSide = sideUnknown;
 
 while {!WF_GameOver} do {
-
-    _total = count towns;
 
     //--Day/Night time multiplier managment--
     _currentSunState = daytime > (_sunriseSunsetTime # 0) && daytime < (_sunriseSunsetTime # 1);
@@ -30,59 +32,105 @@ while {!WF_GameOver} do {
     };
 
 	//--Calculate Start/End game condition--
+    if(_isThreeSideMode) then {
+        _firstTeamOut = false;
+
 	{
 		_side = _x;
 		_hqs = (_side) call WFCO_FNC_GetSideHQ;
 		_structures = (_side) call WFCO_FNC_GetSideStructures;
-		_towns = (_x) call WFCO_FNC_GetTownsHeld;
-		_aliveHq = false;
-		{
-		    if (alive _x) exitWith { _aliveHq = true }
-		} forEach _hqs;
 
 		_factories = 0;
 		{
 			_factories = _factories + count([_side,missionNamespace getVariable format ["WF_%1%2TYPE",_side,_x], _structures] call WFCO_FNC_GetFactories);
-		} forEach ["BARRACKS","LIGHT","HEAVY","AIRCRAFT"];
+            } forEach _structureTypes;
 
-		if(_side == resistance) then {
-		    if (!WF_GameOver && ((!(_aliveHq) && _factories == 0))) then {
-                _locationLogics = WF_Logic getVariable ["wf_spawnpos", []];
-                _total = count _locationLogics;
+            if(count _hqs == 0 && _factories == 0) exitWith {
+                _firstTeamOut = true;
+                _firstOutTeamSide = _side
+            }
+        } forEach _threePresentedSides;
 
-                if(_total > 0) then {
-                    _startG = nil;
-                    while {isNil '_startG'} do {
-                        _rPosG = _locationLogics # floor(random _total);
-                        _detected = (_rPosG nearEntities ["AllVehicles", 1000]) unitsBelowHeight 20;
-                        _enemies = [_detected, _side] call WFCO_FNC_GetAreaEnemiesCount;
+        if(_firstTeamOut) then {
+            _isThreeSideMode = false;
+            _newFriendSide = sideUnknown;
 
-                        if (_enemies == 0) then {
-                            _startG = _rPosG;
+            switch (_firstOutTeamSide) do {
+                case west:{
+                    _eastScore = scoreSide east;
+                    _resScore = scoreSide resistance;
 
-                            _hqName = missionNamespace getVariable Format["WF_%1MHQNAME", _side];
-                            _sideID = (_side) Call WFCO_FNC_GetSideID;
-                            _startGPos = getPosATL _startG;
-                            _hq = [_hqName, [_startGPos # 0, _startGPos # 1, 5], _sideID, 0, true, false, true] Call WFCO_FNC_CreateVehicle;
-                            _hq setVectorUp surfaceNormal position _hq;
-                            _hq setDir 90;
-                            if(damage _hq > 0) then { _hq setDamage 0 };
+                    if (_eastScore >= _resScore) then {
+                        _firstOutTeamSide setFriend [resistance, 1];
+                        resistance setFriend [_firstOutTeamSide, 1];
+                        _newFriendSide = resistance;
+                        diag_log 'fn_startCommonLogicProcessing.sqf: west become friends with resistance'
+                    } else {
+                        _firstOutTeamSide setFriend [east, 1];
+                        east setFriend [_firstOutTeamSide, 1];
+                        _newFriendSide = east;
+                        diag_log 'fn_startCommonLogicProcessing.sqf: west become friends with east'
+                    }
+                };
+                case east:{
+                    _westScore = scoreSide west;
+                    _resScore = scoreSide resistance;
+
+                    if (_westScore >= _resScore) then {
+                        _firstOutTeamSide setFriend [resistance, 1];
+                        resistance setFriend [_firstOutTeamSide, 1];
+                        _newFriendSide = resistance;
+                    } else {
+                        _firstOutTeamSide setFriend [west, 1];
+                        west setFriend [_firstOutTeamSide, 1];
+                        _newFriendSide = west;
+                    }
                         };
-                        sleep 0.5
+                case resistance:{
+                    _eastScore = scoreSide east;
+                    _westScore = scoreSide west;
+
+                    if (_westScore >= _eastScore) then {
+                        _firstOutTeamSide setFriend [east, 1];
+                        east setFriend [_firstOutTeamSide, 1];
+                        _newFriendSide = east;
+                    } else {
+                        _firstOutTeamSide setFriend [west, 1];
+                        west setFriend [_firstOutTeamSide, 1];
+                        _newFriendSide = west;
                     }
                 }
+            };
+            [Format [localize "STR_WF_INFO_Alliance_Formed", _firstOutTeamSide, _newFriendSide]] remoteExecCall ["WFCL_fnc_handleMessage", east, true];
+            [Format [localize "STR_WF_INFO_Alliance_Formed", _firstOutTeamSide, _newFriendSide]] remoteExecCall ["WFCL_fnc_handleMessage", west, true];
+            [Format [localize "STR_WF_INFO_Alliance_Formed", _firstOutTeamSide, _newFriendSide]] remoteExecCall ["WFCL_fnc_handleMessage", resistance, true];
+            _threePresentedSides = _threePresentedSides - [_firstOutTeamSide]
 		    }
 		} else {
-		if (!WF_GameOver && ((!(_aliveHq) && _factories == 0) || _towns == _total)) then {
+        _total = count towns;
+        {
+            _side = _x;
+            _hqs = (_side) call WFCO_FNC_GetSideHQ;
+            _structures = (_side) call WFCO_FNC_GetSideStructures;
+            _towns = (_x) call WFCO_FNC_GetTownsHeld;
+            _aliveHq = false;
+            {
+                if (alive _x) exitWith { _aliveHq = true }
+            } forEach _hqs;
+
+            _factories = 0;
+            {
+                _factories = _factories + count([_side,missionNamespace getVariable format ["WF_%1%2TYPE",_side,_x], _structures] call WFCO_FNC_GetFactories);
+            } forEach _structureTypes;
+
+            if (!WF_GameOver && ((!(_aliveHq) && _factories == 0))) then {
 			WF_Logic setVariable ["WF_Winner", _side];
 			WF_GameOver = true;
-			_winner = _side;
-			if(_towns != _total) then {
+                _winner = sideUnknown;
 				switch (_side) do {
 					case west: { _winner = east; };
 					default { _winner = west; };
 				};
-			};
 
 			[_winner] remoteExec ["WFCL_FNC_showEndGameResults", 0, true];
 
@@ -101,19 +149,18 @@ while {!WF_GameOver} do {
                         time - (missionNamespace getVariable [format["wf_ct_%1", _uid], time])] spawn WFSE_FNC_UpdatePlayingTime;
                         missionNamespace setVariable [format["wf_pt_%1", _uid], nil];
                         missionNamespace setVariable [format["wf_ct_%1", _uid], nil];
-                        missionNamespace setVariable [format["wf_ps_%1", _uid], nil];
-                    };
-                };
+                            missionNamespace setVariable [format["wf_ps_%1", _uid], nil]
+                        }
+                    }
 			} forEach (allPlayers - entities "HeadlessClient_F");
 
 			[format["GAME IS OVER ID = %1",  missionNamespace getVariable["WF_GAME_ID", 0]], 1] call WFDC_FNC_LogContent;
             }
-		}
-	} forEach WF_PRESENTSIDES - [WF_DEFENDER];
+        } forEach _threePresentedSides
+    };
 
 	missionNamespace setVariable["WF_SERVER_FPS", diag_fps, true];
-
-	sleep _loopTimer;
+	sleep _loopTimer
 };
 
 sleep 5;
