@@ -64,12 +64,10 @@ while {!WF_GameOver} do {
                         _firstOutTeamSide setFriend [resistance, 1];
                         resistance setFriend [_firstOutTeamSide, 1];
                         _newFriendSide = resistance;
-                        diag_log 'fn_startCommonLogicProcessing.sqf: west become friends with resistance'
                     } else {
                         _firstOutTeamSide setFriend [east, 1];
                         east setFriend [_firstOutTeamSide, 1];
                         _newFriendSide = east;
-                        diag_log 'fn_startCommonLogicProcessing.sqf: west become friends with east'
                     }
                 };
                 case east:{
@@ -101,9 +99,30 @@ while {!WF_GameOver} do {
                     }
                 }
             };
+
             [Format [localize "STR_WF_INFO_Alliance_Formed", _firstOutTeamSide, _newFriendSide]] remoteExecCall ["WFCL_fnc_handleMessage", east, true];
             [Format [localize "STR_WF_INFO_Alliance_Formed", _firstOutTeamSide, _newFriendSide]] remoteExecCall ["WFCL_fnc_handleMessage", west, true];
             [Format [localize "STR_WF_INFO_Alliance_Formed", _firstOutTeamSide, _newFriendSide]] remoteExecCall ["WFCL_fnc_handleMessage", resistance, true];
+
+            WF_FRIENDLY_SIDES = [_firstOutTeamSide, _newFriendSide];
+            [WF_FRIENDLY_SIDES] remoteExecCall ["WFCO_fnc_updateFriendlySides", -2, true];
+
+            [_newFriendSide] remoteExecCall ["WFCL_fnc_updateFriendlyMarkers", _firstOutTeamSide, true];
+            [_firstOutTeamSide] remoteExecCall ["WFCL_fnc_updateFriendlyMarkers", _newFriendSide, true];
+
+            _hqs = (_newFriendSide) call WFCO_FNC_GetSideHQ;
+            _newFriendSideId = _newFriendSide call WFCO_FNC_GetSideID;
+            {
+                if(_x isKindOf 'Warfare_HQ_base_unfolded') then {
+                    [_x, true, _newFriendSideId] remoteExec ["WFCL_fnc_initBaseStructure", _firstOutTeamSide, true]
+                }
+            } forEach _hqs;
+
+            _structures = (_newFriendSide) call WFCO_FNC_GetSideStructures;
+            {
+                [_x, false, _newFriendSideId] remoteExec ["WFCL_fnc_initBaseStructure", _firstOutTeamSide, true]
+            } forEach _structures;
+
             _threePresentedSides = _threePresentedSides - [_firstOutTeamSide]
 		    }
 		} else {
