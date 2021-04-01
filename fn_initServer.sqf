@@ -163,13 +163,13 @@ if (_use_random) then {
 		//--- Determine west starting location if necessary.
 		if (_setWest) then {
 			_rPosW = _locationLogics # floor(random _total);
-			if (_rPosW distance _startE > _minDist) then {_startW = _rPosW; _setWest = false};
+			if (_rPosW distance _startE > _minDist && _rPosW distance _startG > (_minDist / 2)) then {_startW = _rPosW; _setWest = false};
 		};
 
 		// --- Determine east starting location if necessary.
 		if (_setEast) then {
 			_rPosE = _locationLogics # floor(random _total);
-			if (_rPosE distance _startW > _minDist) then {_startE = _rPosE; _setEast = false};
+			if (_rPosE distance _startW > _minDist && _rPosE distance _startG > (_minDist / 2)) then {_startE = _rPosE; _setEast = false};
 		};
 
 		if (_setGuer) then {
@@ -181,7 +181,7 @@ if (_use_random) then {
 
 		if (_i >= _maxAttempts) exitWith {
 			//--- Get the default locations.
-			Private ["_eastDefault", "_westDefault"];
+			Private ["_eastDefault", "_westDefault", "_guerDefault"];
 			_eastDefault = objNull;
 			_westDefault = objNull;
 			_guerDefault = objNull;
@@ -189,20 +189,20 @@ if (_use_random) then {
 			{
 				if (!isNil {_x getVariable "wf_default"}) then {
 					switch (_x getVariable "wf_default") do {
-						case west: {_westDefault = _x;};
-						case east: {_eastDefault = _x;};
-						case resistance: {_guerDefault = _x;};
-					};
-				};
+						case west: {_westDefault = _x};
+						case east: {_eastDefault = _x};
+						case resistance: {_guerDefault = _x};
+					}
+				}
 			} forEach startingLocations;
 
 			// --- Ensure that everything is set, otherwise we randomly set the spawn.
 			if (isNull _eastDefault || isNull _westDefault || isNull _guerDefault) then {
 				Private ["_tempWork"];
 				_tempWork = +(startingLocations) - [_westDefault, _eastDefault, _guerDefault];
-				if (isNull _eastDefault && _present_east) then {_eastDefault = _tempWork # floor(random _total); _tempWork = _tempWork - [_eastDefault];};
-				if (isNull _westDefault && _present_west) then {_westDefault = _tempWork # floor(random _total); _tempWork = _tempWork - [_westDefault];};
-				if (isNull _guerDefault && _present_res) then {_guerDefault = _tempWork # floor(random _total); _tempWork = _tempWork - [_guerDefault];};
+				if (isNull _eastDefault && _present_east) then {_eastDefault = _tempWork # floor(random _total); _tempWork = _tempWork - [_eastDefault]};
+				if (isNull _westDefault && _present_west) then {_westDefault = _tempWork # floor(random _total); _tempWork = _tempWork - [_westDefault]};
+				if (isNull _guerDefault && _present_res) then {_guerDefault = _tempWork # floor(random _total); _tempWork = _tempWork - [_guerDefault]};
 			};
 
 			if (_present_east && !_skip_e) then {_startE = _eastDefault};
