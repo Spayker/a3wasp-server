@@ -110,8 +110,6 @@ switch (missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") do {
 
 		{
             _x setVariable ['sideID', WF_C_GUER_ID, true];
-            _x setVariable ['resFaction', WF_DEFENDER_GUER_FACTION, true];
-
             _locationSpecialities = _x getVariable ["townSpeciality", []];
             _camps = _x getVariable "camps";
             if !(isNil "_camps") then {
