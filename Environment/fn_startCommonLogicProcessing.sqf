@@ -147,12 +147,30 @@ while {!WF_GameOver} do {
 			WF_GameOver = true;
                 _winner = sideUnknown;
 				switch (_side) do {
-					case west: { _winner = east; };
-					default { _winner = west; };
+                    case west: {
+                        if(east in _threePresentedSides) then {
+                            _winner = east
+                        } else {
+                            _winner = resistance
+                        }
+                    };
+                    case east: {
+                        if(west in _threePresentedSides) then {
+                            _winner = west
+                        } else {
+                            _winner = resistance
+                        }
+                    };
+                    case resistance: {
+                        if(east in _threePresentedSides) then {
+                            _winner = east
+                        } else {
+                            _winner = west
+                        }
+                    }
 				};
 
 			[_winner] remoteExec ["WFCL_FNC_showEndGameResults", 0, true];
-
 			[_winner call WFCO_FNC_GetSideID] spawn WFSE_FNC_FinishGameInfo;
 
 			[format[":regional_indicator_g: :regional_indicator_a: :regional_indicator_m: :regional_indicator_e:   :regional_indicator_o: :regional_indicator_v: :regional_indicator_e: :regional_indicator_r:   **%1** %2   :regional_indicator_w: :regional_indicator_o: :regional_indicator_n:", _winner, _winner call WFCO_FNC_GetSideFLAG]] call WFDC_FNC_LogContent;
