@@ -38,6 +38,7 @@ while {!WF_GameOver} do {
 	{
 		_side = _x;
 		_hqs = (_side) call WFCO_FNC_GetSideHQ;
+            _hqs = _hqs - [objNull];
 		_structures = (_side) call WFCO_FNC_GetSideStructures;
 
 		_factories = 0;
@@ -130,6 +131,7 @@ while {!WF_GameOver} do {
         {
             _side = _x;
             _hqs = (_side) call WFCO_FNC_GetSideHQ;
+            _hqs = _hqs - [objNull];
             _structures = (_side) call WFCO_FNC_GetSideStructures;
             _towns = (_x) call WFCO_FNC_GetTownsHeld;
             _aliveHq = false;
