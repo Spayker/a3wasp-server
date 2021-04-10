@@ -251,6 +251,8 @@ if (_use_random) then {
 
 		//--- Logic init.
 		_logik setVariable ["wf_commander", objNull, true];
+		_logik setVariable ["wf_friendlySides", [_side], true];
+		_logik setVariable ["wf_isFirstOutTeam", false, true];
 
 		_logik setVariable ["wf_startpos", _pos, true];
 		_logik setVariable ["wf_structure_lasthit", 0];
