@@ -344,11 +344,7 @@ if((missionNamespace getVariable "WF_DEBUG_DISABLE_TOWN_INIT") == 0) then {
 	waitUntil{count towns == totalTowns};
 };
 
-if ((missionNamespace getVariable "WF_C_TOWNS_STARTING_MODE") != 0) then {
 	[] spawn WFSE_fnc_initTowns;
-} else {
-	townInitServer = true;
-};
 
 //--- Waiting until that the game is launched.
 waitUntil { time > 0 };
