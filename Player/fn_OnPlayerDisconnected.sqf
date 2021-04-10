@@ -140,6 +140,7 @@ if !(isNull(assignedVehicle _old_unit)) then {
 	[_old_unit] orderGetIn false;
 	[_old_unit] allowGetIn false;
 };
+(leader _old_unit) enableSimulationGlobal false;
 
 //--- We save the disconnect client funds.
 _get set [1,_unit getVariable "wf_funds"];
