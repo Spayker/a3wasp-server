@@ -33,6 +33,7 @@ class CfgFunctions {
             class requestUpgrade {};
             class synchronizeUpgade {};
             class CreateDestructionEffect {};
+            class CleanTerrainRespawnPoint {};
         };
 
         class ServerBaseRequest {
