@@ -3,10 +3,9 @@
 	 Parameters:
 		- Side.
 */
-
+Params ['_side'];
 Private["_can_upgrade","_cost","_funds","_level","_logik","_path","_side","_to_upgrade","_upgrade","_upgrades"];
 
-_side = _this;
 _logik = (_side) Call WFCO_FNC_GetSideLogic;
 
 _path = missionNamespace getVariable Format ["WF_C_UPGRADES_%1_AI_ORDER", _side];
