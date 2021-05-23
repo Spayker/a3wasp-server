@@ -356,20 +356,6 @@ if(isMultiplayer && !isDedicated)then{
     [0] spawn WFSE_FNC_updatePlayersList;
 };
 
-[] spawn {
-    waitUntil { missionNamespace getVariable ["WF_HEADLESSCLIENT_ID", 0] > 0 };
-    _hc = missionNamespace getVariable "WF_HEADLESSCLIENT_ID";
-    ["INITIALIZATION", Format ["fn_initServer.sqf: Server sends res base locations to headless client - %1", _hc]] Call WFCO_FNC_LogContent;
-
-    _resBasePositions = [];
-{
-        _resBasePositions pushBack (getPosAtl _x);
-    deleteVehicle _x
-} forEach ([0,0,0] nearEntities [["LocationOutpost_F"], 100000]);
-    //sleep 30;
-    //[_resBasePositions] remoteExec ["WFHC_FNC_CreateBaseComposition",_hc]
-};
-
 //--- Voting process init
 ["INITIALIZATION", Format ["fn_initServer.sqf: Server start autovoting at [%1]", time]] Call WFCO_FNC_LogContent;
 {_x spawn WFSE_FNC_VoteForCommander} forEach WF_PRESENTSIDES;
