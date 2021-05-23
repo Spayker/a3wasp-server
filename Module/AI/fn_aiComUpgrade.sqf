@@ -38,8 +38,7 @@ if (count _to_upgrade > 0) then {
         //--- Validation.
         _can_upgrade = false;
 
-        _funds = _side Call WFSE_fnc_GetAICommanderFunds;
-        if ((_side Call WFCO_FNC_GetSideSupply) >= (_cost select 0) && _funds >= (_cost select 1)) then {_can_upgrade = true;};
+        if ((_side Call WFCO_FNC_GetSideSupply) >= (_cost select 0)) then {_can_upgrade = true;};
 
         //--- Roll on!
         if (_can_upgrade) then {
