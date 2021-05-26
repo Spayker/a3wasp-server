@@ -119,9 +119,13 @@ while {!WF_GameOver} do {
             private _channelName = localize "STR_WF_INFO_Alliance_Channel_Name";
             private _channelID = radioChannelCreate [[0.4,0,0.5,1], _channelName, "%UNIT_NAME", []];
             if (_channelID == 0) exitWith {diag_log format ["fn_startCommonLogicProcessing.sqf: Custom channel '%1' creation failed!", _channelName]};
-            missionNamespace setVariable ['alliedFriendlyChannelData', [_channelID, _channelName]];
+            _alliedFriendlyChannelData = [_channelID, _channelName];
+            missionNamespace setVariable ['alliedFriendlyChannelData', _alliedFriendlyChannelData];
             [_channelID, {_this radioChannelAdd [player]}] remoteExec ["call", _firstOutTeamSide, _channelName];
             [_channelID, {_this radioChannelAdd [player]}] remoteExec ["call", _newFriendSide, _channelName];
+
+            [_alliedFriendlyChannelData] remoteExecCall ["WFCL_fnc_setFriendlyChannelData", _firstOutTeamSide];
+            [_alliedFriendlyChannelData] remoteExecCall ["WFCL_fnc_setFriendlyChannelData", _newFriendSide];
 
             //--- misc
             _logic setVariable ["wf_commander", objNull, true];
