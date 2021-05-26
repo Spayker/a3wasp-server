@@ -101,17 +101,29 @@ while {!WF_GameOver} do {
                 }
             };
 
-            [Format [localize "STR_WF_INFO_Alliance_Formed", _firstOutTeamSide, _newFriendSide]] remoteExecCall ["WFCL_fnc_handleMessage", east, true];
-            [Format [localize "STR_WF_INFO_Alliance_Formed", _firstOutTeamSide, _newFriendSide]] remoteExecCall ["WFCL_fnc_handleMessage", west, true];
-            [Format [localize "STR_WF_INFO_Alliance_Formed", _firstOutTeamSide, _newFriendSide]] remoteExecCall ["WFCL_fnc_handleMessage", resistance, true];
+            [Format [localize "STR_WF_INFO_Alliance_Formed", _firstOutTeamSide, _newFriendSide]] remoteExecCall ["WFCL_fnc_TitleTextMessage", east, true];
+            [Format [localize "STR_WF_INFO_Alliance_Formed", _firstOutTeamSide, _newFriendSide]] remoteExecCall ["WFCL_fnc_TitleTextMessage", west, true];
+            [Format [localize "STR_WF_INFO_Alliance_Formed", _firstOutTeamSide, _newFriendSide]] remoteExecCall ["WFCL_fnc_TitleTextMessage", resistance, true];
 
             _friendlySides = [_firstOutTeamSide, _newFriendSide];
             _logic = (_firstOutTeamSide) Call WFCO_FNC_GetSideLogic;
             _logic setVariable ["wf_friendlySides", _friendlySides, true];
             _logic setVariable ["wf_isFirstOutTeam", true, true];
             [_newFriendSide] remoteExecCall ["WFCL_fnc_updateFriendlyMarkers", _firstOutTeamSide, true];
-
             [_firstOutTeamSide, true] remoteExecCall ["WFCL_fnc_updateFriendlyMarkers", _newFriendSide, true];
+
+            //--- update lost team with friendly start gear and unit list
+            [_newFriendSide] remoteExecCall ["WFCL_fnc_updateLostTeamWithFriendlyData", _firstOutTeamSide, true];
+
+            //--- create custom channel for allies
+            private _channelName = localize "STR_WF_INFO_Alliance_Channel_Name";
+            private _channelID = radioChannelCreate [[0.4,0,0.5,1], _channelName, "%UNIT_NAME", []];
+            if (_channelID == 0) exitWith {diag_log format ["fn_startCommonLogicProcessing.sqf: Custom channel '%1' creation failed!", _channelName]};
+            missionNamespace setVariable ['alliedFriendlyChannelData', [_channelID, _channelName]];
+            [_channelID, {_this radioChannelAdd [player]}] remoteExec ["call", _firstOutTeamSide, _channelName];
+            [_channelID, {_this radioChannelAdd [player]}] remoteExec ["call", _newFriendSide, _channelName];
+
+            //--- misc
             _logic setVariable ["wf_commander", objNull, true];
 
             _hqs = (_newFriendSide) call WFCO_FNC_GetSideHQ;

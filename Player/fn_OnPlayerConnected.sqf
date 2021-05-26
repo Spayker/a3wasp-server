@@ -80,6 +80,23 @@ _logic setVariable ["wf_teams_count", count _teams];
 
 [_team, _sideJoined, _uid, true] remoteExec ["WFCO_fnc_UpdateClientTeams"];
 
+//--- create custom channel if it's needed
+_friendlySides = _logic getVariable ["wf_friendlySides", []];
+if(count _friendlySides > 0) then {
+    _sideTeam = sideUnknown;
+    if (typeName _team == "OBJECT") then {
+        _sideTeam = side (group _team)
+    } else {
+        _sideTeam = side (group (leader _team))
+    };
+
+    if(_sideTeam in _friendlySides) then {
+        _alliedFriendlyChannelId = (missionNamespace getVariable ['alliedFriendlyChannelData', nil]) # 0;
+        _channelName = (missionNamespace getVariable ['alliedFriendlyChannelData', nil]) # 1;
+        [_alliedFriendlyChannelId, {_this radioChannelAdd [player]}] remoteExec ["call", _team, _channelName];
+    }
+};
+
 //--- We attempt to get the player informations in case that he joined before.
 _get = missionNamespace getVariable format["WF_JIP_USER%1",_uid];
 
