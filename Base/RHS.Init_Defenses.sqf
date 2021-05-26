@@ -85,19 +85,6 @@ missionNamespace setVariable ['WF_NEURODEF_AIRCRAFT_WALLS',[
 	['Land_HBarrier_large',[-11,9,0],90]
 ]];
 
-missionNamespace setVariable ['WF_NEURODEF_MG',[
-	['Land_fortified_nest_small_EP1',[0.25,0,0],180],
-	['Land_fort_bagfence_corner',[-1,-3,0],0]
-]];
-
-missionNamespace setVariable ['WF_NEURODEF_AAPOD',[
-	['Land_fort_bagfence_round',[0,2,0],0],
-	['Land_fort_bagfence_long',[-2.8,-1.7,0],90],
-	['Land_fort_bagfence_long',[2.8,-1.7,0],90],
-	['Land_fort_bagfence_long',[1.4,-5.5,0],0],
-	['Land_fort_bagfence_corner',[-1.8,-5,0],0]
-]];
-
 if (WF_Camo) then {
 missionNamespace setVariable ['WF_NEURODEF_EAST_BASE',[
     ["RU_WarfareBLightFactory",[9.57227,12.7861,-0.600006],90],
