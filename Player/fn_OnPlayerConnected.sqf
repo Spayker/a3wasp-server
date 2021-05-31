@@ -92,10 +92,12 @@ if(count _friendlySides > 0) then {
 
     if(_sideTeam in _friendlySides) then {
         _alliedFriendlyChannelData = missionNamespace getVariable ['alliedFriendlyChannelData', nil];
+        if!(isNil '_alliedFriendlyChannelData') then {
         _alliedFriendlyChannelId = _alliedFriendlyChannelData # 0;
         _channelName = _alliedFriendlyChannelData # 1;
         [_alliedFriendlyChannelId, {_this radioChannelAdd [player]}] remoteExec ["call", _team, _channelName];
         [_alliedFriendlyChannelData] remoteExecCall ["WFCL_fnc_setFriendlyChannelData", _team];
+    }
     }
 };
 
