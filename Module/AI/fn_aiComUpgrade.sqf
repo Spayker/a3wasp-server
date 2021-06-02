@@ -34,7 +34,6 @@ if (count _to_upgrade > 0) then {
 	    };
 
         if((isNil '_cost'))then{ _cost = [1000] };
-        diag_log format ['fn_aiComUpgrade.sqf: _cost - %1', _cost];
 
         //--- Validation.
         _can_upgrade = false;

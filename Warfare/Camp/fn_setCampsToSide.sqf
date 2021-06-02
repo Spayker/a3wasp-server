@@ -21,7 +21,7 @@ _startingSV = _town getVariable "startingSupplyValue";
 ["INFORMATION",Format ["Server_SetCampsToSide.sqf : [%1] Camps [%2] were set to [%3], previously owned by [%4].", _town getVariable "name", count _camps, _side_new, _side_old]] Call WFCO_FNC_LogContent;
 
 if (count _camps > 0) then {
-        [_town, _side_old, _side_new] remoteExecCall ["WFCL_FNC_AllCampsCaptured", _side_old];
-        [_town, _side_old, _side_new] remoteExecCall ["WFCL_FNC_AllCampsCaptured", _side_new];
+        [_town, _side_old, _side_new] remoteExecCall ["WFCL_FNC_AllCampsCaptured", (_side_old) Call WFCO_FNC_GetSideFromID];
+        [_town, _side_old, _side_new] remoteExecCall ["WFCL_FNC_AllCampsCaptured", (_side_new) Call WFCO_FNC_GetSideFromID];
     }
 }
