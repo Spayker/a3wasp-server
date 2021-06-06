@@ -122,6 +122,7 @@ class CfgFunctions {
             file = "waspServer\Module\CruiseMissile";
             class processCruiseMissileEvent {};
             class processChemicalMissileEvent {};
+            class processTacticalNukeMissileEvent {};
             class processMissileDamage {};
         };
 
