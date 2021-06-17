@@ -186,16 +186,6 @@ if (_use_random) then {
 			_westDefault = objNull;
 			_guerDefault = objNull;
 
-			{
-				if (!isNil {_x getVariable "wf_default"}) then {
-					switch (_x getVariable "wf_default") do {
-						case west: {_westDefault = _x};
-						case east: {_eastDefault = _x};
-						case resistance: {_guerDefault = _x};
-					}
-				}
-			} forEach startingLocations;
-
 			// --- Ensure that everything is set, otherwise we randomly set the spawn.
 			if (isNull _eastDefault || isNull _westDefault || isNull _guerDefault) then {
 				Private ["_tempWork"];
