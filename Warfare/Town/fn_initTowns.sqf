@@ -18,7 +18,6 @@ _near = [_wStart, _originalTowns] Call WFCO_FNC_SortByDistance;
 		if (count _near > 0) then {
     for [{_z = 0},{_z < _half},{_z = _z + 1}] do {
 			    _town = _near # _z;
-        _sideId = _town getVariable ["sideID", WF_C_GUER_ID];
             _nearTownsW pushBack (_near # _z);
             _originalTowns = _originalTowns - [(_near # _z)]
 			    }
@@ -28,8 +27,8 @@ _near = [_eStart,_originalTowns] Call WFCO_FNC_SortByDistance;
 		if (count _near > 0) then {
     for [{_z = 0},{_z < _half},{_z = _z + 1}] do {
 			    _town = _near # _z;
-        _sideId = _town getVariable ["sideID", WF_C_GUER_ID];
-        if(_sideId != WF_C_WEST_ID) then {
+        _sideId = _town getVariable "sideID";
+        if(isNil '_sideId') then {
             _nearTownsE pushBack (_near # _z);
             _originalTowns = _originalTowns - [(_near # _z)]
                 }

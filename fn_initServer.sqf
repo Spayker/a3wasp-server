@@ -272,6 +272,7 @@ if (_use_random) then {
 		_logik setVariable ["wf_structures_live", _str, true];
 
 		//--- start base
+		waitUntil{(missionNamespace getVariable "WF_HEADLESSCLIENT_ID") != 0};
 		_hc = missionNamespace getVariable "WF_HEADLESSCLIENT_ID";
 		if(_hc > 0) then {
             [_side, _pos, missionNamespace getVariable format ["WF_NEURODEF_%1_BASE", _side]] remoteExecCall ["WFHC_FNC_CreateStartupBase", _hc]
