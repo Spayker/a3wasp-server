@@ -20,6 +20,8 @@ _to_upgrade = [];
 	if (_upgrades select _upgrade < _level) exitWith {_to_upgrade = _x;};
 } forEach _path;
 
+waitUntil {!(_logik getVariable ["wf_upgrading", false])};
+
 //--- Found something to upgrade!
 if (count _to_upgrade > 0) then {
 	_upgrade = _to_upgrade select 0;
