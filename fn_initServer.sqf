@@ -273,7 +273,8 @@ if (_use_random) then {
 
 		//--- start base
 		missionNamespace setVariable ["WF_HEADLESSCLIENT_ID", 0];
-		[] spawn {
+		[_side, _pos] spawn {
+		    Params ['_side', '_pos'];
 		waitUntil{(missionNamespace getVariable "WF_HEADLESSCLIENT_ID") != 0};
 		_hc = missionNamespace getVariable "WF_HEADLESSCLIENT_ID";
 		if(_hc > 0) then {

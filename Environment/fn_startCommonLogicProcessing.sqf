@@ -133,7 +133,7 @@ while {!WF_GameOver} do {
             [_alliedFriendlyChannelData] remoteExecCall ["WFCL_fnc_setFriendlyChannelData", _newFriendSide];
 
             //--- misc
-            _logic setVariable ["wf_commander", objNull, true];
+            _firstOutTeamLogic setVariable ["wf_commander", objNull, true];
 
             _hqs = (_newFriendSide) call WFCO_FNC_GetSideHQ;
             _newFriendSideId = _newFriendSide call WFCO_FNC_GetSideID;
