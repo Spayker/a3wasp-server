@@ -106,9 +106,14 @@ while {!WF_GameOver} do {
             [Format [localize "STR_WF_INFO_Alliance_Formed", _firstOutTeamSide, _newFriendSide]] remoteExecCall ["WFCL_fnc_TitleTextMessage", resistance, true];
 
             _friendlySides = [_firstOutTeamSide, _newFriendSide];
-            _logic = (_firstOutTeamSide) Call WFCO_FNC_GetSideLogic;
-            _logic setVariable ["wf_friendlySides", _friendlySides, true];
-            _logic setVariable ["wf_isFirstOutTeam", true, true];
+            _firstOutTeamLogic = (_firstOutTeamSide) Call WFCO_FNC_GetSideLogic;
+            _firstOutTeamLogic setVariable ["wf_friendlySides", _friendlySides, true];
+            _firstOutTeamLogic setVariable ["wf_isFirstOutTeam", true, true];
+
+            _newFriendLogic = (_newFriendSide) Call WFCO_FNC_GetSideLogic;
+            _newFriendLogic setVariable ["wf_friendlySides", _friendlySides, true];
+            _newFriendLogic setVariable ["wf_isFirstOutTeam", false, true];
+
             [_newFriendSide] remoteExecCall ["WFCL_fnc_updateFriendlyMarkers", _firstOutTeamSide, true];
             [_firstOutTeamSide, true] remoteExecCall ["WFCL_fnc_updateFriendlyMarkers", _newFriendSide, true];
 
