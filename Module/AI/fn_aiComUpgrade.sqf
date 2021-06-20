@@ -11,6 +11,8 @@ Params ['_side'];
 Private["_can_upgrade","_cost","_funds","_level","_logik","_path","_side","_to_upgrade","_upgrade","_upgrades"];
 _logik = (_side) Call WFCO_FNC_GetSideLogic;
 
+    waitUntil {!(_logik getVariable ["wf_upgrading", false])};
+
 _path = missionNamespace getVariable Format ["WF_C_UPGRADES_%1_AI_ORDER", _side];
 _upgrades = _logik getVariable "wf_upgrades";
 
@@ -23,7 +25,6 @@ _to_upgrade = [];
 	if (_upgrades select _upgrade < _level) exitWith {_to_upgrade = _x;};
 } forEach _path;
 
-waitUntil {!(_logik getVariable ["wf_upgrading", false])};
 
 //--- Found something to upgrade!
 if (count _to_upgrade > 0) then {
