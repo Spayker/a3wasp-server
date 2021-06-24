@@ -109,7 +109,8 @@ missionNamespace setVariable ['WF_NEURODEF_EAST_BASE',[
     ["Base_WarfareBBarrier10xTall",[-15.415,29.1445,0],0],
     ["Land_JumpTarget_F",[-34.8984,7.93555,0],0],
     ["Land_JumpTarget_F",[-34.8984,-9.33203,0],0],
-    ["Land_JumpTarget_F",[-34.8984,25.0459,0],0]
+    ["Land_JumpTarget_F",[-34.8984,25.0459,0],0],
+    ["Land_HelipadCircle_F",[30.91406, -60,-0.600006],0]
 ]];
 
     missionNamespace setVariable ['WF_NEURODEF_GUER_BASE',[
@@ -131,7 +132,8 @@ missionNamespace setVariable ['WF_NEURODEF_EAST_BASE',[
         ["Land_Barricade_01_10m_F",[-15.415,29.1445,0],0],
     ["Land_JumpTarget_F",[-34.8984,7.93555,0],0],
     ["Land_JumpTarget_F",[-34.8984,-9.33203,0],0],
-    ["Land_JumpTarget_F",[-34.8984,25.0459,0],0]
+    ["Land_JumpTarget_F",[-34.8984,25.0459,0],0],
+    ["Land_HelipadCircle_F",[30.91406, -60,-0.600006],0]
     ]];
 
 missionNamespace setVariable ['WF_NEURODEF_WEST_BASE',[
@@ -157,7 +159,8 @@ missionNamespace setVariable ['WF_NEURODEF_WEST_BASE',[
     ["Base_WarfareBBarrier10xTall",[-15.415,29.1445,0],0],
     ["Land_JumpTarget_F",[-34.8984,7.93555,0],0],
     ["Land_JumpTarget_F",[-34.8984,-9.33203,0],0],
-    ["Land_JumpTarget_F",[-34.8984,25.0459,0],0]
+    ["Land_JumpTarget_F",[-34.8984,25.0459,0],0],
+    ["Land_HelipadCircle_F",[30.91406, -60,-0.600006],0]
     ]]
 } else {
     missionNamespace setVariable ['WF_NEURODEF_EAST_BASE',[
@@ -183,7 +186,8 @@ missionNamespace setVariable ['WF_NEURODEF_WEST_BASE',[
         ["Base_WarfareBBarrier10xTall",[-15.415,29.1445,0],0],
         ["Land_JumpTarget_F",[-34.8984,7.93555,0],0],
         ["Land_JumpTarget_F",[-34.8984,-9.33203,0],0],
-        ["Land_JumpTarget_F",[-34.8984,25.0459,0],0]
+        ["Land_JumpTarget_F",[-34.8984,25.0459,0],0],
+        ["Land_HelipadCircle_F",[30.91406, -60,-0.600006],0]
 ]];
 
     missionNamespace setVariable ['WF_NEURODEF_GUER_BASE',[
@@ -205,7 +209,8 @@ missionNamespace setVariable ['WF_NEURODEF_WEST_BASE',[
         ["Fort_Barricade_EP1",[-15.415,29.1445,0],0],
         ["Land_JumpTarget_F",[-34.8984,7.93555,0],0],
         ["Land_JumpTarget_F",[-34.8984,-9.33203,0],0],
-        ["Land_JumpTarget_F",[-34.8984,25.0459,0],0]
+        ["Land_JumpTarget_F",[-34.8984,25.0459,0],0],
+        ["Land_HelipadCircle_F",[30.91406, -60,-0.600006],0]
     ]];
 
     missionNamespace setVariable ['WF_NEURODEF_WEST_BASE',[
@@ -231,6 +236,7 @@ missionNamespace setVariable ['WF_NEURODEF_WEST_BASE',[
         ["Base_WarfareBBarrier10xTall",[-15.415,29.1445,0],0],
         ["Land_JumpTarget_F",[-34.8984,7.93555,0],0],
         ["Land_JumpTarget_F",[-34.8984,-9.33203,0],0],
-        ["Land_JumpTarget_F",[-34.8984,25.0459,0],0]
+        ["Land_JumpTarget_F",[-34.8984,25.0459,0],0],
+        ["Land_HelipadCircle_F",[30.91406, -60,-0.600006],0]
     ]]
 }
