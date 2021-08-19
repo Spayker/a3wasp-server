@@ -10,15 +10,6 @@ class CfgPatches {
 };
 
 class CfgFunctions {
-    class MySQL_Database {
-        tag = "DB";
-        class MySQL {
-            file = "\waspServer\MySQL";
-            class asyncCall {};
-			class mresString {};
-        };
-    };
-
 	class WF_server {
         tag = "WFSE";
 
@@ -69,7 +60,6 @@ class CfgFunctions {
             class requestJoin {};
             class updateTeamLeader {};
             class sideMessage {};
-            class updatePlayerDataDB {};
             class updatePlayersList {};
             class groupQuery {};
         };
@@ -144,26 +134,10 @@ class CfgFunctions {
             class compileAndExecFile {};
         };
 
-        class GearTemplates {
-            file = "\waspServer\GearTemplates";
-            class getGearTemplates {};
-            class saveGearTemplate {};
-            class deleteGearTemplate {};
-        };
-
         class ServerEnvironment {
             file = "\waspServer\Environment";
             class startEmptyVehiclesCollector {};
             class startCommonLogicProcessing {};
-        };
-
-        class ServerStatistic {
-            file = "waspServer\Warfare\Statistic";
-            class UpdatePlayingTime {};
-            class InitGameInfo {};
-            class FinishGameInfo {};
-            class InsertStructureKilled {};
-            class UpdateSidesStats {};
         };
     };
 };

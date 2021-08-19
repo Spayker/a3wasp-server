@@ -102,17 +102,8 @@ WFSE_FNC_resetRoles = compile preprocessFileLineNumbers "waspServer\Module\Role\
 
 WFSE_FNC_runWeatherEnvironment = compile preprocessFileLineNumbers "waspServer\Module\Weather\fn_runWeatherEnvironment.sqf";
 
-WFSE_FNC_getGearTemplates = compile preprocessFileLineNumbers "waspServer\GearTemplates\fn_getGearTemplates.sqf";
-WFSE_FNC_saveGearTemplate = compile preprocessFileLineNumbers "waspServer\GearTemplates\fn_saveGearTemplate.sqf";
-WFSE_FNC_deleteGearTemplate = compile preprocessFileLineNumbers "waspServer\GearTemplates\fn_deleteGearTemplate.sqf";
-
 WFSE_FNC_initTaskDirector = compile preprocessFileLineNumbers "waspServer\Task\fn_initTaskDirector.sqf";
 
 WFSE_FNC_startEmptyVehiclesCollector = compile preprocessFileLineNumbers "waspServer\Environment\fn_startEmptyVehiclesCollector.sqf";
 WFSE_FNC_startGarbageCollector = compile preprocessFileLineNumbers "waspServer\Environment\fn_startGarbageCollector.sqf";
 WFSE_FNC_startCommonLogicProcessing = compile preprocessFileLineNumbers "waspServer\Environment\fn_startCommonLogicProcessing.sqf";
-
-WFSE_FNC_FinishGameInfo = compile preprocessFileLineNumbers "waspServer\Warfare\Statistic\fn_FinishGameInfo.sqf";
-WFSE_FNC_InitGameInfo = compile preprocessFileLineNumbers "waspServer\Warfare\Statistic\fn_InitGameInfo.sqf";
-WFSE_FNC_InsertStructureKilled = compile preprocessFileLineNumbers "waspServer\Warfare\Statistic\fn_InsertStructureKilled.sqf";
-WFSE_FNC_UpdatePlayingTime = compile preprocessFileLineNumbers "waspServer\Warfare\Statistic\fn_UpdatePlayingTime.sqf";

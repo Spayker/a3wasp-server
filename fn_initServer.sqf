@@ -15,39 +15,6 @@ resistance setFriend [east,0];
 west setFriend [resistance, 0];
 east setFriend [resistance, 0];
 
-// Prepare extDB before starting the initialization process for the server.
-private _extDBNotLoaded = "";
-extDBOpened = false;
-private _dbresult = "extDB3" callExtension "9:VERSION";
-if (_dbresult == "") then {
-	["INITIALIZATION", "fn_initServer.sqf: extDB3 Failed to Load!"] Call WFCO_FNC_LogContent;
-} else {
-	if (isNil {uiNamespace getVariable "wasp_sql_id"}) then {
-		wasp_sql_id = round(random(9999));
-		CONSTVAR(wasp_sql_id);
-		uiNamespace setVariable ["wasp_sql_id", wasp_sql_id];
-		try {
-			_result = EXTDB format ["9:ADD_DATABASE:%1",EXTDB_SETTING(getText,"DatabaseName")];
-			if (!(_result isEqualTo "[1]")) then {throw "extDB3: Error with Database Connection"};
-			_result = EXTDB format ["9:ADD_DATABASE_PROTOCOL:%2:SQL:%1:TEXT2",FETCH_CONST(wasp_sql_id),EXTDB_SETTING(getText,"DatabaseName")];
-			if (!(_result isEqualTo "[1]")) then {throw "extDB3: Error with Database Connection"};
-		} catch {
-			diag_log _exception;
-			_extDBNotLoaded = [true, _exception];
-		};
-		if (_extDBNotLoaded isEqualType []) exitWith {};
-		
-		EXTDB "9:LOCK";
-		diag_log "extDB3: Connected to Database";
-		extDBOpened = true;
-	} else {
-		wasp_sql_id = uiNamespace getVariable "wasp_sql_id";
-		CONSTVAR(wasp_sql_id);
-		diag_log "extDB3: Still Connected to Database";
-		extDBOpened = true;
-	};
-};
-
 //--- Server Init is now complete.
 serverInitComplete = true;
 ["INITIALIZATION", "fn_initServer.sqf: Functions are loaded."] Call WFCO_FNC_LogContent;
@@ -355,7 +322,6 @@ if(isMultiplayer && !isDedicated)then{
 ["INITIALIZATION", Format ["fn_initServer.sqf: Server start autovoting at [%1]", time]] Call WFCO_FNC_LogContent;
 {_x spawn WFSE_FNC_VoteForCommander} forEach WF_PRESENTSIDES;
 
-[worldName, missionNamespace getVariable ["WF_MISSIONNAME", ""]] spawn WFSE_FNC_InitGameInfo;
 ["GAME IS STARTED", 1] call WFDC_FNC_LogContent;
 
 [format [":regional_indicator_g: :regional_indicator_a: :regional_indicator_m: :regional_indicator_e:   :regional_indicator_s: :regional_indicator_t: :regional_indicator_a: :regional_indicator_r: :regional_indicator_t: :regional_indicator_e: :regional_indicator_d:   :point_right:   **%1**", missionNamespace getVariable "WF_MISSIONNAME"]] Call WFDC_FNC_LogContent;

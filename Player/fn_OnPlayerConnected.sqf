@@ -39,9 +39,6 @@ if (isNull _team || _max == 0) exitWith {
 
 [format ["Player **%1** has joined the game with %2**%3** team :sign_of_the_horns:", _name, _sideJoined Call WFCO_FNC_GetSideFLAG, _sideJoined]] Call WFDC_FNC_LogContent;
 
-//--Update player data in DB--
-[_uid, _name, _sideJoined] spawn WFSE_FNC_UpdatePlayerDataDB;
-
 //--Update players global list--
 [0, _uid, _name, _sideJoined] spawn WFSE_FNC_updatePlayersList;
 
