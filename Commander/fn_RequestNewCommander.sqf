@@ -10,7 +10,6 @@ if ((_logic getVariable "wf_votetime") <= 0) then {
     _oldCommander = _logic getVariable ["wf_commander", objNull];
     if(!isNull _oldCommander) then {
         _oldCommander = leader _oldCommander;
-        [getPlayerUID _oldCommander, name _oldCommander, _side call WFCO_FNC_GetSideID, 0, time - (missionNamespace getVariable [format["wf_ct_%1", getPlayerUID _oldCommander], time])] spawn WFSE_FNC_UpdatePlayingTime;
         missionNamespace setVariable [format["wf_ct_%1", getPlayerUID _oldCommander], nil];
     };
 
