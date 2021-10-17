@@ -33,15 +33,15 @@ switch (true) do {
 		
 		if(_message == "HostilesDetectedNear") then {
 			_speaker kbTell [_receiver, _topicSide, _message,
-						["1", "", "", [format["\sounds\%1\%3.%2", _announcerType # 0, _announcerType # 1, _message]]],
-						["2", "", _locRaw, [format["\sounds\%1\%3.%2", _announcerType # 0, _announcerType # 1, "town"]]],
-						["3", "", _rlName, []],
+						["1", "", "", [format["\CUP\Dubbing%1warfare\%3.%2", _announcerType # 0, _announcerType # 1, _message]]],
+						["2", "", _locRaw, [format["\CUP\Dubbing%1core\maploc\%3.%2", _announcerType # 0, _announcerType # 1, "town"]]],
+						["3", "", _rlName, [format["\CUP\Dubbing%1core\maploc\%3.%2", _announcerType # 0, _announcerType # 1, _rlName]]],
 						 true];
 		} else {
 			_speaker kbTell [_receiver, _topicSide, _message,
-						["1", "", _locRaw, [format["\sounds\%1\%3.%2", _announcerType # 0, _announcerType # 1, "town"]]],
-						["2", "", _rlName, []],
-						["3", "", "", [format["\sounds\%1\%3.%2", _announcerType # 0, _announcerType # 1, _message]]], true];			
+						["1", "", _locRaw, [format["\CUP\Dubbing%1core\maploc\%3.%2", _announcerType # 0, _announcerType # 1, "town"]]],
+						["2", "", _rlName, [format["\CUP\Dubbing%1core\maploc\%3.%2", _announcerType # 0, _announcerType # 1, _rlName]]],
+						["3", "", "", [format["\CUP\Dubbing%1warfare\%3.%2", _announcerType # 0, _announcerType # 1, _message]]], true];
 		};
 	};
 	case (_message in ["CapturedNear","LostAt"]): {
@@ -58,10 +58,10 @@ switch (true) do {
 		};		
 		
 		_speaker kbTell [_receiver, _topicSide, _message,
-						["1", "", _locRaw, [format["\sounds\%1\%3.%2", _announcerType # 0, _announcerType # 1, "strongpoint"]]],
-						["2", "", "", [format["\sounds\%1\%3.%2", _announcerType # 0, _announcerType # 1, _message]]],
-						["3", "", "",[format["\sounds\%1\%3.%2", _announcerType # 0, _announcerType # 1, "town"]]],
-						["4", "", "",[]], true];		
+						["1", "", _locRaw, [format["\CUP\Dubbing%1warfare\%3.%2", _announcerType # 0, _announcerType # 1, "strongpoint"]]],
+						["2", "", "", [format["\CUP\Dubbing%1warfare\%3.%2", _announcerType # 0, _announcerType # 1, _message]]],
+						["3", "", "",[format["\CUP\Dubbing%1core\maploc\%3.%2", _announcerType # 0, _announcerType # 1, "town"]]],
+						["4", "", "",[format["\CUP\Dubbing%1core\maploc\%3.%2", _announcerType # 0, _announcerType # 1, _rlName]]], true];
 	};
 	case (_message in ["Constructed","Destroyed","Deployed","Mobilized","IsUnderAttack"]): {
 		_localizedString = "";
@@ -82,8 +82,8 @@ switch (true) do {
 				case "ArtyRadar": { _localizedString = localize "STRArtilleryRadar";_value = "ArtilleryRadar"};
 			};
 			if!(isNil '_speaker') then {			
-			     _speaker kbTell [_receiver, _topicSide, "simpletwo",["1","",_localizedString,[format ["\sounds\%1\%3.%2", _announcerType # 0, _announcerType # 1, _value]]],
-			     ["2","",localize (format["STR%1", _message]),[format ["\sounds\%1\%3.%2", _announcerType # 0, _announcerType # 1, _message]]], true];
+			_speaker kbTell [_receiver, _topicSide, _message,["1","",_localizedString,[format ["\CUP\Dubbing%1warfare\%3.%2", _announcerType # 0, _announcerType # 1, _value]]],
+			    ["2","",_localizedString,[format ["\CUP\Dubbing%1warfare\%3.%2", _announcerType # 0, _announcerType # 1, _message]]], true]
 		        }
                  } else {
 			_localizedString = (_parameters # 1) getVariable "name";
@@ -91,16 +91,16 @@ switch (true) do {
 			if (_dub != "Town") then {if (count(getArray(configFile >> (missionNamespace getVariable Format ["WF_%1_RadioAnnouncers_Config", _side]) >> "Words" >> _dub)) == 0) then {_dub = "Town"}};
 			_value = _dub;
 			
-			_speaker kbTell [_receiver, _topicSide, "simplethree",
-			["1","",localize "STR_Town",[format ["\sounds\%1\%3.%2", _announcerType # 0, _announcerType # 1, "Town"]]],
-			["2","",_localizedString,[]],
-			["3","",localize (format["STR%1", _message]),[format ["\sounds\%1\%3.%2", _announcerType # 0, _announcerType # 1, _message]]], true];			
+			_speaker kbTell [_receiver, _topicSide, _message,
+			["1","",_localizedString,[format ["\CUP\Dubbing%1core\maploc\%3.%2", _announcerType # 0, _announcerType # 1, "Town"]]],
+			["2","",_localizedString,[format ["\CUP\Dubbing%1core\maploc\%3.%2", _announcerType # 0, _announcerType # 1, _parameters # 1]]],
+			["3","",_localizedString,[format ["\CUP\Dubbing%1warfare\%3.%2", _announcerType # 0, _announcerType # 1, _message]]], true];
 		};
 	};
 	case (_message in ["VotingForNewCommander","NewIntelAvailable","MMissionFailed","NewMissionAvailable"]): {
 		_messageF = _message;
 		if(_message == "VotingForNewCommander" && (_announcerType # 1) == "ogg") then { _messageF = "VotingForANewCommander"; };
-		_speaker kbTell [_receiver, _topicSide, _message, ["1", "", "", [format["\sounds\%1\%3.%2", _announcerType # 0, _announcerType # 1, _messageF]]], true];
+		_speaker kbTell [_receiver, _topicSide, _message, ["1", "", "", [format["\CUP\Dubbing%1warfare\%3.%2", _announcerType # 0, _announcerType # 1, _messageF]]], true];
 	};
 	case (_message in ["MMissionComplete","ExtractionTeam","ExtractionTeamCancel"]): {
 		_speaker kbTell [_receiver, _topicSide, _message,["1","",_parameters # 0,[_parameters # 1]],true];
